@@ -39,6 +39,8 @@ angular.module('services', [])
                 // Need to update the templates to get the menu updated :/
 
                 game = response.data;
+
+                f.saveChanges(game);
                 deferred.resolve(response.data);
 
                 notifyObservers('game-info');
@@ -59,7 +61,28 @@ angular.module('services', [])
             else {
                 return game.awayTeam.name;
             }
-        }
+        };
+
+        f.saveChanges = function (g) {
+            game = g;
+
+            f.setStoredValue('game', game);
+        };
+
+
+        f.getStoredValue = function (key) {
+            var item = localStorage.getItem(key);
+            if (!item) {
+                return null;
+            }
+            return JSON.parse(item);
+        };
+
+        f.setStoredValue = function (key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        };
+
+        game = f.getStoredValue('game');
 
         return f;
 

@@ -76,6 +76,7 @@ function getPlayersInfo (club, players, callback) {
                     player.reach = infoPlayer.reach;
                     player.blockReach = infoPlayer.blockReach;
                     player.id = infoPlayer.id;
+                    player.deleted = false;
 
                     nameParts = player.name.split(/[,\s]+/);
                     player.name = nameParts[1] + ' ' + nameParts[0];

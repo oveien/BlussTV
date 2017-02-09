@@ -31,5 +31,9 @@
             }
         }
 
+        $scope.onChange = function () {
+            GameService.saveChanges (game);
+        }
+
     }]);
 })(window.angular);

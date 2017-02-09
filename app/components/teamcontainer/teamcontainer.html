@@ -13,12 +13,13 @@
             </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('home')">
-            <td><input class='number-input' type="text" value="{{player.number}}"></td>
-            <td><input type="text" value="{{player.name}}"></td>
-            <td><input type="text" value="{{player.position}}"></td>
-            <td><input class='number-input' type="text" value="{{player.height}}"></td>
-            <td><input class='number-input' type="text" value="{{player.reach}}"></td>
-            <td><input class='number-input' type="text" value="{{player.blockReach}}"></td>
+            <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
+            <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
+            <td><input type="text" ng-model="player.position" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.height" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.reach" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.blockReach" ng-change="onChange()"></td>
+            <td><input type="checkbox" ng-model="player.deleted" ng-change="onChange()"></td>
         </tr>
     </table>
     <button ng-click="toggleHomeTeamShowing()" ng-class="homeTeamShowing ? 'showing' : ''">Show {{getTeamName('home')}} squad</button>
@@ -39,12 +40,13 @@
         </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('away')">
-            <td><input class='number-input' type="text" value="{{player.number}}"></td>
-            <td><input type="text" value="{{player.name}}"></td>
-            <td><input type="text" value="{{player.position}}"></td>
-            <td><input class='number-input' type="text" value="{{player.height}}"></td>
-            <td><input class='number-input' type="text" value="{{player.reach}}"></td>
-            <td><input class='number-input' type="text" value="{{player.blockReach}}"></td>
+            <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
+            <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
+            <td><input type="text" ng-model="player.position" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.height" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.reach" ng-change="onChange()"></td>
+            <td><input class='number-input' type="text" ng-model="player.blockReach" ng-change="onChange()"></td>
+            <td><input type="checkbox" ng-model="player.deleted" ng-change="onChange()"></td>
         </tr>
     </table>
 
