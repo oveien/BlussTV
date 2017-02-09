@@ -8,6 +8,24 @@
     text-align: center;
 }
 
+.input-overview {
+    padding: 0;
+    list-style-type: none;
+}
+
+.input-overview li {
+    border: 1px solid #ccc;
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+    line-height: 100px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.deleted {
+    color: #ccc;
+}
 
 button {
     background-color: green;

@@ -1,8 +1,15 @@
 var express = require('express');
+var router = express.Router();
+
 var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
 var iconvlite = require('iconv-lite');
+
+var bodyParser = require("body-parser");
+
+var CasparCG = require("caspar-cg");
+ccg = new CasparCG("127.0.0.1", 5250);
 
 var app = express ();
 
@@ -90,9 +97,6 @@ function getPlayersInfo (club, players, callback) {
     });
 }
 
-getPlayersInfo('NTNUI', [{'name': 'Hamnes, Rune'}], function (players)  {
-    console.log(players);
-});
 
 app.get('/game-info', function (req, res) {
 
@@ -183,6 +187,64 @@ app.get('/game-info', function (req, res) {
     });
 });
 
+router.post("/caspar/play-stream",function(req,res){ //
+    ccg.connect(function () {
+        console.log('Connected to Caspar-server')
+        var addCommand = 'PLAY 1-1 "' + req.body.stream + '"';
+
+        console.log(addCommand);
+        ccg.sendCommand(addCommand, function () {
+            res.send('Command was sent');
+        });
+    });
+});
+
+router.post("/caspar/templates/:template/:what",function(req,res){ //
+    console.log('Loading template: ' + req.params.template);
+    ccg.connect(function () {
+        console.log('Connected to Caspar-server')
+
+
+        if (req.params.what == 'play') {
+            var path = "http://127.0.0.1:3000/templates/" + req.params.template;
+            var addCommand = 'PLAY 1-11 [HTML] "' + path + '"';
+
+            console.log('Loading ' + path);
+
+            var updateCommand = "CALL 1-11 UPDATE " + JSON.stringify(JSON.stringify(req.body)) + "";
+            ccg.sendCommand(addCommand, function () {
+                ccg.sendCommand(updateCommand, function () {
+                    console.log('Command was sent')
+
+                    ccg.disconnect();
+
+                    res.send('Command was sent');
+                })
+            });
+        }
+        else if (req.params.what == 'remove') {
+            var removeCommand = 'CALL 1-11 REMOVE ""';
+            ccg.sendCommand(removeCommand, function () {
+                console.log('Ran remove')
+                res.send('Command was sent');
+            });
+        }
+        else if (req.params.what == 'update') {
+            var updateCommand = "CALL 1-11 UPDATE " + JSON.stringify(JSON.stringify(req.body)) + "";
+            console.log(updateCommand);
+            ccg.sendCommand(updateCommand, function () {
+                console.log('Ran update')
+                res.send('Command was sent');
+            });
+        }
+
+    });
+});
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Static stuff:
 app.use(express.static('app'));
 
@@ -192,6 +254,13 @@ app.use('/lib', express.static(__dirname + '/node_modules/angular/'));
 app.use('/lib/bootstrap', express.static(__dirname + '/node_modules/angular-ui-bootstrap/dist/'));
 app.use('/lib/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
 
+
+
+app.use("/",router);
+
+app.use("*",function(req,res){
+    res.sendFile(__dirname + "/app/404.html");
+});
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')

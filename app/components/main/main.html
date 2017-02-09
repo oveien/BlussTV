@@ -1,11 +1,20 @@
+
+<div>
+    <ul class="input-overview">
+        <li ng-click="playSource(0)">Bane-kamera</li>
+        <li ng-click="playSource(1)">Studio-kamera</li>
+    </ul>
+</div>
+
 <uib-tabset active="active">
-    <uib-tab index="0" heading="Før kamp">
-        Innhold
-    </uib-tab>
-    <uib-tab index="1" heading="Under kampen">
-        <game-container></game-container>
-    </uib-tab>
-    <uib-tab index="2" heading="Lag og spillere">
+    <uib-tab index="0" heading="Lag og spillere">
         <team-container></team-container>
     </uib-tab>
+    <uib-tab index="1" heading="Før kamp">
+        Innhold
+    </uib-tab>
+    <uib-tab index="2" heading="Under kampen">
+        <game-container></game-container>
+    </uib-tab>
+
 </uib-tabset>

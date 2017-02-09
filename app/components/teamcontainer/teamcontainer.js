@@ -1,7 +1,7 @@
 
 (function (angular) {
     var app = angular.module('blussTV');
-    app.controller('teamContainerController', ['$scope', '$http', 'GameService', function ($scope, $http, GameService) {
+    app.controller('teamContainerController', ['$scope',  'GameService', 'CasparCGService', function ($scope, GameService, CasparCGService) {
         var game = null;
 
         console.log ( GameService.getGameInfo() );
@@ -34,6 +34,57 @@
         $scope.onChange = function () {
             GameService.saveChanges (game);
         }
+
+        $scope.awayShowing = false;
+        $scope.homeShowing = false;
+
+        var currentTeamShowing = '';
+        var updateShowing = function() {
+            $scope.awayShowing = false;
+            $scope.homeShowing = false;
+
+            if (CasparCGService.getCurrentOverlay() == 'squad') {
+                if (currentTeamShowing == "home") {
+                    $scope.homeShowing = true;
+                }
+                if (currentTeamShowing == "away") {
+                    $scope.awayShowing = true;
+                }
+            }
+        }
+
+        $scope.toggleTeamShowing = function (team) {
+            var data = null;
+            if (team == 'home') {
+                data = game.homeTeam;
+            }
+            else {
+                data = game.awayTeam;
+            }
+
+            if (currentTeamShowing == team) {
+                // The same team, remove it:
+                CasparCGService.removeOverlay();
+                currentTeamShowing = '';
+            }
+            else {
+                currentTeamShowing = team;
+
+                var d = {};
+                d.name = data.name;
+                d.players = [];
+
+                for (var i in data.players) {
+                    if (!data.players[i].deleted) {
+                        d.players.push(data.players[i]);
+                    }
+                }
+
+                CasparCGService.runOverlay('squad', d);
+            }
+
+            updateShowing();
+        };
 
     }]);
 })(window.angular);

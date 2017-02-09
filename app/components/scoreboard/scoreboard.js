@@ -1,11 +1,18 @@
 
 (function (angular) {
     var app = angular.module('blussTV');
-    app.controller('scoreBoardController', ['$scope', '$http', 'GameService', function ($scope, $http, GameService) {
+    app.controller('scoreBoardController', ['$scope', 'CasparCGService', 'GameService', function ($scope, CasparCGService, GameService) {
         $scope.showing = false;
 
         $scope.toggleShowing = function () {
-            $scope.showing = !$scope.showing;
+            if (CasparCGService.getCurrentOverlay() == 'scoreboard') {
+                CasparCGService.removeOverlay();
+                $scope.showing = false;
+            }
+            else {
+                $scope.showing = true;
+                CasparCGService.runOverlay('scoreboard', getScoreData());
+            }
         }
 
         $scope.homeTeamName = GameService.getTeamName('home');
@@ -15,6 +22,80 @@
             $scope.homeTeamName = GameService.getTeamName('home');
             $scope.awayTeamName = GameService.getTeamName('away');
         });
+
+        $scope.pointsHomeTeam = [0, 0, 0, 0, 0];
+        $scope.pointsAwayTeam = [0, 0, 0, 0, 0];
+
+        GameService.registerObserverCallback('score-update', function () {
+
+        });
+
+        $scope.addPoint = function (team) {
+            for (var i in $scope.pointsHomeTeam) {
+                if ( $scope.pointsHomeTeam[i] < 25 && $scope.pointsAwayTeam[i] < 25) {
+                    break;
+                }
+                else if (Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) < 2) {
+                    break;
+                }
+            }
+
+            if (team == 'home') {
+                $scope.pointsHomeTeam[i]++;
+            }
+            else {
+                $scope.pointsAwayTeam[i]++;
+            }
+
+            updateScoreboard();
+        };
+
+        var getScoreData = function () {
+            var data = {
+                homeTeam: {
+                    name: GameService.getTeamName('home'),
+                    sets: 0,
+                    points: 0
+                },
+                awayTeam: {
+                    name: GameService.getTeamName('away'),
+                    sets: 0,
+                    points: 0
+                }
+            };
+
+            for (var i in $scope.pointsHomeTeam) {
+
+                if ( ($scope.pointsHomeTeam[i] >= 25 || $scope.pointsAwayTeam[i] >= 25) && Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) >= 2 ) {
+                    if ($scope.pointsHomeTeam[i] > $scope.pointsAwayTeam[i]) {
+                        data.homeTeam.sets++;
+                    }
+                    else {
+                        data.awayTeam.sets++;
+                    }
+                }
+                else if ($scope.pointsHomeTeam[i] > 0 || $scope.pointsAwayTeam[i] > 0) {
+                    data.homeTeam.points = $scope.pointsHomeTeam[i];
+                    data.awayTeam.points = $scope.pointsAwayTeam[i];
+                }
+            }
+            return data;
+        };
+
+        var updateScoreboard = function () {
+            // Are we showing?
+            if (CasparCGService.getCurrentOverlay() != 'scoreboard') {
+                return;
+            }
+
+            var data = getScoreData();
+
+            console.log(data);
+            CasparCGService.updateOverlay('scoreboard', data);
+
+
+
+        };
 
     }]);
 })(window.angular);

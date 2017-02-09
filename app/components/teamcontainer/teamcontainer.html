@@ -7,12 +7,13 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Position</th>
-                <th>H</th>
-                <th>R</th>
-                <th>BR</th>
+                <th title="Height">H</th>
+                <th title="Reach">R</th>
+                <th title="Block Reach">BR</th>
+                <th title="Not in lineup">NL</th>
             </tr>
         </thead>
-        <tr ng-repeat="player in getTeamPlayers('home')">
+        <tr ng-repeat="player in getTeamPlayers('home')"  ng-class="player.deleted ? 'deleted' : ''">
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" ng-change="onChange()"></td>
@@ -22,7 +23,7 @@
             <td><input type="checkbox" ng-model="player.deleted" ng-change="onChange()"></td>
         </tr>
     </table>
-    <button ng-click="toggleHomeTeamShowing()" ng-class="homeTeamShowing ? 'showing' : ''">Show {{getTeamName('home')}} squad</button>
+    <button ng-click="toggleTeamShowing('home')" ng-class="homeShowing ? 'showing' : ''">Show {{getTeamName('home')}} squad</button>
 </div>
 
 <div class="col-xs-6">
@@ -34,12 +35,13 @@
             <th>#</th>
             <th>Name</th>
             <th>Position</th>
-            <th>H</th>
-            <th>R</th>
-            <th>BR</th>
+            <th title="Height">H</th>
+            <th title="Reach">R</th>
+            <th title="Block Reach">BR</th>
+            <th title="Not in lineup">NL</th>
         </tr>
         </thead>
-        <tr ng-repeat="player in getTeamPlayers('away')">
+        <tr ng-repeat="player in getTeamPlayers('away')"  ng-class="player.deleted ? 'deleted' : ''">
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" ng-change="onChange()"></td>
@@ -50,5 +52,5 @@
         </tr>
     </table>
 
-    <button ng-click="toggleAwayTeamShowing()" ng-class="awayTeamShowing ? 'showing' : ''">Show {{getTeamName('away')}} squad</button>
+    <button ng-click="toggleTeamShowing('away')" ng-class="awayShowing ? 'showing' : ''">Show {{getTeamName('away')}} squad</button>
 </div>

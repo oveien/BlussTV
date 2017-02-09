@@ -1,0 +1,63 @@
+body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+
+    background-image: url(/graphics/testbg.jpg);
+    background-repeat: no-repeat;
+}
+
+th, td {
+    color: white;
+}
+
+.dialog {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    color: white;
+    font-family: Calibri,Arial;
+    top: 200px;
+    border-radius: 5px;
+}
+
+.dialog-heading {
+    background-color: rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+    padding: 10px;
+}
+
+.dialog-body {
+    padding: 40px;
+}
+
+.player-table {
+    font-size: 18px;
+}
+
+.player-table td {
+    font-size: 18px;
+    line-height: 50px;
+}
+
+.fullscreen-background-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.fullscreen-background-image img {
+    width: 1920px;
+    height: 1080px;
+}
+
+.hidden-bottom {
+    top: 1920px;
+}
+
+.slide {
+    -webkit-transition: all 0.7s ease-out;
+    -moz-transition: all 0.7s ease-out;
+    -ms-transition: all 0.7s ease-out;
+    -o-transition: all 0.7s ease-out;
+    transition: all 0.7s ease-out;
+}

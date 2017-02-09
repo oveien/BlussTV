@@ -4,15 +4,21 @@
         <table>
             <tr>
                 <td></td>
+                <td></td>
                 <td ng-repeat="n in [1,2,3,4,5]">{{n}}</td>
+
             </tr>
             <tr>
                 <td>{{homeTeamName}}</td>
-                <td ng-repeat="n in [1,2,3,4,5]"><input type="text" class="score-board-input" value="0"></td>
+                <td><button class="mini-button">-</button></td>
+                <td ng-repeat="n in pointsHomeTeam track by $index"><input type="text" class="score-board-input" ng-model="n"></td>
+                <td><button class="mini-button" ng-click="addPoint('home')">+</button></td>
             </tr>
             <tr>
                 <td>{{awayTeamName}}</td>
-                <td ng-repeat="n in [1,2,3,4,5]"><input type="text" class="score-board-input" value="0"></td>
+                <td><button class="mini-button">-</button></td>
+                <td ng-repeat="n in pointsAwayTeam track by $index"><input type="text" class="score-board-input"  ng-model="n"></td>
+                <td><button class="mini-button" ng-click="addPoint('away')">+</button></td>
             </tr>
         </table>
         <button ng-click="toggleShowing()" ng-class="showing ? 'showing' : ''">Show score board</button>

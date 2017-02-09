@@ -1,0 +1,145 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.js"></script>
+</head>
+<body>
+
+<div id='dialog' class="dialog hidden-bottom slide" style="left: 460px; width: 1000px;">
+    <div class="dialog-heading"></div>
+
+    <div class="dialog-body">
+    <img id='player_image' src="" style="float: right; padding-top: 50px;">
+    <table class="player-table" style="width: 600px;">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Navn</th>
+            <th>Høyde</th>
+            <th>Posisjon</th>
+            <th>Rekkevidde</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+        console.log('Running update');
+        $('#halla').html('play');
+        $('#dialog').animate({'top': 200});
+    }
+
+    var data = JSON.stringify({
+        "data": {
+            "name": 'NTNUI',
+            players: [
+                {
+                    'number': 1,
+                    'name': 'Rune Hamnes',
+                    'height': 191,
+                    'position': 'M',
+                    'id': 127
+                },
+                {
+                    'number': 2,
+                    'name': 'Morten Lillehagen',
+                    'height': 203,
+                    'position': 'K',
+                    'id': 54
+                },
+                {
+                    'number': 3,
+                    'name': 'Simen Henriksveen',
+                    'height': 187,
+                    'position': 'L',
+                    'id': 135
+                },
+                {
+                    'number': 4,
+                    'name': 'Espen Mokkelbost',
+                    'height': 180,
+                    'position': 'C',
+                    'id': 241
+                }
+            ]
+        }});
+
+    function update(str) {
+
+        var obj = JSON.parse(str);
+        var players = obj.data.players;
+
+        $('.dialog-heading').html(obj.data.name);
+
+        // Clear the table:
+        var tbl = $('.player-table tbody');
+
+
+        var elm = '';
+        for (var i in players) {
+            var player = players[i];
+            console.log(player);
+            elm = '<tr>';
+            elm += '<td>' + player.number + '</td>';
+            elm += '<td>' + player.name + '</td>';
+            elm += '<td>' + player.height + '</td>';
+            elm += '<td>' + player.position + '</td>';
+            elm += '<td>' + player.height + '</td>';
+            elm += '<td>' + player.reach + '</td>';
+            elm += '</tr>';
+
+            console.log(elm);
+            tbl.append(elm);
+        }
+
+        $('#dialog').removeClass('hidden-bottom');
+
+        var playerIndex = 0;
+        var viewPlayerInfo = function () {
+            $('table tbody tr').removeClass('selected-player');
+
+            if (typeof(players[playerIndex]) == 'undefined') {
+                $('#player_image').attr('src','');
+                return;
+            }
+
+            var player = players[playerIndex];
+
+
+            tbl.find('tr').eq(playerIndex).addClass('selected-player');
+
+            // Show the player image:
+            console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
+            $('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
+
+            playerIndex++;
+            setTimeout(viewPlayerInfo, 2000);
+        };
+
+        // Hack for now to know the animation is done:
+        setTimeout(viewPlayerInfo, 1000);
+    }
+
+    function remove() {
+        // Animate away to the bottom:
+        $('#dialog').addClass('hidden-bottom');
+    }
+
+/*
+
+    setTimeout(function () {
+        update(data);
+    }, 2);
+*/
+
+</script>
+</html>

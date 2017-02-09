@@ -1,0 +1,77 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.js"></script>
+</head>
+<body>
+
+<div class="dialog scoreboard-container">
+    <table>
+        <tr>
+            <td class='sb-team-name' id="homeTeamName"></td>
+            <td class='sb-team-sets' id="homeTeamSets"></td>
+            <td class='sb-team-points' id="homeTeamPoints"></td>
+        </tr>
+        <tr>
+            <td class='sb-team-name' id="awayTeamName"></td>
+            <td class='sb-team-sets' id="awayTeamSets"></td>
+            <td class='sb-team-points' id="awayTeamPoints"></td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+<script>
+    var data = JSON.stringify({
+        data: {
+        homeTeam: {
+            name: 'NTNUI',
+            sets: 2,
+            points: 5
+        },
+        awayTeam: {
+            name: 'Viking',
+            sets: 1,
+            points: 7
+        }
+    }});
+
+    function update(str) {
+
+        var obj = JSON.parse(str);
+
+        var data = obj.data;
+
+        if (!data) {
+            return;
+        }
+
+
+
+
+        $('#homeTeamName').html(data.homeTeam.name);
+        $('#awayTeamName').html(data.awayTeam.name);
+
+        $('#homeTeamSets').html(data.homeTeam.sets);
+        $('#awayTeamSets').html(data.awayTeam.sets);
+
+        $('#homeTeamPoints').html(data.homeTeam.points);
+        $('#awayTeamPoints').html(data.awayTeam.points);
+    }
+
+    function remove() {
+        // Animate away to the bottom:
+        $('#dialog').addClass('hidden-bottom');
+    }
+
+/*
+
+    setTimeout(function () {
+        update(data);
+    }, 2);
+*/
+
+</script>
+</html>

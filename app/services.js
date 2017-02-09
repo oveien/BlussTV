@@ -86,4 +86,74 @@ angular.module('services', [])
 
         return f;
 
+    }])
+
+    .factory('CasparCGService', ['$http', '$q', function ($http, $q) {
+        var f = {};
+        var currentOverlay = "";
+
+        var observerCallbacks = [];
+        var f = {};
+        //register an observer
+        f.registerObserverCallback = function(type, callback){
+            observerCallbacks.push({type: type, callback: callback});
+        };
+
+        //call this when you know 'foo' has been changed
+        var notifyObservers = function(type) {
+            angular.forEach(observerCallbacks, function(observer) {
+                if (observer.type == type) {
+                    observer.callback();
+                }
+            });
+        };
+
+        f.playStream = function (stream) {
+            $.post('/caspar/play-stream/', {stream: stream}, function () {
+            });
+        }
+
+        f.runOverlay = function (template, data) {
+
+            if (currentOverlay) {
+                currentOverlay = template;
+
+                // Give the current overlay a chance to exit:
+                $.post('/caspar/templates/' + template + '/remove', {}, function () {
+                    $.post('/caspar/templates/' + template + '/play', {data: data}, function () {
+
+                    });
+                });
+            }
+            else {
+                currentOverlay = template;
+                $.post('/caspar/templates/' + template + '/play', {data: data}, function () {
+
+                });
+            }
+
+
+
+        }
+
+        f.removeOverlay = function (template, data) {
+            currentOverlay = "";
+            $.post('/caspar/templates/' + template + '/remove', {data: data}, function () {
+            });
+        }
+
+        f.updateOverlay = function (template, data) {
+            if (template != currentOverlay) {
+                return;
+            }
+
+            $.post('/caspar/templates/' + template + '/update', {data: data}, function () {
+            });
+        }
+
+        f.getCurrentOverlay = function () {
+            return currentOverlay;
+        }
+
+        return f;
     }]);

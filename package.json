@@ -8,6 +8,7 @@
     "angular": "^1.6.2",
     "angular-ui-bootstrap": "^2.5.0",
     "bootstrap": "^3.3.7",
+    "caspar-cg": "^0.1.0",
     "cheerio": "latest",
     "express": "latest",
     "iconv-lite": "^0.4.15",
