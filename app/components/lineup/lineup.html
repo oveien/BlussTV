@@ -1,0 +1,17 @@
+<fieldset>
+    <legend>Starting lineup</legend>
+
+    <table>
+        <tr>
+            <td>{{homeTeamName}}</td>
+            <td ng-repeat="n in [1,2,3,4,5,6]">{{n}}<input type="text" class="score-board-input" value=""></td>
+        </tr>
+
+        <tr>
+            <td>{{awayTeamName}}</td>
+            <td ng-repeat="n in [1,2,3,4,5,6]">{{n}}<input type="text" class="score-board-input" value=""></td>
+        </tr>
+    </table>
+    <button ng-click="toggleShowing()" class='pull-right' ng-class="showing ? 'showing' : ''">Show {{awayTeamName}} lineup</button>
+    <button ng-click="toggleShowing()" ng-class="showing ? 'showing' : ''">Show {{homeTeamName}} lineup</button>
+</fieldset>

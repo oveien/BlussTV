@@ -1,0 +1,52 @@
+<div class="col-xs-6">
+    <h1>{{getTeamName('home')}}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>H</th>
+                <th>R</th>
+                <th>BR</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="player in getTeamPlayers('home')">
+            <td><input class='number-input' type="text" value="{{player.number}}"></td>
+            <td><input type="text" value="{{player.name}}"></td>
+            <td><input type="text" value="{{player.position}}"></td>
+            <td><input class='number-input' type="text" value="{{player.height}}"></td>
+            <td><input class='number-input' type="text" value="{{player.reach}}"></td>
+            <td><input class='number-input' type="text" value="{{player.blockReach}}"></td>
+        </tr>
+    </table>
+    <button ng-click="toggleHomeTeamShowing()" ng-class="homeTeamShowing ? 'showing' : ''">Show {{getTeamName('home')}} squad</button>
+</div>
+
+<div class="col-xs-6">
+    <h1>{{getTeamName('away')}}</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>H</th>
+            <th>R</th>
+            <th>BR</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="player in getTeamPlayers('away')">
+            <td><input class='number-input' type="text" value="{{player.number}}"></td>
+            <td><input type="text" value="{{player.name}}"></td>
+            <td><input type="text" value="{{player.position}}"></td>
+            <td><input class='number-input' type="text" value="{{player.height}}"></td>
+            <td><input class='number-input' type="text" value="{{player.reach}}"></td>
+            <td><input class='number-input' type="text" value="{{player.blockReach}}"></td>
+        </tr>
+    </table>
+
+    <button ng-click="toggleAwayTeamShowing()" ng-class="awayTeamShowing ? 'showing' : ''">Show {{getTeamName('away')}} squad</button>
+</div>
