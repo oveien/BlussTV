@@ -22,9 +22,9 @@ th, td {
 }
 
 .dialog-heading {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
     font-size: 24px;
-    padding: 10px;
+    padding: 20px;
 }
 
 

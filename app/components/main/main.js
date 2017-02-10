@@ -43,16 +43,19 @@
         controller: "lineupController"
     });
 
-    /*
-    app.component('templateadmintextsearch', {
-        templateUrl: 'components/textsearch/textsearch.html',
-        controller: "templateAdminTextSearchController",
+    app.component('teamsPlaying', {
+        templateUrl: 'components/teamsplaying/teamsplaying.html',
+        controller: "teamsPlayingController"
     });
 
-    app.component('templateadmintemplateinfo', {
-        templateUrl: 'components/templateinfo/templateinfo.html',
-        controller: "templateAdminTemplateInfoController",
+    app.component('preGameContainer', {
+        templateUrl: 'components/pregamecontainer/pregamecontainer.html',
+        controller: 'preGameContainerController'
     });
-*/
+
+    app.component('statistics', {
+        templateUrl: 'components/statistics/statistics.html',
+        controller: 'statisticsController'
+    });
 
 })(window.angular);

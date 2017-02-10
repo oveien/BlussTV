@@ -1,0 +1,57 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+    <div class="dialog-heading">Dragvoll idrettssenter</div>
+    <div class="dialog-body">
+        <div class="teams-container">
+            <div id='homeTeam' class="team">
+                <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
+                <div class="team-name">NTNUI</div>
+            </div>
+            <div class="team-separator">vs</div>
+            <div id='awayTeam' class="team">
+                <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
+                <div class="team-name">Viking</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+        console.log('Running update');
+        $('#halla').html('play');
+        $('#dialog').animate({'top': 200});
+    }
+
+    function update(str) {
+        var data = JSON.parse(str);
+
+        var data = data.data;
+
+        var ht = $('#homeTeam');
+        ht.find('.team-name').html(data.homeTeam.name);
+        ht.find('.team-logo img').attr('src', data.homeTeam.logo);
+
+        var at = $('#awayTeam');
+        at.find('.team-name').html(data.awayTeam.name);
+        at.find('.team-logo img').attr('src', data.awayTeam.logo);
+
+        $('#dialog').removeClass('hidden-bottom');
+    }
+
+    setTimeout(function () {
+        update(JSON.stringify({data: {"homeTeam":{"logo":"/graphics/NTNUI/logo.jpg","name":"NTNUI"},"awayTeam":{"logo":"/graphics/Randaberg/logo.jpg","name":"Randaberg"}}}));
+    }, 10);
+
+</script>
+</html>

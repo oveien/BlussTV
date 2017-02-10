@@ -301,14 +301,20 @@ router.get("/update-score",function(req,res) {
                     players: [],
                     sets: 0,
                     points: 0,
-                    setPoints: [0, 0, 0, 0, 0]
+                    setPoints: [0, 0, 0, 0, 0],
+                    blocks: 0,
+                    attack: 0,
+                    ace: 0
                 },
                 awayTeam: {
                     name: '',
                     players: [],
                     sets: 0,
                     points: 0,
-                    setPoints: [0, 0, 0, 0, 0]
+                    setPoints: [0, 0, 0, 0, 0],
+                    blocks: 0,
+                    attack: 0,
+                    ace: 0
                 }
             };
 
@@ -321,6 +327,8 @@ router.get("/update-score",function(req,res) {
             var homeTeamRow = teamRows.eq(2);
             var awayTeamRow = teamRows.eq(3);
 
+            game.homeTeam.name = homeTeamRow.find('th').eq(1).text();
+            game.awayTeam.name = awayTeamRow.find('th').eq(1).text();
 
             game.homeTeam.sets = parseInt(homeTeamRow.find('th').eq(2).text());
             game.awayTeam.sets = parseInt(awayTeamRow.find('th').eq(2).text());
@@ -343,7 +351,53 @@ router.get("/update-score",function(req,res) {
             game.awayTeam.setPoints[3] = parseInt(awayTeamRow.find('th').eq(6).text());
             game.awayTeam.setPoints[4] = parseInt(awayTeamRow.find('th').eq(7).text());
 
+
+            // FIXMEEE!!!!
             game.awayTeam.setPoints[4] = Math.floor(Math.random() * (15 - 1 + 1)) + 1;
+
+            nameParts = null;
+            tbl.find('tr').each(function () {
+                var cols = $(this).find('td');
+
+                var player = {};
+
+                player.name = cols.eq(4).text();
+                player.number = cols.eq(5).text();
+                player.ace = parseInt(cols.eq(0).text());
+                player.attack = parseInt(cols.eq(1).text());
+                player.blocks = parseInt(cols.eq(2).text());
+
+
+                if (player.name && player.number != '-' && !player.name.match(/^\d+$/)) {
+                    nameParts = player.name.split(/[,\s]+/);
+                    player.name = nameParts[1] + ' ' + nameParts[0];
+
+                    player.points = (player.ace + player.blocks + player.attack);
+                    game.homeTeam.blocks += player.blocks;
+                    game.homeTeam.attack += player.attack;
+                    game.homeTeam.ace += player.ace;
+                    game.homeTeam.players.push(player);
+                }
+
+                player = {};
+                player.name = cols.eq(6).text();
+                player.number = cols.eq(5).text();
+                player.ace = parseInt(cols.eq(7).text());
+                player.attack = parseInt(cols.eq(8).text());
+                player.blocks = parseInt(cols.eq(9).text());
+
+
+
+                if (player.name && player.number != '-' && !player.name.match(/^\d+$/)) {
+                    nameParts = player.name.split(/[,\s]+/);
+                    player.name = nameParts[1] + ' ' + nameParts[0];
+                    player.points = (player.ace + player.blocks + player.attack);
+                    game.awayTeam.blocks += player.blocks;
+                    game.awayTeam.attack += player.attack;
+                    game.awayTeam.ace += player.ace;
+                    game.awayTeam.players.push(player);
+                }
+            });
 
 
             res.send(JSON.stringify(game));

@@ -1,0 +1,77 @@
+<div class="col-xs-4">
+    <fieldset>
+        <legend>Statistics team compare</legend>
+
+
+        <table width="300">
+            <thead>
+            <th>{{homeTeam.name}}</th>
+            <th>What</th>
+            <th>{{awayTeam.name}}</th>
+            </thead>
+            <tr>
+                <td><input class="score-board-input" type="text" ng-model="homeTeam.blocks"></td>
+                <td>Blocks</td>
+                <td><input class="score-board-input" type="text" ng-model="awayTeam.blocks"></td>
+            </tr>
+            <tr>
+                <td><input class="score-board-input" type="text" ng-model="homeTeam.attack"></td>
+                <td>Attack</td>
+                <td><input class="score-board-input" type="text" ng-model="awayTeam.attack"></td>
+            </tr>
+            <tr>
+                <td><input class="score-board-input" type="text" ng-model="homeTeam.ace"></td>
+                <td>Ace</td>
+                <td><input class="score-board-input" type="text" ng-model="awayTeam.ace"></td>
+            </tr>
+        </table>
+
+        <input type="checkbox" ng-model="manualTeamPoints" id="manualTeamPoints"> <label for="manualTeamPoints">Manual team compare</label>
+
+        <div class="button-container">
+            <button ng-click="toggleCompareTeams('compare-teams')" ng-class='showing == "compare-teams" ? "showing" : ""' class="toggle-button">Show compare teams</button>
+        </div>
+
+
+    </fieldset>
+</div>
+
+<div class="col-xs-8">
+    <fieldset>
+        <legend>Statistics player compare</legend>
+
+        <table width="300">
+            <thead>
+            <th>Name</th>
+            <th>B</th>
+            <th>A</th>
+            <th>Ace</th>
+            <th>T</th>
+            <th width="30">#</th>
+            <th>Name</th>
+            <th>B</th>
+            <th>A</th>
+            <th>Ace</th>
+            <th>T</th>
+            </thead>
+            <tr ng-repeat="row in getBestPlayers() | limitTo:10">
+                <td><input type="text" ng-model="row.homeTeam.name"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.homeTeam.blocks"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.homeTeam.attack"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.homeTeam.ace"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.homeTeam.points"></td>
+                <td>{{$index+1}}</td>
+                <td><input type="text" ng-model="row.awayTeam.name"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.awayTeam.blocks"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.awayTeam.attack"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.awayTeam.ace"></td>
+                <td><input type="text" class="score-board-input" ng-model="row.awayTeam.points"></td>
+            </tr>
+
+        </table>
+
+        <button ng-click="toggleComparePlayers('compare-players')" ng-class='showing == "compare-players" ? "showing" : ""'  class="toggle-button">Show compare players</button>
+
+
+    </fieldset>
+</div>

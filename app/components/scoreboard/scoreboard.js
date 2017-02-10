@@ -43,9 +43,6 @@
         $scope.pointsHomeTeam = [0, 0, 0, 0, 0];
         $scope.pointsAwayTeam = [0, 0, 0, 0, 0];
 
-        GameService.registerObserverCallback('score-update', function () {
-
-        });
 
         $scope.addPoint = function (team) {
             for (var i in $scope.pointsHomeTeam) {

@@ -1,0 +1,38 @@
+.teams-container {
+    overflow: auto;
+}
+
+.team {
+    width: 200px;
+    float: left;
+
+}
+.team-logo {
+    text-align: center;
+
+    width: 200px;
+    height: 168px;
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center
+}
+
+.team-logo img {
+   max-width: 200px;
+   max-height: 168px;
+}
+
+.team-name {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team-separator {
+    font-size: 48px;
+    line-height: 100px;
+    width: 200px;
+    line-height: 200px;
+    float: left;
+    text-align: center;
+}
