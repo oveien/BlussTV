@@ -1,10 +1,11 @@
 body {
-    width: 1920px;
-    height: 1080px;
+    width: 1280px;
+    height: 720px;
     overflow: hidden;
 
     background-image: url(/graphics/testbg.jpg);
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 th, td {
@@ -16,7 +17,7 @@ th, td {
     position: absolute;
     color: white;
     font-family: Calibri,Arial;
-    top: 200px;
+    top: 50px;
     border-radius: 5px;
 }
 
@@ -24,6 +25,16 @@ th, td {
     background-color: rgba(0, 0, 0, 0.1);
     font-size: 24px;
     padding: 10px;
+}
+
+
+.dialog-club-logo {
+    float: left;
+    margin-right: 50px;
+}
+
+.dialog-club-logo img {
+    height: 50px;
 }
 
 .dialog-body {
@@ -46,12 +57,12 @@ th, td {
 }
 
 .fullscreen-background-image img {
-    width: 1920px;
-    height: 1080px;
+    width: 1280px;
+    height: 720px;
 }
 
 .hidden-bottom {
-    top: 1920px;
+    top: 720px;
 }
 
 .slide {

@@ -1,17 +1,41 @@
 <fieldset>
     <legend>Starting lineup</legend>
 
-    <table>
-        <tr>
-            <td>{{homeTeamName}}</td>
-            <td ng-repeat="n in [1,2,3,4,5,6]">{{n}}<input type="text" class="score-board-input" value=""></td>
-        </tr>
+    <div style="float: left;">
+        <table width="300">
+            <tr>
+                <td colspan="3">{{homeTeamName}}</td>
+            </tr>
+            <tr>
+                <td colspan=3><span ng-repeat="pos in homeTeamLineup track by $index">{{pos.pos}}<input type="text" class="score-board-input" ng-model="pos.number"></span></td>
+            </tr>
 
-        <tr>
-            <td>{{awayTeamName}}</td>
-            <td ng-repeat="n in [1,2,3,4,5,6]">{{n}}<input type="text" class="score-board-input" value=""></td>
-        </tr>
-    </table>
-    <button ng-click="toggleShowing()" class='pull-right' ng-class="showing ? 'showing' : ''">Show {{awayTeamName}} lineup</button>
-    <button ng-click="toggleShowing()" ng-class="showing ? 'showing' : ''">Show {{homeTeamName}} lineup</button>
+            <tr ng-repeat="pos in homeTeamLineup track by $index">
+                <td>{{pos.pos}}</td>
+                <td>{{getPlayerByNumber('home', pos.number).number}}</td>
+                <td>{{getPlayerByNumber('home', pos.number).name}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table width="300">
+            <tr>
+                <td colspan="3">{{awayTeamName}}</td>
+            </tr>
+            <tr>
+                <td colspan=3><span ng-repeat="pos in awayTeamLineup track by $index">{{pos.pos}}<input type="text" class="score-board-input" ng-model="pos.number"></span></td>
+            </tr>
+
+            <tr ng-repeat="pos in awayTeamLineup track by $index">
+                <td>{{pos.pos}}</td>
+                <td>{{getPlayerByNumber('away', pos.number).number}}</td>
+                <td>{{getPlayerByNumber('away', pos.number).name}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="button-container">
+    <button ng-click="toggleTeamShowing('away')" class='pull-right toggle-button' ng-class="awayShowing ? 'showing' : ''">Show {{awayTeamName}} lineup</button>
+    <button class="toggle-button" ng-click="toggleTeamShowing('home')" ng-class="homeShowing ? 'showing' : ''">Show {{homeTeamName}} lineup</button>
+    </div>
 </fieldset>

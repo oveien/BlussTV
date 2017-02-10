@@ -1,0 +1,124 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.js"></script>
+</head>
+<body>
+
+<div class="dialog hidden-bottom slide lineup-dialog">
+    <div class="dialog-club-logo"></div>
+    <div class="dialog-heading"></div>
+    <div class="dialog-body">
+        <div class="lineup-court">
+            <div class="lineup-net"></div>
+            <div class="lineup-three-meter"></div>
+
+            <div class="lineup-players">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    var data = JSON.stringify({
+        data: {
+            name: 'NTNUI',
+            logo: '/graphics/Viking/logo.jpg',
+            players: [
+                {
+                    name: 'Vegar Løkken',
+                    number: 5
+                },
+                {
+                    name: 'Henrik Skogen',
+                    number: 3
+                },
+                {
+                    name: 'Øystein Veien',
+                    number: 1
+                },
+                {
+                    name: 'Espen Mokkelbost',
+                    number: 2
+                },
+                {
+                    name: 'Rune Hamnes',
+                    number: 4
+                },
+                {
+                    name: 'Simen Henriksveen',
+                    number: 7
+                }
+            ]
+        }});
+
+    function update(str) {
+
+        var obj = JSON.parse(str);
+
+        var data = obj.data;
+
+        if (!data) {
+            return;
+        }
+
+        $('.dialog-heading').html(data.name);
+        $('.dialog-club-logo').append( $('<img>').attr('src', data.logo));
+
+        $('.lineup-players').html('');
+
+        var c = null;
+        var name = null;
+        var num = null;
+        for (var i in data.players) {
+            i = parseInt(i);
+            c = $('<div class="lineup-player">');
+            if ($.inArray(i+1, [2, 3, 4]) >= 0) {
+                c.addClass('lineup-player-fr');
+            }
+            else {
+                c.addClass('lineup-player-br');
+            }
+
+            if ($.inArray(i+1, [4,5]) >= 0) {
+                c.addClass('lineup-player-1');
+            }
+            else if ($.inArray(i+1, [3,6]) >= 0) {
+                c.addClass('lineup-player-2');
+            }
+            else if ($.inArray(i+1, [1,2]) >= 0) {
+                c.addClass('lineup-player-3');
+            }
+
+            console.log((i+1));
+            console.log($.inArray(i+1, [1,2]));
+            name = $('<div class="lineup-player-name" />').html( data.players[i].name );
+            number = $('<div class="lineup-player-number" />').append($('<span />').text(data.players[i].number));
+
+            c.append(number);
+            c.append(name);
+
+            $('.lineup-players').append(c);
+
+        }
+
+        $('.dialog').removeClass('hidden-bottom');
+    }
+
+    function remove() {
+        // Animate away to the bottom:
+        $('.dialog').addClass('hidden-bottom');
+    }
+
+
+
+     setTimeout(function () {
+     update(data);
+     }, 2);
+
+
+</script>
+</html>

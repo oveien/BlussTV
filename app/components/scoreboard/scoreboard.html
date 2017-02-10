@@ -11,15 +11,18 @@
             <tr>
                 <td>{{homeTeamName}}</td>
                 <td><button class="mini-button">-</button></td>
-                <td ng-repeat="n in pointsHomeTeam track by $index"><input type="text" class="score-board-input" ng-model="n"></td>
+                <td ng-repeat="n in pointsHomeTeam track by $index"><input type="text" class="score-board-input" ng-model="pointsHomeTeam[$index]"></td>
                 <td><button class="mini-button" ng-click="addPoint('home')">+</button></td>
             </tr>
             <tr>
                 <td>{{awayTeamName}}</td>
                 <td><button class="mini-button">-</button></td>
-                <td ng-repeat="n in pointsAwayTeam track by $index"><input type="text" class="score-board-input"  ng-model="n"></td>
+                <td ng-repeat="n in pointsAwayTeam track by $index"><input type="text" class="score-board-input"  ng-model="pointsAwayTeam[$index]"></td>
                 <td><button class="mini-button" ng-click="addPoint('away')">+</button></td>
             </tr>
         </table>
-        <button ng-click="toggleShowing()" ng-class="showing ? 'showing' : ''">Show score board</button>
+
+        <input id='manual-scoreboard' type="checkbox" ng-model="manualScore"> <label for="manual-scoreboard">Manual score board</label>
+
+        <button class="toggle-button" ng-click="toggleShowing()" ng-class="showing ? 'showing' : ''">Show score board</button>
     </fieldset>

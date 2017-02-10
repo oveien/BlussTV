@@ -4,6 +4,8 @@
     app.controller('scoreBoardController', ['$scope', 'CasparCGService', 'GameService', function ($scope, CasparCGService, GameService) {
         $scope.showing = false;
 
+        $scope.manualScore = false;
+
         $scope.toggleShowing = function () {
             if (CasparCGService.getCurrentOverlay() == 'scoreboard') {
                 CasparCGService.removeOverlay();
@@ -21,6 +23,21 @@
         GameService.registerObserverCallback('game-info', function () {
             $scope.homeTeamName = GameService.getTeamName('home');
             $scope.awayTeamName = GameService.getTeamName('away');
+        });
+
+        GameService.registerObserverCallback('score-update', function () {
+            console.log('Woho, got score update!');
+
+            if (!$scope.manualScore) {
+                var score = GameService.getCurrentScore();
+
+                $scope.pointsHomeTeam = score.homeTeam.setPoints;
+                $scope.pointsAwayTeam = score.awayTeam.setPoints;
+
+                updateScoreboard();
+            }
+
+
         });
 
         $scope.pointsHomeTeam = [0, 0, 0, 0, 0];

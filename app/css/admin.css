@@ -1,5 +1,5 @@
 .score-board-input {
-    width: 20px;
+    width: 30px;
     text-align: center;
 }
 
@@ -13,6 +13,9 @@
     list-style-type: none;
 }
 
+.button-container {
+    clear: both;
+}
 .input-overview li {
     border: 1px solid #ccc;
     width: 200px;
@@ -27,7 +30,7 @@
     color: #ccc;
 }
 
-button {
+button.toggle-button {
     background-color: green;
 }
 

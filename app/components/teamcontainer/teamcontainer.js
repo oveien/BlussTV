@@ -20,6 +20,17 @@
             }
         }
 
+        $scope.getTeamLogo = function (ha) {
+            if (game) {
+                if (ha == 'home') {
+                    return game.homeTeam.logo;
+                }
+                else {
+                    return game.awayTeam.logo;
+                }
+            }
+        };
+
         $scope.getTeamPlayers = function (ha) {
             if (game) {
                 if (ha == 'home') {
@@ -53,6 +64,23 @@
             }
         }
 
+        $scope.addPlayer = function (team) {
+
+            var player = {
+                name: ''
+            }
+
+            if (team == "home") {
+                game.homeTeam.players.push(player);
+            }
+            else {
+                game.awayTeam.players.push(player);
+            }
+
+            $scope.onChange();
+
+        }
+
         $scope.toggleTeamShowing = function (team) {
             var data = null;
             if (team == 'home') {
@@ -62,7 +90,7 @@
                 data = game.awayTeam;
             }
 
-            if (currentTeamShowing == team) {
+            if (CasparCGService.getCurrentOverlay() == 'squad' && currentTeamShowing == team) {
                 // The same team, remove it:
                 CasparCGService.removeOverlay();
                 currentTeamShowing = '';

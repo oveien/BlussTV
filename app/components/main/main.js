@@ -3,11 +3,20 @@
     var app = angular.module('blussTV');
 
 
-    app.controller('mainController', ['$scope', 'CasparCGService', function($scope, CasparCGService){
+    app.controller('mainController', ['$scope', 'CasparCGService', 'GameService', function($scope, CasparCGService, GameService){
 
         $scope.playSource = function () {
             CasparCGService.playStream("rtp://127.0.0.1:5004/test");
         };
+
+        $scope.onNewGame = function () {
+            var prompt = window.prompt("Finn url på poengliga.no.", 'http://www.poengliga.no/eliteh/1617/kamper/9web.html');
+
+            if (prompt) {
+                // Loading stuff:
+                GameService.newGame(prompt);
+            }
+        }
     }]);
 
 

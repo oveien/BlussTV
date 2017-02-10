@@ -1,0 +1,71 @@
+.lineup-dialog {
+    left: 350px;
+}
+.lineup-court {
+    width: 500px;
+    height: 400px;
+    border: 2px solid white;
+    position: relative;
+    background-color: blue;
+}
+
+.lineup-net {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 5px;
+    height: 4px;
+    background-color: white;
+}
+
+.lineup-three-meter {
+    height: 4px;
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 150px;
+}
+
+.lineup-player {
+    position: absolute;
+    width: 166px;
+    text-align: center;
+}
+
+.lineup-player-number {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.lineup-player-number span {
+    background-color: red;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 20px;
+    display: inline-block;
+}
+
+.lineup-player-fr {
+    top: 20px;
+}
+
+.lineup-player-br {
+    top: 200px;
+}
+
+.lineup-player-1 {
+    left: 0px;
+}
+
+.lineup-player-2 {
+    left: 166px;
+}
+
+.lineup-player-3 {
+    left: 332px;
+}

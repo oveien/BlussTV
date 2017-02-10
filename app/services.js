@@ -2,8 +2,45 @@
 angular.module('services', [])
     .factory('GameService', ['$http', '$q', function ($http, $q) {
 
+
+        var scoreBoardUpdateTime = 20;
+
         var game = null;
+
+
+
+        var currentScore = {};
+
         var f = {};
+
+
+        var updateScore = function () {
+            if (!game) {
+                setTimeout(updateScore, scoreBoardUpdateTime*1000);
+                return;
+            }
+
+            $http({
+                method: 'GET',
+                url: '/update-score',
+                params: {url: game.url}
+            }).then(function (response) {
+                var score = response.data;
+
+                if (!Object.equals(score, currentScore)) {
+                    currentScore = score;
+
+                    notifyObservers('score-update');
+                }
+
+                setTimeout(updateScore, scoreBoardUpdateTime*1000);
+            }, function () {
+                setTimeout(updateScore, scoreBoardUpdateTime*1000);
+            });
+
+        }
+
+        setTimeout(updateScore, 5000);
 
         var observerCallbacks = [];
         var f = {};
@@ -22,7 +59,19 @@ angular.module('services', [])
         };
 
 
-        f.getGameInfo = function () {
+        f.getCurrentScore = function () {
+            return currentScore;
+        };
+
+        f.newGame = function (url) {
+            game = null;
+
+            f.getGameInfo(url);
+        }
+
+        f.getGameInfo = function (gameUrl) {
+
+
             var deferred = $q.defer();
 
             if (game) {
@@ -30,20 +79,34 @@ angular.module('services', [])
                 return deferred.promise;
             }
 
+            if (!gameUrl && game) {
+                gameUrl = game.url;
+            }
+            else if (!gameUrl && !game) {
+                gameUrl = 'http://www.poengliga.no/eliteh/1617/kamper/9web.html';
+            }
+
             $http({
                 method: 'GET',
                 url: '/game-info',
-                params: {url: 'http://www.poengliga.no/eliteh/1617/kamper/9web.html'}
+                params: {url: gameUrl}
             }).then(function (response) {
 
                 // Need to update the templates to get the menu updated :/
 
                 game = response.data;
 
+                game.url = gameUrl;
+
                 f.saveChanges(game);
                 deferred.resolve(response.data);
 
                 notifyObservers('game-info');
+
+                // HACK HACK HACK, just reload the page to get the new info :D
+                document.location.reload();
+
+
             }, function (err) {
                 deferred.reject(err);
             });
@@ -61,6 +124,37 @@ angular.module('services', [])
             else {
                 return game.awayTeam.name;
             }
+        };
+
+        f.getTeam = function (team) {
+            if (!game) {
+                return;
+            }
+            if (team == 'home') {
+                return game.homeTeam;
+            }
+            else {
+                return game.awayTeam;
+            }
+        }
+
+        f.getPlayerByNumber = function (team, number) {
+            if (!game) {
+                return;
+            }
+            if (team == 'home') {
+                players = game.homeTeam.players;
+            }
+            else {
+                players = game.awayTeam.players;
+            }
+
+            for (var i in players) {
+                if (players[i].number == number) {
+                    return players[i];
+                }
+            }
+            return null;
         };
 
         f.saveChanges = function (g) {
