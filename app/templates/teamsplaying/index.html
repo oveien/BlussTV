@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="/css/screen.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.min.js"></script>
+    <script src="/templates/utils.js"></script>
 </head>
 <body>
 
@@ -49,9 +50,16 @@
         $('#dialog').removeClass('hidden-bottom');
     }
 
-    setTimeout(function () {
-        update(JSON.stringify({data: {"homeTeam":{"logo":"/graphics/NTNUI/logo.jpg","name":"NTNUI"},"awayTeam":{"logo":"/graphics/Randaberg/logo.jpg","name":"Randaberg"}}}));
-    }, 10);
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            update(JSON.stringify({
+                data: {
+                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
+                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"}
+                }
+            }));
+        }, 10);
+    }
 
 </script>
 </html>

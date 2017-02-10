@@ -1,3 +1,24 @@
 .selected-player {
     font-weight: bold;
 }
+
+.player-table {
+    font-size: 18px;
+}
+
+.player-table td {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.squad-image-container {
+    height: 250px;
+    width: 250px;
+    float: right;
+    text-align: center;
+}
+
+.squad-image-container img {
+    max-height: 250px;
+    max-width: 250px;
+}

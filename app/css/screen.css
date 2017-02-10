@@ -3,7 +3,7 @@ body {
     height: 720px;
     overflow: hidden;
 
-    background-image: url(/graphics/testbg.jpg);
+    /*background-image: url(/graphics/testbg.jpg);*/
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -39,16 +39,9 @@ th, td {
 
 .dialog-body {
     padding: 40px;
+    overflow: auto;
 }
 
-.player-table {
-    font-size: 18px;
-}
-
-.player-table td {
-    font-size: 18px;
-    line-height: 50px;
-}
 
 .fullscreen-background-image {
     position: absolute;

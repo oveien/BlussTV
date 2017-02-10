@@ -38,6 +38,12 @@
     margin-bottom: 10px;
 }
 
+
+.lineup-player-libero .lineup-player-number span {
+    background-color: white;
+    color: red;
+}
+
 .lineup-player-number span {
     background-color: red;
     color: white;
@@ -68,4 +74,8 @@
 
 .lineup-player-3 {
     left: 332px;
+}
+
+.lineup-player-libero {
+    top: 300px;
 }

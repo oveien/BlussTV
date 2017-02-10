@@ -3,10 +3,35 @@
     var app = angular.module('blussTV');
 
 
-    app.controller('mainController', ['$scope', 'CasparCGService', 'GameService', function($scope, CasparCGService, GameService){
+    app.controller('mainController', ['$scope', 'CasparCGService', 'GameService', '$http', function($scope, CasparCGService, GameService, $http){
 
-        $scope.playSource = function () {
-            CasparCGService.playStream("rtp://127.0.0.1:5004/test");
+        $scope.inputs = [];
+
+        $scope.reloadDevicelist = function () {
+            $http({
+                method: 'GET',
+                url: '/directshow/devices'
+            }).then(function (response) {
+                $scope.inputs = [];
+                for (var i in response.data) {
+                    if (response.data[i].deviceType == 'dshow' || response.data[i].deviceType == 'file') {
+                        $scope.inputs.push(response.data[i]);
+                    }
+                }
+            });
+        }
+
+        $scope.reloadDevicelist();
+
+
+        $scope.playSource = function (source) {
+
+            if (source.deviceType == 'dshow') {
+                CasparCGService.playStream(source.deviceType + "://video=" + source.name);
+            }
+            else if (source.deviceType == 'file') {
+                CasparCGService.playStream(source.path);
+            }
         };
 
         $scope.onNewGame = function () {

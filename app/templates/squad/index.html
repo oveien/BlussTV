@@ -3,14 +3,17 @@
     <link rel="stylesheet" href="/css/screen.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
+    <script src="/templates/utils.js"></script>
 </head>
 <body>
 
-<div id='dialog' class="dialog hidden-bottom slide" style="left: 460px; width: 1000px;">
+<div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 1000px;">
     <div class="dialog-heading"></div>
 
     <div class="dialog-body">
-    <img id='player_image' src="" style="float: right; padding-top: 50px;">
+    <div class="squad-image-container">
+        <img id='player_image' src="" style="padding-top: 20px;">
+    </div>
     <table class="player-table" style="width: 600px;">
         <thead>
         <tr>
@@ -134,12 +137,12 @@
         $('#dialog').addClass('hidden-bottom');
     }
 
-/*
 
-    setTimeout(function () {
-        update(data);
-    }, 2);
-*/
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            update(data);
+        }, 2);
+    }
 
 </script>
 </html>

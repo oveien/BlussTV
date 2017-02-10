@@ -34,7 +34,7 @@
                 $scope.pointsHomeTeam = score.homeTeam.setPoints;
                 $scope.pointsAwayTeam = score.awayTeam.setPoints;
 
-                updateScoreboard();
+                $scope.updateScoreboard();
             }
 
 
@@ -61,7 +61,7 @@
                 $scope.pointsAwayTeam[i]++;
             }
 
-            updateScoreboard();
+            $scope.updateScoreboard();
         };
 
         var getScoreData = function () {
@@ -80,13 +80,18 @@
 
             for (var i in $scope.pointsHomeTeam) {
 
-                if ( ($scope.pointsHomeTeam[i] >= 25 || $scope.pointsAwayTeam[i] >= 25) && Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) >= 2 ) {
+                if (  Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) >= 2 &&
+                    ( ($scope.pointsHomeTeam[i] >= 25 || $scope.pointsAwayTeam[i] >= 25) ||
+                        (i == 4 && ($scope.pointsHomeTeam[i] >= 15 || $scope.pointsAwayTeam[i] >= 15) ))  ) {
+
                     if ($scope.pointsHomeTeam[i] > $scope.pointsAwayTeam[i]) {
                         data.homeTeam.sets++;
                     }
                     else {
                         data.awayTeam.sets++;
                     }
+
+
                 }
                 else if ($scope.pointsHomeTeam[i] > 0 || $scope.pointsAwayTeam[i] > 0) {
                     data.homeTeam.points = $scope.pointsHomeTeam[i];
@@ -96,7 +101,7 @@
             return data;
         };
 
-        var updateScoreboard = function () {
+        $scope.updateScoreboard = function () {
             // Are we showing?
             if (CasparCGService.getCurrentOverlay() != 'scoreboard') {
                 return;

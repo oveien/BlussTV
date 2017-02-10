@@ -3,9 +3,9 @@
 </div>
 <div>
     <ul class="input-overview">
-        <li ng-click="playSource(0)">Bane-kamera</li>
-        <li ng-click="playSource(1)">Studio-kamera</li>
+        <li ng-repeat="input in inputs" ng-click="playSource(input)">{{input.name}}</li>
     </ul>
+    <a ng-click="reloadDevicelist()">Reload device list</a>
 </div>
 
 <uib-tabset active="active">

@@ -1,3 +1,6 @@
+var CasparCG = require("caspar-cg");
+ccg = new CasparCG("127.0.0.1", 5250);
+
 var express = require('express');
 var router = express.Router();
 
@@ -8,12 +11,18 @@ var iconvlite = require('iconv-lite');
 
 var bodyParser = require("body-parser");
 
-var CasparCG = require("caspar-cg");
 var sanitize = require("sanitize-filename");
 
-ccg = new CasparCG("127.0.0.1", 5250);
+
 
 var app = express ();
+var path = require("path");
+
+var ffdevices = require('ffdevices')
+
+console.log(__dirname);
+
+
 
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
@@ -353,7 +362,7 @@ router.get("/update-score",function(req,res) {
 
 
             // FIXMEEE!!!!
-            game.awayTeam.setPoints[4] = Math.floor(Math.random() * (15 - 1 + 1)) + 1;
+            //game.awayTeam.setPoints[4] = Math.floor(Math.random() * (15 - 1 + 1)) + 1;
 
             nameParts = null;
             tbl.find('tr').each(function () {
@@ -416,6 +425,8 @@ router.post("/caspar/play-stream",function(req,res){ //
         console.log(addCommand);
         ccg.sendCommand(addCommand, function () {
             res.send('Command was sent');
+
+            ccg.disconnect();
         });
     });
 });
@@ -448,6 +459,7 @@ router.post("/caspar/templates/:template/:what",function(req,res){ //
             ccg.sendCommand(removeCommand, function () {
                 console.log('Ran remove')
                 res.send('Command was sent');
+                ccg.disconnect();
             });
         }
         else if (req.params.what == 'update') {
@@ -456,11 +468,32 @@ router.post("/caspar/templates/:template/:what",function(req,res){ //
             ccg.sendCommand(updateCommand, function () {
                 console.log('Ran update')
                 res.send('Command was sent');
+                ccg.disconnect();
             });
         }
 
     });
 });
+
+router.get("/directshow/devices",function(req,res) { //
+    ffdevices.ffmpegPath = path.dirname(__dirname) + '/ffmpeg//bin/ffmpeg.exe'
+    console.log(path.dirname(__dirname) + '/bin/ffmpeg/ffmpeg.exe');
+    ffdevices.getAll(function (error, devices) {
+        console.log(error);
+        if (!error) {
+            devices.push({
+                name: 'NTNUI - Førde',
+                deviceType: 'file',
+                path: 'NTNUI - Førde.mp4'
+            });
+            res.send(JSON.stringify(devices));
+        }
+        else {
+            res.send(JSON.stringify({error: true}));
+        }
+    })
+});
+
 
 
 router.get("/graphics/:club/players/:id/image",function(req,res) { //
