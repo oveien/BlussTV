@@ -156,7 +156,7 @@ function getPlayersInfo (sex, club, players, callback) {
                     nameParts = player.name.split(/[,\s]+/);
                     infoPlayer.name = nameParts[1] + ' ' + nameParts[0];
 
-                    var filename = playersDir + '/' +  player.id + '.jpg';
+                    var filename = playersDir + '/' +  infoPlayer.id + '.jpg';
 
                     if (!fs.existsSync(filename)) {
                         download('http://poengliga.no/img_players/' + player.id + '.jpg', filename, function (err) {
