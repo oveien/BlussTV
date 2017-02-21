@@ -186,6 +186,35 @@ angular.module('services', [])
         var f = {};
         var currentOverlay = "";
 
+        var tvWindow = null;
+        var hasCaspar = false;
+
+
+        var getPreviewWindow = function (url) {
+
+                if ((tvWindow == null) || (tvWindow.closed)  )
+                {
+                    tvWindow = window.open(url,'TV','height=720,width=1280');
+                }
+                return tvWindow;
+        }
+
+        var updateWindow = function (win, data) {
+            if (win && win.closed) {
+                return false;
+            }
+
+            if (typeof win.update === 'function') {
+                win.update(JSON.stringify({data: data}));
+                return;
+            }
+
+            setTimeout(function () {
+                updateWindow(win, data);
+            }, 200);
+
+        }
+
         var observerCallbacks = [];
         var f = {};
         //register an observer
@@ -208,22 +237,39 @@ angular.module('services', [])
         }
 
         f.runOverlay = function (template, data) {
+            console.log(data);
+
 
             if (currentOverlay) {
                 currentOverlay = template;
 
-                // Give the current overlay a chance to exit:
-                $.post('/caspar/templates/' + template + '/remove', {}, function () {
+                if (hasCaspar) {
+                    // Give the current overlay a chance to exit:
+                    $.post('/caspar/templates/' + template + '/remove', {}, function () {
+                        $.post('/caspar/templates/' + template + '/play', {data: data}, function () {
+
+                        });
+                    });
+                }
+                else {
+                    var w = window.open('/templates/' + template + '/', 'TV', 'height=720,width=1280');
+                    updateWindow(w, data);
+                }
+            }
+            else {
+
+                currentOverlay = template;
+
+                if (hasCaspar) {
                     $.post('/caspar/templates/' + template + '/play', {data: data}, function () {
 
                     });
-                });
-            }
-            else {
-                currentOverlay = template;
-                $.post('/caspar/templates/' + template + '/play', {data: data}, function () {
-
-                });
+                }
+                else {
+                    console.log(data);
+                    var w = getPreviewWindow('/templates/' + template + '/');
+                    updateWindow(w, data);
+                }
             }
 
 
@@ -241,8 +287,14 @@ angular.module('services', [])
                 return;
             }
 
-            $.post('/caspar/templates/' + template + '/update', {data: data}, function () {
-            });
+            if (hasCaspar) {
+                $.post('/caspar/templates/' + template + '/update', {data: data}, function () {
+                });
+            }
+            else {
+                var w = getPreviewWindow('/templates/' + template + '/');
+                updateWindow(w, data);
+            }
         }
 
         f.getCurrentOverlay = function () {

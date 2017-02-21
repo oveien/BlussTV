@@ -4,16 +4,29 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
+    <script>
+        function jalla() {
+            alert('hello');
+        }
+    </script>
 </head>
 <body>
 
+<div class="screen">
 <div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 1000px;">
     <div class="dialog-heading"></div>
 
     <div class="dialog-body">
-    <div class="squad-image-container">
-        <img id='player_image' src="" style="padding-top: 20px;">
+    <div class="squad-image-container" style="">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250">
+            <mask id="mask1">
+                <ellipse cx="50%" cy="50%" rx="40%" ry="50%" fill="white" filter="url(#filter2)"></ellipse>
+            </mask>
+            <image id='player_image'  xlink:href="" height="250" width="250" mask="url(#mask1)"></image>
+        </svg>
+        <!--<img id='player_image' src="" style="border-radius: 20px;">-->
     </div>
+
     <table class="player-table" style="width: 600px;">
         <thead>
         <tr>
@@ -31,7 +44,30 @@
     </div>
 
 </div>
+</div>
 
+
+<svg width="0" height="0">
+    <defs>
+        <filter id="filter2">
+            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
+        </filter>
+        <linearGradient id="gradient" x1="0" y1="00%" x2="0" y2="100%">
+            <stop stop-color="black" offset="0"></stop>
+            <stop stop-color="white" offset="1"></stop>
+        </linearGradient>
+        <mask id="masking2" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+            <rect y="0.3" width="1" height=".7" fill="url(#gradient)"></rect>
+            <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
+        </mask>
+        <clipPath id="clipping4">
+            <polygon points="0 0, 20 20, 40 0, 60 20, 80 0, 100 20, 120 0, 140 20, 160 0, 180 20, 200 0, 220 20, 240 0, 255 0, 255 300, 240 300, 220 280, 200 300, 180 280, 160 300, 140 280, 120 300, 100 280, 80 300, 60 280, 40 300, 20 280, 0 300"></polygon>
+        </clipPath>
+        <clipPath id="clipping5" clipPathUnits="objectBoundingBox">
+            <polygon points="1.00 .50,.8470057014808336 .545684167277018,.910518476172854 .6099980941685713,.8233578363789503 .6339392013277814,.9330127018922194 .75,.7776736691019323 .7130665001530522,.8005203820042827 .8005203820042827,.7130665001530522 .7776736691019323,.75 .9330127018922192,.6339392013277814 .8233578363789503,.6099980941685714 .910518476172854,.5456841672770181 .8470057014808336,.50 1.00,.454315832722982 .8470057014808336,.39000190583142874 .910518476172854,.36606079867221865 .8233578363789505,.2500000000000001 .9330127018922194,.28693349984694787 .7776736691019323,.19947961799571733 .8005203820042827,.2223263308980677 .7130665001530522,.06698729810778076 .7500000000000001,.17664216362104966 .6339392013277815,.08948152382714603 .6099980941685715,.15299429851916635 .54568416727701816,0 .5000000000000001,.15299429851916635 .45431583272298205,.0894815238271459 .3900019058314288,.1766421636210496 .3660607986722188,.06698729810778062 .25000000000000014,.2223263308980676 .28693349984694787,.19947961799571715 .19947961799571747,.2869334998469477 .22232633089806775,.2499999999999998 .06698729810778083,.3660607986722184 .17664216362104973,.3900019058314284 .08948152382714603,.4543158327229816 .15299429851916642,.4999999999999999 0,.54568416727701795 .15299429851916635,.6099980941685711 .0894815238271459,.6339392013277812 .1766421636210496,.7499999999999997 .066987298107780475,.713066500153052 .2223263308980675,.8005203820042826 .19947961799571722,.7776736691019323 .2869334998469477,.9330127018922192 .2499999999999998,.8233578363789502 .3660607986722184,.910518476172854 .3900019058314283,.8470057014808336 .4543158327229816"></polygon>
+        </clipPath>
+    </defs>
+</svg>
 
 </body>
 <script>
@@ -49,6 +85,7 @@
                     'number': 1,
                     'name': 'Rune Hamnes',
                     'height': 191,
+                    'reach': '340',
                     'position': 'M',
                     'id': 127
                 },
@@ -57,6 +94,7 @@
                     'name': 'Morten Lillehagen',
                     'height': 203,
                     'position': 'K',
+                    'reach': '340',
                     'id': 54
                 },
                 {
@@ -64,6 +102,7 @@
                     'name': 'Simen Henriksveen',
                     'height': 187,
                     'position': 'L',
+                    'reach': '340',
                     'id': 135
                 },
                 {
@@ -71,6 +110,39 @@
                     'name': 'Espen Mokkelbost',
                     'height': 180,
                     'position': 'C',
+                    'reach': '340',
+                    'id': 241
+                },
+                {
+                    'number': 1,
+                    'name': 'Vegar Løkken',
+                    'height': 191,
+                    'reach': '340',
+                    'position': 'M',
+                    'id': 127
+                },
+                {
+                    'number': 2,
+                    'name': 'Cato S',
+                    'height': 203,
+                    'position': 'K',
+                    'reach': '340',
+                    'id': 54
+                },
+                {
+                    'number': 3,
+                    'name': 'Jon Vegar Berntsen',
+                    'height': 187,
+                    'position': 'L',
+                    'reach': '340',
+                    'id': 135
+                },
+                {
+                    'number': 4,
+                    'name': 'Jånn',
+                    'height': 180,
+                    'position': 'C',
+                    'reach': '340',
                     'id': 241
                 }
             ]
@@ -122,7 +194,8 @@
 
             // Show the player image:
             console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
-            $('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
+            //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
+            $('#player_image').attr('xlink:href', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
 
             playerIndex++;
             setTimeout(viewPlayerInfo, 2000);

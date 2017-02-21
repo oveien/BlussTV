@@ -476,7 +476,7 @@ router.post("/caspar/templates/:template/:what",function(req,res){ //
 });
 
 router.get("/directshow/devices",function(req,res) { //
-    ffdevices.ffmpegPath = path.dirname(__dirname) + '/ffmpeg//bin/ffmpeg.exe'
+    //ffdevices.ffmpegPath = path.dirname(__dirname) + '/ffmpeg//bin/ffmpeg.exe'
     console.log(path.dirname(__dirname) + '/bin/ffmpeg/ffmpeg.exe');
     ffdevices.getAll(function (error, devices) {
         console.log(error);

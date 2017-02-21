@@ -21,4 +21,6 @@
 .squad-image-container img {
     max-height: 250px;
     max-width: 250px;
+    margin-top: 20px;
+    mask: url(#masking);
 }
