@@ -1,0 +1,48 @@
+.teams-container {
+    overflow: auto;
+}
+
+.team {
+    width: 200px;
+    float: left;
+
+}
+.team-logo {
+    text-align: center;
+
+    width: 200px;
+    height: 168px;
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center
+}
+
+.team-logo img {
+    max-width: 200px;
+    max-height: 168px;
+}
+
+.team-name {
+    font-size: 36px;
+    text-align: left;
+}
+
+.away-team {
+    float: right;;
+}
+.away-team .team-name {
+    text-align: right;
+}
+
+.stats-table {
+    width: 100%;
+}
+
+.stats-table td {
+    text-align: center;
+}
+
+.stats-table td:nth-child(2) {
+    font-weight: bold;
+}
+

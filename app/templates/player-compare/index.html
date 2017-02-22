@@ -1,0 +1,133 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/screen.css">
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/templates/utils.js"></script>
+</head>
+<body>
+
+
+<div class="screen">
+    <div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+        <div class="dialog-heading">
+            <div class="teams-container">
+                <div id='homeTeam' class="team">
+                    <!--<div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>-->
+                    <div class="team-name">NTNUI</div>
+                </div>
+
+                <div id='awayTeam' class="team away-team">
+                    <!--<div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>-->
+                    <div class="team-name">Viking</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="dialog-body">
+
+            <table id="stats-table" class="stats-table">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+        var data = JSON.parse(str);
+
+        var data = data.data;
+
+        console.log(data.stats)
+        var ht = $('#homeTeam');
+        ht.find('.team-name').html(data.homeTeam.name);
+        ht.find('.team-logo img').attr('src', data.homeTeam.logo);
+
+        var at = $('#awayTeam');
+        at.find('.team-name').html(data.awayTeam.name);
+        at.find('.team-logo img').attr('src', data.awayTeam.logo);
+
+        for (var i in data.stats) {
+            console.log(data.stats[i]);
+            var html = '<tr>';
+
+            html += '<td>' + data.stats[i].homeTeam.total + "</td>";
+            html += '<td>' + data.stats[i].homeTeam.ace + "</td>";
+            html += '<td>' + data.stats[i].homeTeam.blocks + "</td>";
+            html += '<td>' + data.stats[i].homeTeam.attack + "</td>";
+            html += '<td>' + data.stats[i].homeTeam.name + "</td>";
+            html += '<td>' + (parseInt(i)+1) + "</td>";
+
+            html += '<td>' + data.stats[i].awayTeam.name + "</td>";
+            html += '<td>' + data.stats[i].awayTeam.attack + "</td>";
+            html += '<td>' + data.stats[i].awayTeam.blocks + "</td>";
+            html += '<td>' + data.stats[i].awayTeam.ace + "</td>";
+            html += '<td>' + data.stats[i].awayTeam.total + "</td>";
+            html += '</tr>';
+            console.log(html);
+            $('#stats-table').append(html);
+        }
+
+        console.log('Done loading');
+        $('#dialog').removeClass('hidden-bottom');
+    }
+
+    function remove(str) {
+        $('#dialog').addClass('hidden-bottom');
+    }
+
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            play(JSON.stringify({
+                data: {
+                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
+                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
+                    'stats': [
+                        {
+                            homeTeam: {
+                                name: 'Sigurd Festøy',
+                                number: 1,
+                                total: 20,
+                                blocks: 1,
+                                ace: 0,
+                                attack: 2
+                            },
+                            awayTeam: {
+                                name: 'Jalla Balla',
+                                number: 1,
+                                total: 20,
+                                blocks: 1,
+                                ace: 0,
+                                attack: 2
+                            }
+                        },
+                        {
+                            homeTeam: {
+                                name: 'Øystein Veien',
+                                number: 1,
+                                total: 20,
+                                blocks: 1,
+                                ace: 0,
+                                attack: 2
+                            },
+                            awayTeam: {
+                                name: 'Sindre Svendby',
+                                number: 1,
+                                total: 20,
+                                blocks: 1,
+                                ace: 0,
+                                attack: 2
+                            }
+                        }
+
+                    ]
+                }
+            }));
+        }, 10);
+    }
+
+</script>
+</html>

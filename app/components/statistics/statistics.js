@@ -14,26 +14,28 @@
                 $scope.showing = false;
             }
             else {
-                $scope.showing = 'compare-teams';
+                $scope.showing = 'team-compare';
 
-                var ht = GameService.getTeam('home');
-                var at = GameService.getTeam('away');
+                var ht = $scope.homeTeam;
+                var at = $scope.awayTeam;
 
 
                 var data = {
                     homeTeam: {
                         logo: ht.logo,
                         name: ht.name,
-                        blocks: 0,
-                        attack: 0,
-                        serve: 0
+                        blocks: ht.blocks || 0,
+                        attack: ht.attack || 0,
+                        ace: ht.ace || 0,
+                        total: (ht.blocks || 0 ) + (ht.attack || 0) + (ht.ace || 0)
                     },
                     awayTeam: {
                         logo: at.logo,
                         name: at.name,
-                        blocks: 0,
-                        attack: 0,
-                        serve: 0
+                        blocks: at.blocks || 0,
+                        attack: at.attack || 0,
+                        ace: at.ace || 0,
+                        total: (at.blocks || 0 ) + (at.attack || 0) + (at.ace || 0)
                     }
                 }
 
@@ -44,6 +46,31 @@
                 CasparCGService.runOverlay('team-compare', data);
             }
         }
+
+        $scope.toggleComparePlayers = function () {
+            if (CasparCGService.getCurrentOverlay() == 'player-compare') {
+                CasparCGService.removeOverlay();
+                $scope.showing = false;
+            }
+            else {
+                $scope.showing = 'player-compare';
+
+                var stats = {
+                    stats: $scope.getBestPlayers(),
+                    homeTeam: {
+                        logo: $scope.homeTeam.logo,
+                        name: $scope.homeTeam.name
+                    },
+                    awayTeam: {
+                        logo: $scope.awayTeam.logo,
+                        name: $scope.awayTeam.name
+                    }
+                }
+
+                CasparCGService.runOverlay('player-compare', stats);
+            }
+        }
+
 
         GameService.registerObserverCallback('score-update', function () {
             console.log('Woho, got score update!');
@@ -73,6 +100,8 @@
         var bestPlayersChanged = false;
 
         var bestPlayers = null;
+
+
         $scope.getBestPlayers = function () {
             if (!$scope.homeTeam.players) {
                 return [];
@@ -110,7 +139,16 @@
                         blocks: sortedA[i].blocks,
                         attack: sortedA[i].attack,
                         ace: sortedA[i].ace,
-                        points: sortedA[i].points
+                        total: sortedA[i].points
+                    }
+                }
+                else {
+                    row.homeTeam = {
+                        name: '',
+                        blocks: '',
+                        attack: '',
+                        ace: '',
+                        total: ''
                     }
                 }
                 if (sortedB[i].points > 0) {
@@ -119,7 +157,16 @@
                         blocks: sortedB[i].blocks,
                         attack: sortedB[i].attack,
                         ace: sortedB[i].ace,
-                        points: sortedB[i].points
+                        total: sortedB[i].points
+                    }
+                }
+                else {
+                    row.awayTeam = {
+                        name: '',
+                        blocks: '',
+                        attack: '',
+                        ace: '',
+                        total: ''
                     }
                 }
 
@@ -132,6 +179,8 @@
             bestPlayers = rows;
             return rows;
         };
+
+
 
     }]);
 })(window.angular);

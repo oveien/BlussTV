@@ -48,8 +48,10 @@ legend {
 
 button.toggle-button {
     background-color: green;
+    color: white;
 }
 
 button.showing {
     background-color: red;
+    color: white;
 }

@@ -64,6 +64,29 @@
             $scope.updateScoreboard();
         };
 
+        $scope.removePoint = function (team) {
+
+
+            for (var i = $scope.pointsHomeTeam.length; i > 0; i--) {
+                if ( $scope.pointsHomeTeam[i] > 0 || $scope.pointsAwayTeam[i] > 0) {
+                    break;
+                }
+            }
+
+            if (team == 'home') {
+                if ($scope.pointsHomeTeam[i] > 0) {
+                    $scope.pointsHomeTeam[i]--;
+                }
+            }
+            else {
+                if ($scope.pointsAwayTeam[i]) {
+                    $scope.pointsAwayTeam[i]--;
+                }
+            }
+
+            $scope.updateScoreboard();
+        };
+
         var getScoreData = function () {
             var data = {
                 homeTeam: {

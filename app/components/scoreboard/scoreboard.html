@@ -10,13 +10,13 @@
             </tr>
             <tr>
                 <td>{{homeTeamName}}</td>
-                <td><button class="mini-button">-</button></td>
+                <td><button class="mini-button" ng-click="removePoint('home')">-</button></td>
                 <td ng-repeat="n in pointsHomeTeam track by $index"><input type="text" class="score-board-input" ng-model="pointsHomeTeam[$index]" ng-change="updateScoreboard()"></td>
                 <td><button class="mini-button" ng-click="addPoint('home')">+</button></td>
             </tr>
             <tr>
                 <td>{{awayTeamName}}</td>
-                <td><button class="mini-button">-</button></td>
+                <td><button class="mini-button" ng-click="removePoint('away')">-</button></td>
                 <td ng-repeat="n in pointsAwayTeam track by $index"><input type="text" class="score-board-input"  ng-model="pointsAwayTeam[$index]" ng-change="updateScoreboard()"></td>
                 <td><button class="mini-button" ng-click="addPoint('away')">+</button></td>
             </tr>

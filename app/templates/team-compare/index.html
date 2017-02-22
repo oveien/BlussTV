@@ -1,0 +1,127 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/screen.css">
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/templates/utils.js"></script>
+</head>
+<body>
+
+
+<div class="screen">
+    <div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+        <div class="dialog-heading">
+            <div class="teams-container">
+                <div id='homeTeam' class="team">
+                    <!--<div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>-->
+                    <div class="team-name">NTNUI</div>
+                </div>
+
+                <div id='awayTeam' class="team away-team">
+                    <!--<div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>-->
+                    <div class="team-name">Viking</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="dialog-body">
+
+            <table id="stats-table" class="stats-table">
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+
+        var data = JSON.parse(str);
+
+        var data = data.data;
+
+        console.log(data.stats)
+        var ht = $('#homeTeam');
+        ht.find('.team-name').html(data.homeTeam.name);
+        ht.find('.team-logo img').attr('src', data.homeTeam.logo);
+
+        var at = $('#awayTeam');
+        at.find('.team-name').html(data.awayTeam.name);
+        at.find('.team-logo img').attr('src', data.awayTeam.logo);
+
+        $('#stats-table').html('');
+
+        console.log(data);
+        var html = '<tr>';
+        html += '<td>' + data.homeTeam.blocks + "</td>";
+        html += '<td>Blokk</td>';
+        html += '<td>' + data.awayTeam.blocks + "</td>";
+        html += '</tr>';
+        console.log(html);
+
+        html += '<tr>';
+        html += '<td>' + data.homeTeam.attack + "</td>";
+        html += '<td>Angrep</td>';
+        html += '<td>' + data.awayTeam.attack + "</td>";
+        html += '</tr>';
+
+        html += '<tr>';
+        html += '<td>' + data.homeTeam.ace + "</td>";
+        html += '<td>Serve-ess</td>';
+        html += '<td>' + data.awayTeam.ace + "</td>";
+        html += '</tr>';
+
+        html += '<tr>';
+        html += '<td>' + data.homeTeam.total + "</td>";
+        html += '<td>Totalt</td>';
+        html += '<td>' + data.awayTeam.total + "</td>";
+        html += '</tr>';
+        console.log(html);
+        $('#stats-table').append(html);
+
+
+        $('#dialog').removeClass('hidden-bottom');
+    }
+
+    function remove(str) {
+        $('#dialog').addClass('hidden-bottom');
+    }
+
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            play(JSON.stringify({
+                data: {
+                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
+                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
+                    'stats': [
+                        {
+                            homeTeam: 1,
+                            awayTeam: 3,
+                            what: 'Blocks'
+                        },
+                        {
+                            homeTeam: 3,
+                            awayTeam: 3,
+                            what: 'Ace'
+                        },
+                        {
+                            homeTeam: 3,
+                            awayTeam: 3,
+                            what: 'Attack'
+                        },
+                        {
+                            homeTeam: 3,
+                            awayTeam: 3,
+                            what: 'Total'
+                        },
+
+                    ]
+                }
+            }));
+        }, 10);
+    }
+
+</script>
+</html>

@@ -29,7 +29,7 @@
         <input type="checkbox" ng-model="manualTeamPoints" id="manualTeamPoints"> <label for="manualTeamPoints">Manual team compare</label>
 
         <div class="button-container">
-            <button ng-click="toggleCompareTeams('compare-teams')" ng-class='showing == "compare-teams" ? "showing" : ""' class="toggle-button">Show compare teams</button>
+            <button ng-click="toggleCompareTeams('team-compare')" ng-class='showing == "team-compare" ? "showing" : ""' class="toggle-button">Show compare teams</button>
         </div>
 
 
@@ -70,7 +70,7 @@
 
         </table>
 
-        <button ng-click="toggleComparePlayers('compare-players')" ng-class='showing == "compare-players" ? "showing" : ""'  class="toggle-button">Show compare players</button>
+        <button ng-click="toggleComparePlayers('player-compare')" ng-class='showing == "player-compare" ? "showing" : ""'  class="toggle-button">Show compare players</button>
 
 
     </fieldset>
