@@ -40,6 +40,12 @@
         }
     }});
 
+    function play(str) {
+
+        update(str);
+
+    }
+
     function update(str) {
 
         var obj = JSON.parse(str);
@@ -49,9 +55,6 @@
         if (!data) {
             return;
         }
-
-
-
 
         $('#homeTeamName').html(data.homeTeam.name);
         $('#awayTeamName').html(data.awayTeam.name);

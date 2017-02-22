@@ -196,23 +196,15 @@ angular.module('services', [])
                 {
                     tvWindow = window.open(url,'TV','height=720,width=1280');
                 }
+            else {
+                    console.log('No reload needed');
+                }
                 return tvWindow;
         }
 
-        var updateWindow = function (win, data) {
-            if (win && win.closed) {
-                return false;
-            }
-
-            if (typeof win.update === 'function') {
-                win.update(JSON.stringify({data: data}));
-                return;
-            }
-
-            setTimeout(function () {
-                updateWindow(win, data);
-            }, 200);
-
+        var updateWindow = function (template, action, data) {
+            // Send as a websocket message:
+            socket.send(JSON.stringify({template: template, action: action, data: {data: data}}));
         }
 
         var observerCallbacks = [];
@@ -252,8 +244,9 @@ angular.module('services', [])
                     });
                 }
                 else {
-                    var w = window.open('/templates/' + template + '/', 'TV', 'height=720,width=1280');
-                    updateWindow(w, data);
+                    getPreviewWindow('/obs/');
+                    updateWindow(template, 'remove', data);
+                    updateWindow(template, 'play', data);
                 }
             }
             else {
@@ -267,8 +260,8 @@ angular.module('services', [])
                 }
                 else {
                     console.log(data);
-                    var w = getPreviewWindow('/templates/' + template + '/');
-                    updateWindow(w, data);
+                    var w = getPreviewWindow('/obs/');
+                    updateWindow(template, 'play', data);
                 }
             }
 
@@ -278,8 +271,15 @@ angular.module('services', [])
 
         f.removeOverlay = function (template, data) {
             currentOverlay = "";
-            $.post('/caspar/templates/' + template + '/remove', {data: data}, function () {
-            });
+            if (hasCaspar) {
+                $.post('/caspar/templates/' + template + '/remove', {data: data}, function () {
+                });
+            }
+            else {
+                console.log(data);
+                var w = getPreviewWindow('/obs/');
+                updateWindow(template, 'remove', data);
+            }
         }
 
         f.updateOverlay = function (template, data) {
@@ -292,8 +292,8 @@ angular.module('services', [])
                 });
             }
             else {
-                var w = getPreviewWindow('/templates/' + template + '/');
-                updateWindow(w, data);
+                var w = getPreviewWindow('/obs/');
+                updateWindow(template, 'update', data);
             }
         }
 
@@ -303,3 +303,8 @@ angular.module('services', [])
 
         return f;
     }]);
+
+
+// Setup a socket to send if no caspar:
+var socket = io.connect("/");
+

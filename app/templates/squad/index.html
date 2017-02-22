@@ -71,11 +71,6 @@
 
 </body>
 <script>
-    function play(str) {
-        console.log('Running update');
-        $('#halla').html('play');
-        $('#dialog').animate({'top': 200});
-    }
 
     var data = JSON.stringify({
         "data": {
@@ -148,10 +143,13 @@
             ]
         }});
 
-    function update(str) {
+    function play(str) {
 
+        console.log(str);
         var obj = JSON.parse(str);
         var players = obj.data.players;
+
+
 
         $('.dialog-heading').html(obj.data.name);
 
@@ -205,9 +203,12 @@
         setTimeout(viewPlayerInfo, 1000);
     }
 
-    function remove() {
+    function remove(callback) {
         // Animate away to the bottom:
         $('#dialog').addClass('hidden-bottom');
+        if (callback) {
+            callback();
+        }
     }
 
 

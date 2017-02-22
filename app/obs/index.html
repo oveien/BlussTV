@@ -1,0 +1,55 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <script src="/lib/jquery.js"></script>
+    <script type="text/javascript" src="/lib/socket.io.js"></script>
+</head>
+
+<body>
+    <iframe id='iframe' src="about:blank" style="width: 1280px; height: 720px;" frameborder="0"></iframe>
+</body>
+
+<script type="text/javascript">
+    var socket = io.connect("/");
+    /*Initializing the connection with the server via websockets */
+    socket.on("message",function(message){
+        /*
+         When server sends data to the client it will trigger "message" event on the client side , by
+         using socket.on("message") , one cna listen for the ,message event and associate a callback to
+         be executed . The Callback function gets the dat sent from the server
+         */
+
+        message = JSON.parse(message);
+        console.log(message); /*converting the data into JS object */
+        $('#content').append('<div >'+message.data+'</div>'); /*appending the data on the page using Jquery */
+
+        if (message.action) {
+            var frame = $('#iframe');
+            var elm = frame.get(0);
+            console.log(message.data);
+            if (message.action == 'play') {
+                frame.attr('src', '/templates/' + message.template);
+                frame.on('load', function () {
+                    if (elm.contentWindow.play) {
+                        elm.contentWindow.play(JSON.stringify(message.data));
+                    }
+                });
+            }
+            else if (message.action == 'update') {
+                if (elm.contentWindow.update) {
+                    elm.contentWindow.update(JSON.stringify(message.data));
+                }
+            }
+
+            else if (message.action == 'remove') {
+                if (elm.contentWindow.remove) {
+                    elm.contentWindow.remove(function () {
+
+                    });
+                }
+            }
+
+        }
+
+    });
+</script>

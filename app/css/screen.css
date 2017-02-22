@@ -2,6 +2,8 @@ body {
     width: 1280px;
     height: 720px;
     overflow: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 th, td {
@@ -12,9 +14,12 @@ th, td {
     width: 1280px;
     height: 720px;
     overflow: hidden;
-    background-image: url(/graphics/testbg.jpg);
+/*    background-image: url(/graphics/testbg.jpg);
+    background-color: red;
+    */
     background-repeat: no-repeat;
     background-size: cover;
+
 }
 .dialog {
     background-color: rgba(0, 0, 0, 0.7);

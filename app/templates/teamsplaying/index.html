@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/css/screen.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/screen.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
 </head>
@@ -31,12 +31,6 @@
 </body>
 <script>
     function play(str) {
-        console.log('Running update');
-        $('#halla').html('play');
-        $('#dialog').animate({'top': 200});
-    }
-
-    function update(str) {
         var data = JSON.parse(str);
 
         var data = data.data;
@@ -50,6 +44,10 @@
         at.find('.team-logo img').attr('src', data.awayTeam.logo);
 
         $('#dialog').removeClass('hidden-bottom');
+    }
+
+    function remove(str) {
+        $('#dialog').addClass('hidden-bottom');
     }
 
     if (getUrlParameter('debug')) {
