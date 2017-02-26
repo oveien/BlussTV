@@ -4,6 +4,7 @@ body {
     overflow: hidden;
     padding: 0;
     margin: 0;
+    font-family: Calibri,Arial;
 }
 
 th, td {
@@ -25,7 +26,6 @@ th, td {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     color: white;
-    font-family: Calibri,Arial;
     top: 50px;
     border-radius: 5px;
 }

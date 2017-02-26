@@ -520,10 +520,15 @@ router.get("/graphics/:club/logo.jpg",function(req,res) { //
     var safeClubName = sanitize(req.params.club);
 
     var clubDir = __dirname + '/data/' + safeClubName;
-    var logoDir = clubDir + '/logo.jpg';
+    var filename = clubDir + '/logo.jpg';
 
-
-    res.sendFile(logoDir);
+    var svgFilename = __dirname + "/app/graphics/logo/" + safeClubName.toLowerCase() + ".svg";
+    console.log(svgFilename);
+    if (fs.existsSync(svgFilename)) {
+        filename = svgFilename;
+    }
+    console.log(filename);
+    res.sendFile(filename);
 });
 
 

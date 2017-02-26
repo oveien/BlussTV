@@ -1,38 +1,120 @@
-.teams-container {
-    overflow: auto;
+.tp-centre-box {
+    background-color: #333;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    left: 565px;
+    top: 1280px;
+    border-radius: 10px;
 }
 
-.team {
-    width: 200px;
-    float: left;
+.tp-team-container {
+    height: 130px;
+    width: 0;
+    top: 10px;
+    left: 0;
+    position: absolute;
+    overflow: hidden;
 
 }
+.tp-center-box-animation {
+    animation: centerelement 1s forwards;
+    animation-delay: 0s;
+}
+
+.tp-hometeam-container-expanded {
+    animation: teamexpandhome 1s forwards;
+    animation-delay: 1s;
+}
+
+@keyframes centerelement {
+    100% {
+        top: 285px;
+    }
+}
+
+@keyframes teamexpandhome {
+    100% {
+        left: -430px;
+        width: 430px;
+    }
+}
+
+.tp-awayteam-container.tp-team-container-expanded {
+    animation: teamexpandaway 1s forwards;
+    animation-delay: 1s;
+}
+
+
+@keyframes teamexpandaway {
+    100% {
+        left: 150px;
+        width: 430px;
+    }
+}
+
+.tp-awayteam-container {
+    left: 150px;
+}
+
 .team-logo {
-    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 130px;
+    width: 130px;
+    background-color: #333;
+    border-radius: 5px;
+    perspective: 1000px;
 
-    width: 200px;
-    height: 168px;
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center
+}
+
+.nvbf-logo {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 25px;
+    top: 25px;
+}
+
+.nvbf-logo img {
+    width: 100px;
+    height: 100px;
+}
+
+.tp-awayteam-container .team-logo {
+    left: auto;
+    right: 0px;
 }
 
 .team-logo img {
-   max-width: 200px;
-   max-height: 168px;
+    height: 120px;
+    padding: 5px;
+
+    /*
+    transform: rotateY(40deg);
+    transform: scale(1.1);
+    transform-style: preserve-3d;
+*/
 }
 
 .team-name {
-    font-size: 36px;
-    text-align: center;
-    margin-top: 20px;
+    top: 5px;
+    color: white;
+    font-size: 48px;
+    height: 120px;
+    line-height: 120px;
+    text-indent: 20px;
+    background-color: #666;
+    position: absolute;
+    left: 130px;
+    width: 300px;
 }
 
-.team-separator {
-    font-size: 48px;
-    line-height: 100px;
-    width: 200px;
-    line-height: 200px;
-    float: left;
-    text-align: center;
+.tp-awayteam-container .team-name {
+    text-align: right;
+    width: 280px;
+    padding-right: 20px;
+    left: 0;
 }
+

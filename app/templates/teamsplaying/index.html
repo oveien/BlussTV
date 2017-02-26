@@ -9,7 +9,19 @@
 
 
 <div class="screen">
-    <div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+    <div class="tp-centre-box">
+        <div id='homeTeam' class="tp-team-container tp-hometeam-container">
+            <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
+            <div class="team-name">NTNUI</div>
+        </div>
+        <div id='awayTeam' class="tp-team-container tp-awayteam-container">
+            <div class="team-name">Viking</div>
+            <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
+        </div>
+        <div class="nvbf-logo"><img src="/graphics/logo/nvbf.png"></div>
+    </div>
+    <!--
+    <div id='dialog' class="dialog slide" style="left: 350px;">
         <div class="dialog-heading">Dragvoll idrettssenter</div>
         <div class="dialog-body">
             <div class="teams-container">
@@ -25,6 +37,7 @@
             </div>
         </div>
     </div>
+    -->
 </div>
 
 
@@ -43,7 +56,11 @@
         at.find('.team-name').html(data.awayTeam.name);
         at.find('.team-logo img').attr('src', data.awayTeam.logo);
 
+        $('.tp-hometeam-container').addClass('tp-hometeam-container-expanded');
+        $('.tp-awayteam-container').addClass('tp-team-container-expanded');
+        $('.tp-centre-box').addClass('tp-center-box-animation');
         $('#dialog').removeClass('hidden-bottom');
+
     }
 
     function remove(str) {
@@ -52,7 +69,7 @@
 
     if (getUrlParameter('debug')) {
         setTimeout(function () {
-            update(JSON.stringify({
+            play(JSON.stringify({
                 data: {
                     "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
                     "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"}
