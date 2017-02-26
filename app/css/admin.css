@@ -55,3 +55,7 @@ button.showing {
     background-color: red;
     color: white;
 }
+
+.team-logo {
+    width: 100px;
+}
