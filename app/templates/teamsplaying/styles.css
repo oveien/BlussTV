@@ -4,8 +4,10 @@
     height: 150px;
     position: absolute;
     left: 565px;
-    top: 1280px;
+    top: 720px;
     border-radius: 10px;
+    animation: bottomelement 1s forwards;
+    animation-delay: 1s;
 }
 
 .tp-team-container {
@@ -15,6 +17,8 @@
     left: 0;
     position: absolute;
     overflow: hidden;
+    animation: teamcollapsehome 1s forwards;
+    animation-delay: 0s;
 
 }
 .tp-center-box-animation {
@@ -22,14 +26,41 @@
     animation-delay: 0s;
 }
 
+
+.tp-center-box-animation-collapse {
+    animation: bottomelement 1s forwards;
+    animation-delay: 1s;
+    top: 285px;
+}
+
 .tp-hometeam-container-expanded {
     animation: teamexpandhome 1s forwards;
     animation-delay: 1s;
 }
 
+.tp-hometeam-container-collapse {
+    animation: teamcollapsehome 1s forwards;
+    animation-delay: 0s;
+    width: 430px;
+    left: -430px;
+}
+
 @keyframes centerelement {
-    100% {
+    from {
+        top: 720px;
+    }
+    to {
         top: 285px;
+
+    }
+}
+
+@keyframes bottomelement {
+    from {
+        top: 285px;
+    }
+    to {
+        top: 720px;
     }
 }
 
@@ -40,9 +71,30 @@
     }
 }
 
+@keyframes teamcollapsehome {
+    100% {
+        left: 0px;
+        width: 0px;
+    }
+}
+
+@keyframes teamcollapsehome {
+    100% {
+        left: 0px;
+        width: 0px;
+    }
+}
+
 .tp-awayteam-container.tp-team-container-expanded {
     animation: teamexpandaway 1s forwards;
     animation-delay: 1s;
+}
+
+.tp-awayteam-container.tp-awayteam-container-collapse {
+    animation: teamcollapseaway 1s forwards;
+    animation-delay: 0s;
+    width: 430px;
+    left: 150px;
 }
 
 
@@ -50,6 +102,14 @@
     100% {
         left: 150px;
         width: 430px;
+    }
+}
+
+
+@keyframes teamcollapseaway {
+    100% {
+        left: 150px;
+        width: 0px;
     }
 }
 
@@ -70,16 +130,16 @@
 }
 
 .nvbf-logo {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     position: absolute;
-    left: 25px;
-    top: 25px;
+    left: 10px;
+    top: 10px;
 }
 
 .nvbf-logo img {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
 }
 
 .tp-awayteam-container .team-logo {
