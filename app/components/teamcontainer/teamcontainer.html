@@ -1,4 +1,4 @@
-<div class="col-xs-6">
+<div class="col-xs-12 col-md-6">
     <h1>{{getTeamName('home')}} <img class="team-logo" ng-src="{{getTeamLogo('home')}}"></h1>
 
     <table>
@@ -27,12 +27,14 @@
     <p>
         <a ng-click="addPlayer('Away')">Add player</a>
     </p>
+    <!--
     <p>
         <button class="toggle-button" ng-click="toggleTeamShowing('home')" ng-class="homeShowing ? 'showing' : ''">Show {{getTeamName('home')}} squad</button>
     </p>
+    -->
 </div>
 
-<div class="col-xs-6">
+<div class="col-xs-12 col-md-6">
     <h1>{{getTeamName('away')}} <img class="team-logo" ng-src="{{getTeamLogo('away')}}"></h1>
 
     <table>
@@ -60,7 +62,9 @@
     <p>
         <a ng-click="addPlayer('Away')">Add player</a>
     </p>
+    <!--
     <p>
         <button class="toggle-button" ng-click="toggleTeamShowing('away')" ng-class="awayShowing ? 'showing' : ''">Show {{getTeamName('away')}} squad</button>
     </p>
+    -->
 </div>

@@ -32,8 +32,8 @@
         <tr>
             <th>#</th>
             <th>Navn</th>
-            <th>Høyde</th>
             <th>Posisjon</th>
+            <th>Høyde</th>
             <th>Rekkevidde</th>
         </tr>
         </thead>
@@ -156,6 +156,7 @@
         // Clear the table:
         var tbl = $('.player-table tbody');
 
+        tbl.html('');
 
         var elm = '';
         for (var i in players) {
@@ -164,10 +165,9 @@
             elm = '<tr>';
             elm += '<td>' + player.number + '</td>';
             elm += '<td>' + player.name + '</td>';
-            elm += '<td>' + player.height + '</td>';
             elm += '<td>' + player.position + '</td>';
-            elm += '<td>' + player.height + '</td>';
-            elm += '<td>' + player.reach + '</td>';
+            elm += '<td align="center">' + player.height + '</td>';
+            elm += '<td align="center">' + player.reach + '</td>';
             elm += '</tr>';
 
             console.log(elm);

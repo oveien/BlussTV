@@ -15,9 +15,13 @@ th, td {
     width: 1280px;
     height: 720px;
     overflow: hidden;
-/*    background-image: url(/graphics/testbg.jpg);
+    position: absolute;
+    left: 0;
+    top: 0;
+/*
+    background-image: url(/graphics/testbg.jpg);
     background-color: red;
-    */
+*/
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -65,6 +69,10 @@ th, td {
 
 .hidden-bottom {
     top: 720px;
+}
+
+.hidden-left {
+    left: -1280px;;
 }
 
 .slide {

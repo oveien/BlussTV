@@ -571,6 +571,7 @@ io.sockets.on("connection",function(socket){
      websocket connection is made */
 
     var message_to_client = {
+        status: 'connected',
         data:"Connection with the server established"
     }
 

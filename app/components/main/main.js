@@ -73,6 +73,11 @@
         controller: "teamsPlayingController"
     });
 
+    app.component('teamSquads', {
+        templateUrl: 'components/teamsquads/teamsquads.html',
+        controller: "teamSquadsController"
+    });
+
     app.component('preGameContainer', {
         templateUrl: 'components/pregamecontainer/pregamecontainer.html',
         controller: 'preGameContainerController'
@@ -81,6 +86,11 @@
     app.component('statistics', {
         templateUrl: 'components/statistics/statistics.html',
         controller: 'statisticsController'
+    });
+
+    app.component('miscContainer', {
+        templateUrl: 'components/misccontainer/misccontainer.html',
+        controller: 'miscController'
     });
 
 })(window.angular);

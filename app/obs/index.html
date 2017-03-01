@@ -23,6 +23,12 @@
         console.log(message); /*converting the data into JS object */
         $('#content').append('<div >'+message.data+'</div>'); /*appending the data on the page using Jquery */
 
+        if (message.status == 'connected') {
+            if (onConnect) {
+                onConnect();
+            }
+        }
+
         if (message.action) {
             var frame = $('#iframe');
             var elm = frame.get(0);
@@ -52,4 +58,9 @@
         }
 
     });
+
+    var onConnect = false;
+    function getOnWebSocketConnect(callback) {
+        onConnect = callback;
+    }
 </script>

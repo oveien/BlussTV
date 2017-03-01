@@ -1,0 +1,52 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/css/screen.css">
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/templates/utils.js"></script>
+</head>
+<body>
+
+
+<div class="screen">
+    <div class="interviewee-container hidden-left slide">
+        <div class="interviewee-name"></div>
+        <div class="interviewee-role"></div>
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+        var data = JSON.parse(str);
+
+        var data = data.data;
+
+        $('.interviewee-name').text(data.name);
+        $('.interviewee-role').text(data.role);
+
+
+
+        $('.interviewee-container').removeClass('hidden-left');
+
+    }
+
+    function remove(str) {
+        $('.interviewee-container').addClass('hidden-left');
+    }
+
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            play(JSON.stringify({
+                data: {
+                    "name": 'Øyste Veien',
+                    "role": 'Trener Blussuvoll'
+                }
+            }));
+        }, 50);
+    }
+
+</script>
+</html>

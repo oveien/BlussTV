@@ -1,0 +1,16 @@
+<fieldset>
+    <legend>Interviewee text</legend>
+
+    <table>
+        <tr>
+            <td>Person name</td>
+            <td><input type="text" ng-model="intervieweeName"></td>
+        </tr>
+        <tr>
+            <td>Person role</td>
+            <td><input type="text" ng-model="intervieweeRole"></td>
+        </tr>
+    </table>
+
+    <button class="toggle-button" ng-click="toggleShowing('interviewee')" ng-class="showing == 'interviewee' ? 'showing' : ''">Show interviewee info</button>
+</fieldset>

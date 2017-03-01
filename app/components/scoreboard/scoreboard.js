@@ -134,10 +134,21 @@
 
             console.log(data);
             CasparCGService.updateOverlay('scoreboard', data);
-
-
-
         };
+
+        CasparCGService.registerObserverCallback(['overlay-play', 'overlay-remove'], function (type, data) {
+
+            if (type == 'overlay-remove') {
+                $scope.showing = false;
+                return;
+            }
+
+            // New overlay:
+            if (data.template != 'scoreboard') {
+                $scope.showing = false;
+            }
+
+        });
 
     }]);
 })(window.angular);

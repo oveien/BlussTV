@@ -103,5 +103,26 @@
             updateShowing();
         };
 
+        CasparCGService.registerObserverCallback(['overlay-play', 'overlay-remove'], function (type, data) {
+            $scope.awayShowing = false;
+            $scope.homeShowing = false;
+            if (type == 'overlay-remove') {
+
+                return;
+            }
+
+
+            // New overlay:
+            if (data.template == 'lineup') {
+                if (currentTeamShowing == "home") {
+                    $scope.homeShowing = true;
+                }
+                if (currentTeamShowing == "away") {
+                    $scope.awayShowing = true;
+                }
+            }
+
+        });
+
     }]);
 })(window.angular);

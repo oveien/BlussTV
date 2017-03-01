@@ -1,0 +1,6 @@
+<fieldset>
+    <legend>Show all players</legend>
+
+    <button ng-click='toggleTeamsSquad("home")' class="toggle-button" ng-class="showing == 'home' ? 'showing' : ''" >Show {{homeTeam.name}} squad</button>
+    <button ng-click='toggleTeamsSquad("away")' class="toggle-button" ng-class="showing == 'away' ? 'showing' : ''" >Show {{awayTeam.name}} squad</button>
+</fieldset>

@@ -29,5 +29,19 @@
             }
         }
 
+        CasparCGService.registerObserverCallback(['overlay-play', 'overlay-remove'], function (type, data) {
+
+            if (type == 'overlay-remove') {
+                $scope.showing = false;
+                return;
+            }
+
+            // New overlay:
+            if (data.template != 'teamsplaying') {
+                $scope.showing = false;
+            }
+
+        });
+
     }]);
 })(window.angular);

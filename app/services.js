@@ -46,14 +46,19 @@ angular.module('services', [])
         var f = {};
         //register an observer
         f.registerObserverCallback = function(type, callback){
-            observerCallbacks.push({type: type, callback: callback});
+            if (typeof type === 'string') {
+                type = [type];
+            }
+            for (var i in type) {
+                observerCallbacks.push({type: type[i], callback: callback});
+            }
         };
 
         //call this when you know 'foo' has been changed
-        var notifyObservers = function(type) {
+        var notifyObservers = function(type, data) {
             angular.forEach(observerCallbacks, function(observer) {
                 if (observer.type == type) {
-                    observer.callback();
+                    observer.callback(type, data);
                 }
             });
         };
@@ -191,15 +196,25 @@ angular.module('services', [])
 
 
         var getPreviewWindow = function (url) {
-
+            var deferred = $q.defer();
                 if ((tvWindow == null) || (tvWindow.closed)  )
                 {
                     tvWindow = window.open(url,'TV','height=720,width=1280');
+                    tvWindow.addEventListener('load', function () {
+
+                        tvWindow.getOnWebSocketConnect( function () {
+                            deferred.resolve(tvWindow);
+                        });
+                    }, true);
+
                 }
             else {
                     console.log('No reload needed');
+                    deferred.resolve(tvWindow);
                 }
-                return tvWindow;
+
+            return deferred.promise;
+
         }
 
         var updateWindow = function (template, action, data) {
@@ -211,14 +226,22 @@ angular.module('services', [])
         var f = {};
         //register an observer
         f.registerObserverCallback = function(type, callback){
-            observerCallbacks.push({type: type, callback: callback});
+            if (typeof type === 'string') {
+                type = [type];
+            }
+            for (var i in type) {
+                console.log(type[i]);
+                observerCallbacks.push({type: type[i], callback: callback});
+            }
         };
 
         //call this when you know 'foo' has been changed
-        var notifyObservers = function(type) {
+        var notifyObservers = function(type, data) {
+            console.log('Letting you know of ' + type);
             angular.forEach(observerCallbacks, function(observer) {
                 if (observer.type == type) {
-                    observer.callback();
+                    console.log('Letting people know of ' + type);
+                    observer.callback(type, data);
                 }
             });
         };
@@ -244,9 +267,10 @@ angular.module('services', [])
                     });
                 }
                 else {
-                    getPreviewWindow('/obs/');
-                    updateWindow(template, 'remove', data);
-                    updateWindow(template, 'play', data);
+                    getPreviewWindow('/obs/').then ( function () {
+                        updateWindow(template, 'remove', data);
+                        updateWindow(template, 'play', data);
+                    });
                 }
             }
             else {
@@ -260,12 +284,13 @@ angular.module('services', [])
                 }
                 else {
                     console.log(data);
-                    var w = getPreviewWindow('/obs/');
-                    updateWindow(template, 'play', data);
+                     getPreviewWindow('/obs/').then ( function (w) {
+                        updateWindow(template, 'play', data);
+                    });
                 }
             }
 
-
+            notifyObservers('overlay-play', {template: template});
 
         }
 
@@ -277,9 +302,12 @@ angular.module('services', [])
             }
             else {
                 console.log(data);
-                var w = getPreviewWindow('/obs/');
-                updateWindow(template, 'remove', data);
+                getPreviewWindow('/obs/').then ( function (w) {
+                    updateWindow(template, 'remove', data);
+                });
             }
+
+            notifyObservers('overlay-remove');
         }
 
         f.updateOverlay = function (template, data) {
@@ -292,8 +320,9 @@ angular.module('services', [])
                 });
             }
             else {
-                var w = getPreviewWindow('/obs/');
-                updateWindow(template, 'update', data);
+                getPreviewWindow('/obs/').then ( function (w) {
+                    updateWindow(template, 'update', data);
+                });
             }
         }
 

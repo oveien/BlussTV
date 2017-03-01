@@ -1,12 +1,14 @@
 <div class="pull-right">
     <a ng-click="onNewGame()">Start a new game</a>
 </div>
+<!--
 <div>
     <ul class="input-overview">
         <li ng-repeat="input in inputs" ng-click="playSource(input)">{{input.name}}</li>
     </ul>
     <a ng-click="reloadDevicelist()">Reload device list</a>
 </div>
+-->
 
 <uib-tabset active="active">
     <uib-tab index="0" heading="Lag og spillere">
@@ -17,6 +19,9 @@
     </uib-tab>
     <uib-tab index="2" heading="Under kampen">
         <game-container></game-container>
+    </uib-tab>
+    <uib-tab index="3" heading="Diverse">
+        <misc-container></misc-container>
     </uib-tab>
 
 </uib-tabset>

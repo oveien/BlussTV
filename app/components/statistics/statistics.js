@@ -181,6 +181,22 @@
         };
 
 
+        CasparCGService.registerObserverCallback(['overlay-play', 'overlay-remove'], function (type, data) {
+
+            if (type == 'overlay-remove') {
+                $scope.showing = false;
+                return;
+            }
+
+            // New overlay:
+            if (data.template != 'team-compare' && data.template != 'player-compare') {
+                $scope.showing = false;
+            }
+            else {
+                $scope.showing = data.template;
+            }
+
+        });
 
     }]);
 })(window.angular);
