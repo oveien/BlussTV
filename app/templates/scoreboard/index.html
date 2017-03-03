@@ -41,9 +41,8 @@
     }});
 
     function play(str) {
-
         update(str);
-
+        $('.dialog').fadeIn();
     }
 
     function update(str) {
@@ -68,7 +67,7 @@
 
     function remove() {
         // Animate away to the bottom:
-        $('#dialog').addClass('hidden-bottom');
+        $('.dialog').fadeOut();
     }
 
 /*

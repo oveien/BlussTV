@@ -6,8 +6,8 @@
     left: 565px;
     top: 720px;
     border-radius: 10px;
-    animation: bottomelement 1s forwards;
-    animation-delay: 1s;
+    animation: bottomelement 0.7s forwards;
+    animation-delay: 0.7s;
 }
 
 .tp-team-container {
@@ -17,29 +17,29 @@
     left: 0;
     position: absolute;
     overflow: hidden;
-    animation: teamcollapsehome 1s forwards;
+    animation: teamcollapsehome 0.7s forwards;
     animation-delay: 0s;
 
 }
 .tp-center-box-animation {
-    animation: centerelement 1s forwards;
+    animation: centerelement 0.7s forwards;
     animation-delay: 0s;
 }
 
 
 .tp-center-box-animation-collapse {
-    animation: bottomelement 1s forwards;
-    animation-delay: 1s;
+    animation: bottomelement 0.7s forwards;
+    animation-delay: 0.7s;
     top: 285px;
 }
 
 .tp-hometeam-container-expanded {
-    animation: teamexpandhome 1s forwards;
-    animation-delay: 1s;
+    animation: teamexpandhome 0.7s forwards;
+    animation-delay: 0.7s;
 }
 
 .tp-hometeam-container-collapse {
-    animation: teamcollapsehome 1s forwards;
+    animation: teamcollapsehome 0.7s forwards;
     animation-delay: 0s;
     width: 430px;
     left: -430px;
@@ -86,12 +86,12 @@
 }
 
 .tp-awayteam-container.tp-team-container-expanded {
-    animation: teamexpandaway 1s forwards;
-    animation-delay: 1s;
+    animation: teamexpandaway 0.7s forwards;
+    animation-delay: 0.7s;
 }
 
 .tp-awayteam-container.tp-awayteam-container-collapse {
-    animation: teamcollapseaway 1s forwards;
+    animation: teamcollapseaway 0.7s forwards;
     animation-delay: 0s;
     width: 430px;
     left: 150px;
