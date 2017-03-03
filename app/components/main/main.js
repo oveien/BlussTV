@@ -93,4 +93,9 @@
         controller: 'miscController'
     });
 
+    app.component('playerInfo', {
+        templateUrl: 'components/playerinfo/playerinfo.html',
+        controller: 'playerInfoController'
+    });
+
 })(window.angular);

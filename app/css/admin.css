@@ -51,6 +51,11 @@ button.toggle-button {
     color: white;
 }
 
+button.toggle-button:disabled {
+    background-color: green;
+    color: #c4c4c4;
+}
+
 button.showing {
     background-color: red;
     color: white;
@@ -58,4 +63,15 @@ button.showing {
 
 .team-logo {
     width: 100px;
+}
+
+.player-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.player-info-list li a {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
 }

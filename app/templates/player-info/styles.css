@@ -1,0 +1,87 @@
+.interviewee-container {
+    width: 1280px;
+    bottom: 20px;
+    left: 0;
+    position: absolute;
+}
+
+.interviewee-info {
+    background-color: rgba(153, 153, 153, 0.7);
+    color: white;
+    height: 80px;
+    position: relative;
+    line-height: 80px;
+}
+
+
+
+.interviewee-info div.interviewee-name {
+    margin-right: 50px;
+    text-indent: 200px;
+    font-size: 48px;
+}
+
+
+.player-info-container {
+    float: right;
+    padding-right: 50px;
+}
+
+.player-info-container div {
+    float: left;
+    font-size: 32px;
+    margin-left: 50px;
+}
+
+.interviewee-age-container {
+    float: left;
+    font-size: 32px;
+}
+
+.interviewee-image-container {
+    background-color: #999;
+    width: 150px;
+    height: 200px;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    border-radius: 5px;
+}
+
+.interviewee-image {
+    background-position: center center;
+    background-size: cover;
+    width: 140px;
+    height: 190px;
+    top: 5px;
+    left: 5px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.interviewee-role-container {
+    background-color: rgba(170, 170, 170, 0.7);
+    color: white;
+    height: 40px;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.interviewee-role {
+    text-indent: 200px;
+}
+
+.interviewee-stats-container {
+    float: right;
+    padding-right: 50px;
+    font-size: 24px;
+}
+
+.interviewee-stats-container div {
+    float: left;
+    margin-left: 20px;
+}
+
+#interviewee-stats-total {
+    font-weight: bold;
+}

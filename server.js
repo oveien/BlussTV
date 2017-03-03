@@ -135,7 +135,7 @@ function getPlayersInfo (sex, club, players, callback) {
                 name: tds.eq(1).text(),
                 height: tds.eq(2).text(),
                 position: tds.eq(3).text(),
-                birthdate: tds.eq(4).text(),
+                birthyear: tds.eq(4).text(),
                 reach: tds.eq(5).text(),
                 blockReach: tds.eq(6).text(),
                 id: tds.eq(7).text()
@@ -185,7 +185,7 @@ function getPlayersInfo (sex, club, players, callback) {
                             console.log('Downloaded image')
                         });
                     }
-                    infoPlayer.image = '/graphics/'+safeClubName+'/players/'+infoPlayer.id + '_' + sex +'/image';
+                    infoPlayer.image = '/graphics/'+encodeURIComponent(safeClubName)+'/players/'+infoPlayer.id + '_' + sex +'/image';
                     f = true;
                     break;
                 }
@@ -390,7 +390,6 @@ router.get("/update-score",function(req,res) {
                 player.attack = parseInt(cols.eq(1).text());
                 player.blocks = parseInt(cols.eq(2).text());
 
-
                 if (player.name && player.number != '-' && !player.name.match(/^\d+$/)) {
                     nameParts = player.name.split(/[,\s]+/);
                     player.name = nameParts[1] + ' ' + nameParts[0];
@@ -408,8 +407,6 @@ router.get("/update-score",function(req,res) {
                 player.ace = parseInt(cols.eq(7).text());
                 player.attack = parseInt(cols.eq(8).text());
                 player.blocks = parseInt(cols.eq(9).text());
-
-
 
                 if (player.name && player.number != '-' && !player.name.match(/^\d+$/)) {
                     nameParts = player.name.split(/[,\s]+/);
