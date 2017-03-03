@@ -30,16 +30,21 @@
         }
 
         if (message.action) {
+
             var frame = $('#iframe');
             var elm = frame.get(0);
             console.log(message.data);
             if (message.action == 'play') {
                 frame.attr('src', '/templates/' + message.template);
-                frame.on('load', function () {
+
+                var onLoad = function () {
                     if (elm.contentWindow.play) {
                         elm.contentWindow.play(JSON.stringify(message.data));
                     }
-                });
+                    frame.unbind('load', onLoad)
+                }
+
+                frame.on('load', onLoad);
             }
             else if (message.action == 'update') {
                 if (elm.contentWindow.update) {

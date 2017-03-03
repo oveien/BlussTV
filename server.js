@@ -29,6 +29,9 @@ console.log(__dirname);
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         if (err) callback(err, filename);
+        else if (res.statusCode == 404) {
+            callback({status: res.statusCode}, filename);
+        }
         else {
             var stream = request(uri);
             stream.pipe(
@@ -167,13 +170,22 @@ function getPlayersInfo (sex, club, players, callback) {
                     nameParts = player.name.split(/[,\s]+/);
                     infoPlayer.name = nameParts[1] + ' ' + nameParts[0];
 
-                    var filename = playersDir + '/' +  infoPlayer.id + '.jpg';
+                    var filename = playersDir + '/' +  infoPlayer.id + '_' + sex + '.jpg';
 
                     if (!fs.existsSync(filename)) {
-                        download('http://poengliga.no/img_players/' + player.id + '.jpg', filename, function (err) {
+                        var baseUrl = 'http://poengliga.no/img_players/';
+                        console.log('Downloading image...');
+                        console.log(sex);
+                        if (sex == 'f') {
+                            baseUrl = 'http://poengliga.no/img_players_w/';
+                            console.log('Women picture');
+                        }
+                        console.log(baseUrl + infoPlayer.id + '.jpg');
+                        download(baseUrl + infoPlayer.id + '.jpg', filename, function (err) {
                             console.log('Downloaded image')
                         });
                     }
+                    infoPlayer.image = '/graphics/'+safeClubName+'/players/'+infoPlayer.id + '_' + sex +'/image';
                     f = true;
                     break;
                 }
@@ -187,7 +199,7 @@ function getPlayersInfo (sex, club, players, callback) {
 
         }
 
-        console.log(infoPlayers);
+        //console.log(infoPlayers);
         callback.call(this, infoPlayers);
 
     });

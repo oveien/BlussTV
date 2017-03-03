@@ -20,6 +20,7 @@
                 var at = $scope.awayTeam;
 
 
+                console.log(ht);
                 var data = {
                     homeTeam: {
                         logo: ht.logo,
@@ -43,6 +44,7 @@
                 console.log(stats);
 
                 console.log(JSON.stringify(data));
+                console.log(data);
                 CasparCGService.runOverlay('team-compare', data);
             }
         }
@@ -72,19 +74,28 @@
         }
 
 
-        GameService.registerObserverCallback('score-update', function () {
+        GameService.registerObserverCallback('score-update', function (score) {
             console.log('Woho, got score update!');
 
             if (!$scope.manualTeamPoints) {
                 var score = GameService.getCurrentScore();
 
+                var ht = GameService.getTeam('home');
+                var at = GameService.getTeam('away');
+                $scope.homeTeam.name = ht.name;
+                $scope.awayTeam.name = at.name;
+
                 if (!$scope.manualTeamPoints) {
                     $scope.homeTeam.ace = score.homeTeam.ace;
                     $scope.homeTeam.attack = score.homeTeam.attack;
                     $scope.homeTeam.blocks = score.homeTeam.blocks;
+                    $scope.homeTeam.name = score.homeTeam.name;
+                    $scope.homeTeam.logo = score.homeTeam.logo;
                     $scope.awayTeam.ace = score.awayTeam.ace;
                     $scope.awayTeam.attack = score.awayTeam.attack;
                     $scope.awayTeam.blocks = score.awayTeam.blocks;
+                    $scope.awayTeam.name = score.awayTeam.name;
+                    $scope.awayTeam.logo = score.awayTeam.logo;
                 }
 
                 if (!$scope.manualPlayerPoints) {

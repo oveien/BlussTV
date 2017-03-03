@@ -27,7 +27,23 @@
         <div class="dialog-body">
 
             <table id="stats-table" class="stats-table">
+            <thead>
+                <tr>
 
+                    <th>S</th>
+                    <th>B</th>
+                    <th>A</th>
+                    <th>Navn</th>
+                    <th>T</th>
+                    <th>#</th>
+                    <th>T</th>
+                    <th>Navn</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>S</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
             </table>
         </div>
     </div>
@@ -41,6 +57,7 @@
 
         var data = data.data;
 
+        $('#stats-table tbody').html('');
         console.log(data.stats)
         var ht = $('#homeTeam');
         ht.find('.team-name').html(data.homeTeam.name);
@@ -54,21 +71,23 @@
             console.log(data.stats[i]);
             var html = '<tr>';
 
-            html += '<td>' + data.stats[i].homeTeam.total + "</td>";
+
             html += '<td>' + data.stats[i].homeTeam.ace + "</td>";
             html += '<td>' + data.stats[i].homeTeam.blocks + "</td>";
             html += '<td>' + data.stats[i].homeTeam.attack + "</td>";
             html += '<td>' + data.stats[i].homeTeam.name + "</td>";
-            html += '<td>' + (parseInt(i)+1) + "</td>";
+            html += '<td  style="font-weight: bold;">' + data.stats[i].homeTeam.total + "</td>";
+            html += '<td>#' + (parseInt(i)+1) + "</td>";
 
+            html += '<td style="font-weight: bold;">' + data.stats[i].awayTeam.total + "</td>";
             html += '<td>' + data.stats[i].awayTeam.name + "</td>";
             html += '<td>' + data.stats[i].awayTeam.attack + "</td>";
             html += '<td>' + data.stats[i].awayTeam.blocks + "</td>";
             html += '<td>' + data.stats[i].awayTeam.ace + "</td>";
-            html += '<td>' + data.stats[i].awayTeam.total + "</td>";
+
             html += '</tr>';
             console.log(html);
-            $('#stats-table').append(html);
+            $('#stats-table tbody').append(html);
         }
 
         console.log('Done loading');

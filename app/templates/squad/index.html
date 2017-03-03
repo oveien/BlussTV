@@ -193,7 +193,8 @@
             // Show the player image:
             console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
             //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
-            $('#player_image').attr('xlink:href', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
+
+            $('#player_image').attr('xlink:href', player.image);
 
             playerIndex++;
             setTimeout(viewPlayerInfo, 2000);
