@@ -18,7 +18,8 @@
 .interviewee-info div.interviewee-name {
     margin-right: 50px;
     text-indent: 200px;
-    font-size: 48px;
+    font-size: 36px;
+    white-space: nowrap;
 }
 
 
@@ -29,8 +30,8 @@
 
 .player-info-container div {
     float: left;
-    font-size: 32px;
-    margin-left: 50px;
+    font-size: 28px;
+    margin-left: 30px;
 }
 
 .interviewee-age-container {

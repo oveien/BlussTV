@@ -10,14 +10,23 @@
         $scope.awayTeam = GameService.getTeam('away');
 
         $scope.toggleShowTeam = function (team) {
-            if (team == $scope.teamShowing.name) {
+            var team = GameService.getTeam(team);
+
+            if (team.name == $scope.teamShowing.name) {
                 $scope.players = [];
                 $scope.teamShowing = false;
                 return;
             }
 
-            $scope.teamShowing = GameService.getTeam(team);
-            $scope.players = $scope.teamShowing.players;
+            $scope.teamShowing = team;
+            var players = [];
+            for (var i in $scope.teamShowing.players) {
+                if (!$scope.teamShowing.players[i].deleted) {
+                    players.push($scope.teamShowing.players[i])
+                }
+            }
+            $scope.players = players;
+
 
         }
 
