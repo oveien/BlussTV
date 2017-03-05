@@ -1,0 +1,42 @@
+.stats-table td {
+    position:relative;
+}
+.point-bar {
+    width: 20px;
+    background-color: blue;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.point-bar-1up {
+    height: 10px;
+}
+
+.point-bar-2up {
+    height: 20px;
+}
+
+.point-bar-3up {
+    height: 30px;
+}
+
+.point-bar-4up {
+    height: 40px;
+}
+
+.point-bar-5up {
+    height: 50px;
+}
+
+.point-bar-6up {
+    height: 60px;
+}
+
+.point-bar-7up {
+    height: 70px;
+}
+
+.point-bar-lower .point-bar {
+    bottom: auto;
+    top: 0;
+}
