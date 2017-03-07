@@ -554,6 +554,13 @@ app.use('/lib/bootstrap', express.static(__dirname + '/node_modules/angular-ui-b
 app.use('/lib/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
 app.use('/lib', express.static(__dirname + '/node_modules/socket.io-client/dist/'));
 
+app.get('/game/:gameId/control', function (req, res) {
+    res.sendFile('game/index.html', {root: './app'});
+})
+
+app.get('/game/:gameId/app.js', function (req, res) {
+    res.sendFile('game/app.js', {root: './app'});
+})
 
 
 

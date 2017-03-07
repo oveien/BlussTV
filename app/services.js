@@ -74,9 +74,22 @@ angular.module('services', [])
             f.getGameInfo(url);
         }
 
+        // Dummy functions:
+        f.createNewGame = function (options) {
+            game = null;
+            var deferred = $q.defer();
+
+            setTimeout(function () {
+                deferred.resolve({
+                    gameCode: 'asdf123'
+                });
+            }, 1000);
+
+            return deferred.promise;;
+        }
+
+
         f.getGameInfo = function (gameUrl) {
-
-
             var deferred = $q.defer();
 
             if (game) {

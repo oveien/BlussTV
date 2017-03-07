@@ -46,55 +46,55 @@
 
 
     app.component('gameContainer', {
-        templateUrl: 'components/gamecontainer/gamecontainer.html',
+        templateUrl: '/components/gamecontainer/gamecontainer.html',
         controller: "gameController"
     });
 
 
     app.component('scoreBoard', {
-        templateUrl: 'components/scoreboard/scoreboard.html',
+        templateUrl: '/components/scoreboard/scoreboard.html',
         controller: "scoreBoardController"
     });
 
 
     app.component('teamContainer', {
-        templateUrl: 'components/teamcontainer/teamcontainer.html',
+        templateUrl: '/components/teamcontainer/teamcontainer.html',
         controller: "teamContainerController"
     });
 
 
     app.component('lineup', {
-        templateUrl: 'components/lineup/lineup.html',
+        templateUrl: '/components/lineup/lineup.html',
         controller: "lineupController"
     });
 
     app.component('teamsPlaying', {
-        templateUrl: 'components/teamsplaying/teamsplaying.html',
+        templateUrl: '/components/teamsplaying/teamsplaying.html',
         controller: "teamsPlayingController"
     });
 
     app.component('teamSquads', {
-        templateUrl: 'components/teamsquads/teamsquads.html',
+        templateUrl: '/components/teamsquads/teamsquads.html',
         controller: "teamSquadsController"
     });
 
     app.component('preGameContainer', {
-        templateUrl: 'components/pregamecontainer/pregamecontainer.html',
+        templateUrl: '/components/pregamecontainer/pregamecontainer.html',
         controller: 'preGameContainerController'
     });
 
     app.component('statistics', {
-        templateUrl: 'components/statistics/statistics.html',
+        templateUrl: '/components/statistics/statistics.html',
         controller: 'statisticsController'
     });
 
     app.component('miscContainer', {
-        templateUrl: 'components/misccontainer/misccontainer.html',
+        templateUrl: '/components/misccontainer/misccontainer.html',
         controller: 'miscController'
     });
 
     app.component('playerInfo', {
-        templateUrl: 'components/playerinfo/playerinfo.html',
+        templateUrl: '/components/playerinfo/playerinfo.html',
         controller: 'playerInfoController'
     });
 

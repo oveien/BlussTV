@@ -75,3 +75,7 @@ button.showing {
     padding-bottom: 5px;
     display: inline-block;
 }
+
+.modal-wizard .nav-tabs {
+    display: none;
+}

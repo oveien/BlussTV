@@ -1,0 +1,52 @@
+
+<div class="modal-content modal-wizard">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Opprett kamp</h3>
+    </div>
+    <div class="modal-body" id="myWizard">
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" ng-style="progressBarWidth">
+                Steg {{active+1}} av {{numSteps}}
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <ul class="nav nav-pills">
+                    <li ng-repeat="n in range(0, numSteps)" ng-class="active == n ? 'active' : ''">
+                        <a href="javascript:void(0)" ng-click="goToStep(n)">Steg {{n+1}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <uib-tabset active="active">
+
+            <uib-tab index="0">
+
+                <div class="well">
+
+
+                    <label>Velg sport</label>
+                    <select  class='form-control' ng-model="gameType" ng-options="gameTypes.indexOf(item) as item for item in gameTypes"></select>
+
+                </div>
+
+            </uib-tab>
+            <uib-tab index="1" heading="Static title">
+
+                <div class="well">
+                    <label>Velg kamp</label>
+                    <select class="form-control input-lg" class='form-control' ng-model="eliteGame" ng-options="item.title for item in eliteGames">
+                    </select>
+                </div>
+
+            </uib-tab>
+        </uib-tabset>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="close()">Avbryt</button>
+        <button class="btn btn-primary" ng-click="nextStep()">{{nextButtonText}}</button>
+    </div>
+</div>
