@@ -12,15 +12,29 @@
 
         $scope.active = 0;
         $scope.numSteps = 3;
-        $scope.gameType = 0;
 
         $scope.nextButtonText = 'Fortsett';
 
         $scope.gameTypes = [
-            'Volleyball - Mizunoligaen/Poengliga',
-            'Volleyball - 1. div og lavere',
-            'Beachvolleyball'];
+            {
+                id: 0,
+                name: 'Volleyball - Mizunoligaen/Poengliga'
+            },
+            {
+                id: 1,
+                name: 'Volleyball - 1. div og lavere'
+            },
+            {
+                id: 2,
+                name: 'Beachvolleyball'
+            }
+        ];
 
+        $scope.selectedGameType = $scope.gameTypes[0];
+
+        $scope.onChange = function () {
+            console.log($scope.selectedGameType.id);
+        }
 
         $scope.eliteGames = [
             {
@@ -39,26 +53,71 @@
             }
         ];
 
+        $scope.lowerDivisionVolleyball = {
+            homeTeam: {
+                name: '',
+                players: []
+            },
+            awayTeam: {
+                name: '',
+                players: []
+            }
+        }
+
+        $scope.addPlayer = function (team, num) {
+            if (!num) {
+                num = 1;
+            }
+            for (var i = 0; i<num; i++) {
+                if (team == 'home') {
+                    $scope.lowerDivisionVolleyball.homeTeam.players.push({name: ''});
+                }
+                else {
+                    $scope.lowerDivisionVolleyball.awayTeam.players.push({name: ''});
+                }
+            }
+        }
+
         $scope.eliteGame = $scope.eliteGames[0];
 
         var updateProgressWidth = function () {
             $scope.progressBarWidth = {
-                width: ($scope.active+1)/$scope.numSteps*100 + '%'
+                width: (($scope.active%10)+1)/$scope.numSteps*100 + '%'
             };
         }
 
         $scope.goToStep = function (n) {
             // If we're at the first step, add more:
+
             if ($scope.active == 0) {
-                if ($scope.gameType == 0) {
+                if ($scope.selectedGameType.id == 0) {
                     $scope.numSteps = 2;
+                }
+                if ($scope.selectedGameType.id == 1) {
+                    $scope.numSteps = 3;
+                    n = 21;
+                    if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
+                        $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
+                        $scope.addPlayer('home', 8);
+                        $scope.addPlayer('away', 8);
+                    }
+                }
+                if ($scope.selectedGameType.id == 2) {
+                    $scope.numSteps = 2;
+                    n = 31;
+
+                    if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
+                        $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
+                        $scope.addPlayer('home', 2);
+                        $scope.addPlayer('away', 2);
+                    }
                 }
             }
 
             $scope.active = n;
             updateProgressWidth();
 
-            if ($scope.active == $scope.numSteps-1) {
+            if ($scope.active%10 == $scope.numSteps-1) {
                 $scope.nextButtonText = 'Start kamp';
             }
             else {
@@ -68,7 +127,7 @@
 
         $scope.nextStep = function () {
             // The last step?
-            if ($scope.active + 1 == $scope.numSteps) {
+            if (($scope.active % 10) + 1 == $scope.numSteps) {
                 createNewGame ();
             }
             else {
@@ -90,8 +149,14 @@
         };
 
         var createNewGame = function () {
-            GameService.createNewGame({options: 'stuff'}).then ( function (gameData) {
-              document.location.href = '/game/' + gameData.gameCode + '/control'
+            var data = $scope.lowerDivisionVolleyball;
+
+            if ($scope.selectedGameType == 1) {
+                data = {poengligaGameUrl: $scope.eliteGame.poengligaGameUrl};
+            }
+
+            GameService.createNewGame(data).then(function (gameData) {
+                document.location.href = '/game/' + gameData.gameCode + '/control'
             });
         };
 

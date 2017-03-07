@@ -79,3 +79,9 @@ button.showing {
 .modal-wizard .nav-tabs {
     display: none;
 }
+
+.modal-wizard .wizard-playerlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

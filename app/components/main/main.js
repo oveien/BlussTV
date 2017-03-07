@@ -7,33 +7,6 @@
 
         $scope.inputs = [];
 
-        $scope.reloadDevicelist = function () {
-            $http({
-                method: 'GET',
-                url: '/directshow/devices'
-            }).then(function (response) {
-                $scope.inputs = [];
-                for (var i in response.data) {
-                    if (response.data[i].deviceType == 'dshow' || response.data[i].deviceType == 'file') {
-                        $scope.inputs.push(response.data[i]);
-                    }
-                }
-            });
-        }
-
-        $scope.reloadDevicelist();
-
-
-        $scope.playSource = function (source) {
-
-            if (source.deviceType == 'dshow') {
-                CasparCGService.playStream(source.deviceType + "://video=" + source.name);
-            }
-            else if (source.deviceType == 'file') {
-                CasparCGService.playStream(source.path);
-            }
-        };
-
         $scope.onNewGame = function () {
             var prompt = window.prompt("Finn url på poengliga.no.", 'http://www.poengliga.no/eliteh/1617/kamper/9web.html');
 
@@ -42,6 +15,8 @@
                 GameService.newGame(prompt);
             }
         }
+
+        $scope.htmlOverLayURL = CasparCGService.getHtmlOverlayUrl ();
     }]);
 
 

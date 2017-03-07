@@ -562,6 +562,10 @@ app.get('/game/:gameId/app.js', function (req, res) {
     res.sendFile('game/app.js', {root: './app'});
 })
 
+app.get('/game/:gameId/overlay', function (req, res) {
+    res.sendFile('obs/index.html', {root: './app'});
+})
+
 
 
 
@@ -580,7 +584,7 @@ app.listen(3000, function () {
 var server = http.createServer(app).listen(3000);
 
 
-var clients = [];
+var clients = {};
 io = io.listen(server);
 io.sockets.on("connection",function(socket){
     /*Associating the callback function to be executed when client visits the page and
@@ -603,35 +607,74 @@ io.sockets.on("connection",function(socket){
         var ack_to_client = {
             data:"Server Received the message"
         }
-        for (var i in clients) {
-            if (clients[i].conn.id == socket.id) {
-                continue;
+
+        if (data.action == 'add_client') {
+            console.log(data.data.gameCode);
+            if (!data.data.gameCode) {
+                return;
             }
 
-            console.log('Sending message to client...');
-            clients[i].send(JSON.stringify(data));
+
+            if (typeof(clients[data.data.gameCode]) == "undefined") {
+                console.log('Setting client to game code')
+                clients[data.data.gameCode] = []
+            }
+
+            var f = false;
+            for (var i in clients[data.data.gameCode]) {
+                if (clients[data.data.gameCode][i].conn.id == socket.id) {
+                    // Can only sign up once:
+                    f = true;
+                    break;
+                }
+            }
+
+            if (!f) {
+                console.log('Adding client for ' + data.data.gameCode);
+                clients[data.data.gameCode].push(socket);
+            }
+            return;
+        }
+
+        // All others go to the specific clients:
+        if (clients[data.gameCode]) {
+            for (var i in clients[data.gameCode]) {
+                if (clients[data.gameCode][i].conn.id == socket.id) {
+                    continue;
+                }
+
+                console.log('Sending message to client...');
+                clients[data.gameCode][i].send(JSON.stringify(data));
+            }
         }
         //socket.send(JSON.stringify(ack_to_client));
         /*Sending the Acknowledgement back to the client , this will trigger "message" event on the clients side*/
     });
 
     socket.on('disconnect',function(d1, d2) {
-        var c = [];
-        for (var i in clients) {
-            if (clients[i].conn.id == this.conn.id) {
-                continue;
+        var c = {};
+        var numClients = 0;
+        for (var gameCode in clients) {
+            for (var i in clients[gameCode]) {
+                if (clients[gameCode][i].conn.id == this.conn.id) {
+                    continue;
+                }
+                if (typeof(c[gameCode]) == "undefined") {
+                    c[gameCode] = [];
+                }
+                c[gameCode].push(clients[gameCode][i]);
+                numClients++;
             }
-            c.push(clients[i]);
         }
         clients = c;
 
-        console.log('Number of clients: ' + clients.length)
+        console.log('Number of clients: ' + numClients)
 
         console.log('The client has disconnected!');
     });
 
-    clients.push(socket);
-    console.log('Number of clients: ' + clients.length)
+    //clients.push(socket);
+    //console.log('Number of clients: ' + clients.length)
 
 });
 

@@ -1,18 +1,33 @@
+// Hack, get game-code from url:
+var m = window.location.pathname.match(/^\/game\/([^\/]+)/);
+var gameCode = null;
+if (m) {
+    gameCode = m[1];
+}
+
+// Setup a socket to send if no caspar:
+var socket = io.connect("/");
 
 angular.module('services', [])
     .factory('GameService', ['$http', '$q', function ($http, $q) {
 
 
         var scoreBoardUpdateTime = 20;
-
         var game = null;
-
-
 
         var currentScore = {};
 
         var f = {};
 
+        var createGameId = function () {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        };
 
         var updateScore = function () {
             if (!game) {
@@ -68,23 +83,42 @@ angular.module('services', [])
             return currentScore;
         };
 
-        f.newGame = function (url) {
-            game = null;
-
-            f.getGameInfo(url);
-        }
-
         // Dummy functions:
         f.createNewGame = function (options) {
-            game = null;
             var deferred = $q.defer();
+            game = null;
 
-            setTimeout(function () {
-                deferred.resolve({
-                    gameCode: 'asdf123'
+            if (options && options.poengLigaGameUrl) {
+                f.getGameInfo(options.poengLigaGameUrl).then ( function () {
+                    game = response.data;
+                    game.url = gameUrl;
+                    game.gameCode = createGameId();
+                    deferred.resolve(game);
+                    f.saveChanges(game);
                 });
-            }, 1000);
+                return;
+            }
+            else {
+                // Normal game:
+                gameDefaults = {
+                    gameCode: createGameId(),
+                    homeTeam: {
+                        name: '',
+                        logo: '',
+                        players: []
+                    },
+                    awayTeam: {
+                        name: '',
+                        logo: '',
+                        players: []
+                    }
+                };
 
+                game = {}
+                angular.extend(game, gameDefaults, options);
+                f.saveChanges(game);
+                deferred.resolve(game);
+            }
             return deferred.promise;;
         }
 
@@ -110,13 +144,7 @@ angular.module('services', [])
                 params: {url: gameUrl}
             }).then(function (response) {
 
-                // Need to update the templates to get the menu updated :/
 
-                game = response.data;
-
-                game.url = gameUrl;
-
-                f.saveChanges(game);
                 deferred.resolve(response.data);
 
                 notifyObservers('game-info');
@@ -232,11 +260,16 @@ angular.module('services', [])
 
         var updateWindow = function (template, action, data) {
             // Send as a websocket message:
-            socket.send(JSON.stringify({template: template, action: action, data: {data: data}}));
+            socket.send(JSON.stringify({gameCode: gameCode, template: template, action: action, data: {data: data}}));
         }
 
         var observerCallbacks = [];
         var f = {};
+
+        f.getHtmlOverlayUrl = function () {
+            return window.location.protocol + '//' + window.location.host + '/game/' + gameCode + '/overlay';
+        }
+
         //register an observer
         f.registerObserverCallback = function(type, callback){
             if (typeof type === 'string') {
@@ -280,7 +313,7 @@ angular.module('services', [])
                     });
                 }
                 else {
-                    getPreviewWindow('/obs/').then ( function () {
+                    getPreviewWindow('/game/' + gameCode + '/overlay').then ( function () {
                         updateWindow(template, 'remove', data);
                         updateWindow(template, 'play', data);
                     });
@@ -297,7 +330,7 @@ angular.module('services', [])
                 }
                 else {
                     console.log(data);
-                     getPreviewWindow('/obs/').then ( function (w) {
+                     getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
                         updateWindow(template, 'play', data);
                     });
                 }
@@ -315,7 +348,7 @@ angular.module('services', [])
             }
             else {
                 console.log(data);
-                getPreviewWindow('/obs/').then ( function (w) {
+                getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
                     updateWindow(template, 'remove', data);
                 });
             }
@@ -333,7 +366,7 @@ angular.module('services', [])
                 });
             }
             else {
-                getPreviewWindow('/obs/').then ( function (w) {
+                getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
                     updateWindow(template, 'update', data);
                 });
             }
@@ -347,6 +380,5 @@ angular.module('services', [])
     }]);
 
 
-// Setup a socket to send if no caspar:
-var socket = io.connect("/");
+
 

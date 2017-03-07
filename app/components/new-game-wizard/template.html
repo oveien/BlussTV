@@ -8,15 +8,15 @@
 
         <div class="progress">
             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" ng-style="progressBarWidth">
-                Steg {{active+1}} av {{numSteps}}
+                Steg {{(active%10)+1}} av {{numSteps}}
             </div>
         </div>
 
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav nav-pills">
-                    <li ng-repeat="n in range(0, numSteps)" ng-class="active == n ? 'active' : ''">
-                        <a href="javascript:void(0)" ng-click="goToStep(n)">Steg {{n+1}}</a>
+                    <li ng-repeat="n in range(0, numSteps)" ng-class="(active % 10) == n ? 'active' : ''">
+                        <a href="javascript:void(0)" ng-click="goToStep(active + n)">Steg {{(n%10)+1}}</a>
                     </li>
                 </ul>
             </div>
@@ -26,10 +26,10 @@
             <uib-tab index="0">
 
                 <div class="well">
-
-
+                    {{selectedGameType.id}}
                     <label>Velg sport</label>
-                    <select  class='form-control' ng-model="gameType" ng-options="gameTypes.indexOf(item) as item for item in gameTypes"></select>
+                    <!-- $parent.$parent is a hack to get out of uib-tab and uib-tabset -->
+                    <select ng-change="onChange()" class='form-control' ng-model="$parent.$parent.selectedGameType" ng-options="item as item.name for item in gameTypes"></select>
 
                 </div>
 
@@ -38,11 +38,76 @@
 
                 <div class="well">
                     <label>Velg kamp</label>
-                    <select class="form-control input-lg" class='form-control' ng-model="eliteGame" ng-options="item.title for item in eliteGames">
+                    <select class="form-control input-lg" class='form-control' ng-model="$parent.$parent.eliteGame" ng-options="item.title for item in eliteGames">
                     </select>
                 </div>
 
             </uib-tab>
+
+            <uib-tab index="21" heading="Static title">
+
+                <div class="well row">
+                    <div class="col-xs-6">
+                        <label>Hjemmelag</label>
+                        <input type="text" class="form-control" ng-model="$parent.$parent.lowerDivisionVolleyball.homeTeam.name">
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Bortelag</label>
+                        <input type="text" class="form-control" ng-model="$parent.$parent.lowerDivisionVolleyball.awayTeam.name">
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="22" heading="Static title">
+
+                <div class="well row">
+                    <div class="col-xs-6">
+                        <label>Spillere hjemmelag</label>
+                        <ul class="wizard-playerlist">
+                            <li ng-repeat="player in $parent.$parent.lowerDivisionVolleyball.homeTeam.players">
+                                <input type="text" ng-model="player.name" class="form-control">
+                            </li>
+                        </ul>
+                        <button class='btn' ng-click="addPlayer('home')">Legg til spiller</button>
+
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Spillere bortelag</label>
+                        <ul class="wizard-playerlist">
+                            <li ng-repeat="player in lowerDivisionVolleyball.awayTeam.players">
+                                <input type="text" ng-model="player.name" class="form-control">
+                            </li>
+                        </ul>
+                        <button class='btn' ng-click="addPlayer('away')">Legg til spiller</button>
+                    </div>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="31" heading="Static title">
+
+                <div class="well row">
+                    <div class="col-xs-6">
+                        <label>Spillere hjemmelag</label>
+                        <ul class="wizard-playerlist">
+                            <li ng-repeat="player in $parent.$parent.lowerDivisionVolleyball.homeTeam.players">
+                                <input type="text" ng-model="player.name" class="form-control" placeholder="Spiller {{$index+1}}">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Spillere bortelag</label>
+                        <ul class="wizard-playerlist">
+                            <li ng-repeat="player in lowerDivisionVolleyball.awayTeam.players">
+                                <input type="text" ng-model="player.name" class="form-control" placeholder="Spiller {{$index+1}}">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </uib-tab>
+
         </uib-tabset>
     </div>
     <div class="modal-footer">

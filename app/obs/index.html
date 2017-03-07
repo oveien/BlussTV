@@ -10,6 +10,13 @@
 </body>
 
 <script type="text/javascript">
+    // Hack, get game-code from url:
+    var m = window.location.pathname.match(/^\/game\/([^\/]+)/);
+    var gameCode = null;
+    if (m) {
+        gameCode = m[1];
+    }
+
     var socket = io.connect("/");
     /*Initializing the connection with the server via websockets */
     socket.on("message",function(message){
@@ -27,6 +34,7 @@
             if (onConnect) {
                 onConnect();
             }
+            socket.send(JSON.stringify({action: 'add_client', data: {gameCode: gameCode}}));
         }
 
         if (message.action) {
@@ -61,8 +69,8 @@
             }
 
         }
-
     });
+
 
     var onConnect = false;
     function getOnWebSocketConnect(callback) {
