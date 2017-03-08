@@ -165,7 +165,7 @@ angular.module('services', [])
             $http({
                 method: 'GET',
                 url: '/update-score',
-                params: {url: game.url}
+                params: {url: game.poengligaGameUrl}
             }).then(function (response) {
                 var score = response.data;
 
@@ -214,7 +214,8 @@ angular.module('services', [])
         f.createNewGame = function (options) {
             var deferred = $q.defer();
 
-            game = {
+            game = null;
+            var gameDefaults = {
                 gameCode: createGameId(),
                 homeTeam: {
                     name: '',
@@ -233,20 +234,26 @@ angular.module('services', [])
 
 
             if (options && options.poengligaGameUrl) {
-                f.getGameInfo(options.poengligaGameUrl).then ( function () {
-                    var data = response.data;
-                    data.url = gameUrl;
+                f.getGameInfo(options.poengligaGameUrl).then ( function (data) {
+                    console.log(data);
+                    data.url = options.poengligaGameUrl;
+                    data.poengligaGameUrl = options.poengligaGameUrl;
                     data.gameCode = createGameId();
-                    data.manualScore = false
-                    angular.extend(game, data);
-                    deferred.resolve(game);
+                    data.manualScore = false;
+
+                    angular.extend(gameDefaults, data);
+
+                    game = gameDefaults;
+
                     f.saveChanges(game);
+                    deferred.resolve(game);
                 });
-                return;
             }
             else {
                 // Normal game:
-                angular.extend(game, options);
+                angular.extend(gameDefaults, options);
+
+                game = gameDefaults;
                 f.saveChanges(game);
                 deferred.resolve(game);
             }
@@ -274,7 +281,7 @@ angular.module('services', [])
             }
 
             if (!gameUrl && game) {
-                gameUrl = game.url;
+                gameUrl = game.poengligaGameUrl;
             }
             else if (!gameUrl && !game) {
                 gameUrl = 'http://www.poengliga.no/eliteh/1617/kamper/9web.html';
@@ -286,13 +293,12 @@ angular.module('services', [])
                 params: {url: gameUrl}
             }).then(function (response) {
 
-
                 deferred.resolve(response.data);
 
                 notifyObservers('game-info');
 
                 // HACK HACK HACK, just reload the page to get the new info :D
-                document.location.reload();
+               // document.location.reload();
 
 
             }, function (err) {

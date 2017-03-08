@@ -29,7 +29,7 @@
 
     <table class="player-table" style="width: 600px;">
         <thead>
-        <tr>
+        <tr class="flip-in">
             <th>#</th>
             <th>Navn</th>
             <th>Posisjon</th>
@@ -159,10 +159,11 @@
         tbl.html('');
 
         var elm = '';
+
         for (var i in players) {
             var player = players[i];
             console.log(player);
-            elm = '<tr>';
+            elm = '<tr class="flip-in-row-'+i+' flip-in">';
             elm += '<td>' + player.number + '</td>';
             elm += '<td>' + player.name + '</td>';
             elm += '<td>' + player.position + '</td>';
@@ -197,11 +198,21 @@
             $('#player_image').attr('xlink:href', player.image);
 
             playerIndex++;
-            setTimeout(viewPlayerInfo, 2000);
+            setTimeout(function () {
+                console.log('View player info');
+                viewPlayerInfo()
+            }, 2000);
+
+
         };
 
         // Hack for now to know the animation is done:
-        setTimeout(viewPlayerInfo, 1000);
+        setTimeout(viewPlayerInfo, 2000);
+
+        setTimeout(function () {
+            $('tr').addClass('showing');
+        }, 700)
+
     }
 
     function remove(callback) {
@@ -215,7 +226,7 @@
 
     if (getUrlParameter('debug')) {
         setTimeout(function () {
-            update(data);
+            play(data);
         }, 2);
     }
 

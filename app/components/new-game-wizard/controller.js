@@ -50,17 +50,17 @@
         $scope.eliteGames = [
             {
                 'sex': 'm',
-                'homeTeam': 'Førde',
-                'awayTeam': 'NTNUI',
+                'homeTeam': 'BK Tromsø',
+                'awayTeam': 'Viking',
                 'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/9web.html',
-                'title': 'Herrer: Førde - NTNUI'
+                'title': 'Herrer: BK Tromsø - Viking'
             },
             {
                 'sex': 'f',
-                'homeTeam': 'OSI',
-                'awayTeam': 'Randaberg',
-                'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/10web.html',
-                'title': 'Damer: OSI - NTNUI'
+                'homeTeam': 'Randaberg',
+                'awayTeam': 'Oslo Volley',
+                'poengligaGameUrl': 'http://www.poengliga.no/elited/1617/kamper/10web.html',
+                'title': 'Damer: Randaberg - Oslo Volley'
             }
         ];
 
