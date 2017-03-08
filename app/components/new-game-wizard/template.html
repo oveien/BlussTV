@@ -15,8 +15,8 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav nav-pills">
-                    <li ng-repeat="n in range(0, numSteps)" ng-class="(active % 10) == n ? 'active' : ''">
-                        <a href="javascript:void(0)" ng-click="goToStep(active + n)">Steg {{(n%10)+1}}</a>
+                    <li ng-repeat="page in pages" ng-class="active == page ? 'active' : ''">
+                        <a href="javascript:void(0)" ng-click="goToStep($index)">Steg {{$index+1}}</a>
                     </li>
                 </ul>
             </div>
@@ -26,10 +26,9 @@
             <uib-tab index="0">
 
                 <div class="well">
-                    {{selectedGameType.id}}
                     <label>Velg sport</label>
                     <!-- $parent.$parent is a hack to get out of uib-tab and uib-tabset -->
-                    <select ng-change="onChange()" class='form-control' ng-model="$parent.$parent.selectedGameType" ng-options="item as item.name for item in gameTypes"></select>
+                    <select class='form-control' ng-model="$parent.$parent.selectedGameType" ng-options="item as item.name for item in gameTypes"></select>
 
                 </div>
 
@@ -49,11 +48,11 @@
                 <div class="well row">
                     <div class="col-xs-6">
                         <label>Hjemmelag</label>
-                        <input type="text" class="form-control" ng-model="$parent.$parent.lowerDivisionVolleyball.homeTeam.name">
+                        <select class='form-control' ng-model="$parent.$parent.selectedHomeTeam" ng-options="item as item.name for item in allTeams"></select>
                     </div>
                     <div class="col-xs-6">
                         <label>Bortelag</label>
-                        <input type="text" class="form-control" ng-model="$parent.$parent.lowerDivisionVolleyball.awayTeam.name">
+                        <select class='form-control' ng-model="$parent.$parent.selectedAwayTeam" ng-options="item as item.name for item in allTeams"></select>
                     </div>
                 </div>
 
@@ -63,20 +62,30 @@
 
                 <div class="well row">
                     <div class="col-xs-6">
-                        <label>Spillere hjemmelag</label>
+                        <label>Spillere {{selectedHomeTeam.name}}</label>
                         <ul class="wizard-playerlist">
                             <li ng-repeat="player in $parent.$parent.lowerDivisionVolleyball.homeTeam.players">
-                                <input type="text" ng-model="player.name" class="form-control">
+                                <div class="col-xs-4">
+                                    <input type="text" ng-model="player.number" class="form-control" placeholder="Nr">
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" ng-model="player.name" class="form-control" placeholder="Spiller {{$index+1}}">
+                                </div>
                             </li>
                         </ul>
                         <button class='btn' ng-click="addPlayer('home')">Legg til spiller</button>
 
                     </div>
                     <div class="col-xs-6">
-                        <label>Spillere bortelag</label>
+                        <label>Spillere {{selectedAwayTeam.name}}</label>
                         <ul class="wizard-playerlist">
                             <li ng-repeat="player in lowerDivisionVolleyball.awayTeam.players">
-                                <input type="text" ng-model="player.name" class="form-control">
+                                <div class="col-xs-4">
+                                    <input type="text" ng-model="player.number" class="form-control" placeholder="Nr">
+                                </div>
+                                <div class="col-xs-8">
+                                    <input type="text" ng-model="player.name" class="form-control" placeholder="Spiller {{$index+1}}">
+                                </div>
                             </li>
                         </ul>
                         <button class='btn' ng-click="addPlayer('away')">Legg til spiller</button>

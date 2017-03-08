@@ -11,12 +11,12 @@
 <div class="screen">
     <div class="tp-centre-box">
         <div id='homeTeam' class="tp-team-container tp-hometeam-container">
-            <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
+            <div class="team-logo"></div>
             <div class="team-name">NTNUI</div>
         </div>
         <div id='awayTeam' class="tp-team-container tp-awayteam-container">
             <div class="team-name">Viking</div>
-            <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
+            <div class="team-logo"></div>
         </div>
         <div class="nvbf-logo"><img src="/graphics/logo/nvbf.svg"></div>
     </div>
@@ -51,11 +51,16 @@
 
         var ht = $('#homeTeam');
         ht.find('.team-name').html(data.homeTeam.name);
-        ht.find('.team-logo img').attr('src', data.homeTeam.logo);
+        if (data.homeTeam.logo) {
+            ht.find('.team-logo').append($('<img>').attr('src', data.homeTeam.logo));
+        }
 
         var at = $('#awayTeam');
         at.find('.team-name').html(data.awayTeam.name);
         at.find('.team-logo img').attr('src', data.awayTeam.logo);
+        if (data.awayTeam.logo) {
+            at.find('.team-logo').append($('<img>').attr('src', data.awayTeam.logo));
+        }
 
         $('.tp-hometeam-container').addClass('tp-hometeam-container-expanded');
         $('.tp-awayteam-container').addClass('tp-team-container-expanded');

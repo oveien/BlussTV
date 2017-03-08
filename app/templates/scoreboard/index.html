@@ -55,8 +55,20 @@
             return;
         }
 
-        $('#homeTeamName').html(data.homeTeam.name);
-        $('#awayTeamName').html(data.awayTeam.name);
+        console.log(data.homeTeam)
+        var htInfo = $('<div>').html(data.homeTeam.name).html();
+        var atInfo = $('<div>').html(data.awayTeam.name).html();
+
+        if (data.homeTeam.logo) {
+            htInfo = "<img src='"+data.homeTeam.logo+"'> " + htInfo;
+        }
+
+        if (data.awayTeam.logo) {
+            atInfo = "<img src='"+data.awayTeam.logo+"'> " + atInfo;
+        }
+        
+        $('#homeTeamName').html(htInfo);
+        $('#awayTeamName').html(atInfo);
 
         $('#homeTeamSets').html(data.homeTeam.sets);
         $('#awayTeamSets').html(data.awayTeam.sets);

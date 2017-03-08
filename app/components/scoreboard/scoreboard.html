@@ -5,7 +5,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td ng-repeat="n in [1,2,3,4,5]">{{n}}</td>
+                <td ng-repeat="n in gameSetPoints track by $index">{{$index+1}}</td>
 
             </tr>
             <tr>

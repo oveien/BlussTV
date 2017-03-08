@@ -9,6 +9,133 @@ if (m) {
 var socket = io.connect("/");
 
 angular.module('services', [])
+    .factory('BlussTVService', ['$http', '$q', function ($http, $q) {
+        var f = {};
+
+        f.getAllTeams = function () {
+            var deferred = $q.defer();
+
+            // Might be async in the feature:
+            var teams = [
+                {
+                    'name': 'Askim',
+                    'logo': 'askim.svg'
+                },
+                {
+                    'name': 'Austrått',
+                    'logo': 'austratt.svg'
+                },
+                {
+                    'name': 'BK Tromsø',
+                    'logo': 'bktromso.svg'
+                },
+                {
+                    'name': 'Blindheim',
+                    'logo': 'blindheim.svg'
+                },
+                {
+                    'name': 'Blussuvoll',
+                    'logo': 'blussuvoll.svg'
+                },
+                {
+                    'name': 'BSI',
+                    'logo': 'bsi.svg'
+                },
+                {
+                    'name': 'Dristug',
+                    'logo': 'dristug.svg'
+                },
+                {
+                    'name': 'Egersund',
+                    'logo': 'egersund.svg'
+                },
+                {
+                    'name': 'Førde',
+                    'logo': 'forde.svg'
+                },
+                {
+                    'name': 'Gneist',
+                    'logo': 'gneist.svg'
+                },
+                {
+                    'name': 'Koll',
+                    'logo': 'koll.svg'
+                },
+                {
+                    'name': 'KSK',
+                    'logo': 'ksk.svg'
+                },
+                {
+                    'name': 'Lierne',
+                    'logo': 'lierne.svg'
+                },
+                {
+                    'name': 'NTNUI',
+                    'logo': 'ntnui.svg'
+                },
+                {
+                    'name': 'Øksil',
+                    'logo': 'oksil.svg'
+                },
+                {
+                    'name': 'OSI',
+                    'logo': 'osi.svg'
+                },
+                {
+                    'name': 'Oslo volley',
+                    'logo': 'oslovolley.svg'
+                },
+                {
+                    'name': 'Randaberg',
+                    'logo': 'randaberg.svg'
+                },
+                {
+                    'name': 'Sandes',
+                    'logo': 'sandnes.svg'
+                },
+                {
+                    'name': 'Spirit Lørenskog',
+                    'logo': 'spiritlorenskog.svg'
+                },
+                {
+                    'name': 'Stod Volley',
+                    'logo': 'stod.svg'
+                },
+                {
+                    'name': 'Sunnfjord',
+                    'logo': 'sunnfjord.svg'
+                },
+                {
+                    'name': 'Tønsberg',
+                    'logo': 'tonsberg.svg'
+                },
+                {
+                    'name': 'Topp Volley',
+                    'logo': 'tvn.svg'
+                },
+                {
+                    'name': 'Vestli',
+                    'logo': 'vestli.svg'
+                },
+                {
+                    'name': 'Viking',
+                    'logo': 'viking.svg'
+                }
+            ];
+
+            // Blæh, add base:
+            for (var i in teams) {
+                teams[i].logo = '/graphics/logo/' + teams[i].logo;
+            }
+
+            deferred.resolve(teams);
+
+            return deferred.promise;
+        }
+
+        return f;
+    }])
+
     .factory('GameService', ['$http', '$q', function ($http, $q) {
 
 
@@ -30,7 +157,7 @@ angular.module('services', [])
         };
 
         var updateScore = function () {
-            if (!game) {
+            if (!game || !game.poengligaGameUrl) {
                 setTimeout(updateScore, scoreBoardUpdateTime*1000);
                 return;
             }
@@ -86,13 +213,32 @@ angular.module('services', [])
         // Dummy functions:
         f.createNewGame = function (options) {
             var deferred = $q.defer();
-            game = null;
 
-            if (options && options.poengLigaGameUrl) {
-                f.getGameInfo(options.poengLigaGameUrl).then ( function () {
-                    game = response.data;
-                    game.url = gameUrl;
-                    game.gameCode = createGameId();
+            game = {
+                gameCode: createGameId(),
+                homeTeam: {
+                    name: '',
+                    logo: '',
+                    players: []
+                },
+                awayTeam: {
+                    name: '',
+                    logo: '',
+                    players: []
+                },
+                setPoints: [25, 25, 25, 25, 15],
+                manualScore: true,
+                type: 'indoor-volleyball'
+            };
+
+
+            if (options && options.poengligaGameUrl) {
+                f.getGameInfo(options.poengligaGameUrl).then ( function () {
+                    var data = response.data;
+                    data.url = gameUrl;
+                    data.gameCode = createGameId();
+                    data.manualScore = false
+                    angular.extend(game, data);
                     deferred.resolve(game);
                     f.saveChanges(game);
                 });
@@ -100,28 +246,24 @@ angular.module('services', [])
             }
             else {
                 // Normal game:
-                gameDefaults = {
-                    gameCode: createGameId(),
-                    homeTeam: {
-                        name: '',
-                        logo: '',
-                        players: []
-                    },
-                    awayTeam: {
-                        name: '',
-                        logo: '',
-                        players: []
-                    }
-                };
-
-                game = {}
-                angular.extend(game, gameDefaults, options);
+                angular.extend(game, options);
                 f.saveChanges(game);
                 deferred.resolve(game);
             }
             return deferred.promise;;
         }
 
+        f.getSetPoints = function () {
+            if (game) {
+                return game.setPoints;
+            }
+        };
+
+        f.getManualScore = function () {
+            if (game) {
+                return game.manualScore;
+            }
+        }
 
         f.getGameInfo = function (gameUrl) {
             var deferred = $q.defer();
@@ -171,6 +313,21 @@ angular.module('services', [])
                 return game.awayTeam.name;
             }
         };
+
+        f.setTeamData = function (team, data) {
+            if (!game) {
+                return;
+            }
+            if (team == 'home') {
+                game.homeTeam = data;
+            }
+            else {
+                game.awayTeam = data;
+            }
+
+
+            f.saveChanges (game);
+        }
 
         f.getTeam = function (team) {
             if (!game) {

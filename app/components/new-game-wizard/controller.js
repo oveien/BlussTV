@@ -7,13 +7,24 @@
         };
     });
 
-    app.controller('newGameWizardController',  ['$scope', 'GameService', function ($scope, GameService) {
+    app.controller('newGameWizardController',  ['$scope', 'GameService', 'BlussTVService', function ($scope, GameService, BlussTVService) {
         var $ctrl = this;
 
         $scope.active = 0;
         $scope.numSteps = 3;
 
         $scope.nextButtonText = 'Fortsett';
+
+        $scope.pages = [0, 1];
+
+
+        $scope.selectedHomeTeam = null;
+        $scope.selectedAwayTeam = null;
+        $scope.allTeams = [];
+
+        BlussTVService.getAllTeams().then ( function (teams) {
+            $scope.allTeams = teams;
+        });
 
         $scope.gameTypes = [
             {
@@ -41,14 +52,14 @@
                 'sex': 'm',
                 'homeTeam': 'Førde',
                 'awayTeam': 'NTNUI',
-                'poengligaGameUrl': '',
+                'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/9web.html',
                 'title': 'Herrer: Førde - NTNUI'
             },
             {
                 'sex': 'f',
                 'homeTeam': 'OSI',
                 'awayTeam': 'Randaberg',
-                'poengligaGameUrl': '',
+                'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/10web.html',
                 'title': 'Damer: OSI - NTNUI'
             }
         ];
@@ -92,10 +103,11 @@
             if ($scope.active == 0) {
                 if ($scope.selectedGameType.id == 0) {
                     $scope.numSteps = 2;
+                    $scope.pages = [0, 1];
                 }
                 if ($scope.selectedGameType.id == 1) {
                     $scope.numSteps = 3;
-                    n = 21;
+                    $scope.pages = [0, 21, 22];
                     if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
                         $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
                         $scope.addPlayer('home', 8);
@@ -104,7 +116,7 @@
                 }
                 if ($scope.selectedGameType.id == 2) {
                     $scope.numSteps = 2;
-                    n = 31;
+                    $scope.pages = [0, 31];
 
                     if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
                         $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
@@ -114,7 +126,7 @@
                 }
             }
 
-            $scope.active = n;
+            $scope.active = $scope.pages[n];
             updateProgressWidth();
 
             if ($scope.active%10 == $scope.numSteps-1) {
@@ -131,7 +143,7 @@
                 createNewGame ();
             }
             else {
-                $scope.goToStep($scope.active + 1);
+                $scope.goToStep($scope.active % 10 + 1);
             }
         };
 
@@ -151,7 +163,64 @@
         var createNewGame = function () {
             var data = $scope.lowerDivisionVolleyball;
 
-            if ($scope.selectedGameType == 1) {
+
+            if ($scope.selectedGameType.id == 1) {
+                data.homeTeam.name = $scope.selectedHomeTeam.name;
+                data.homeTeam.logo = $scope.selectedHomeTeam.logo;
+
+                data.awayTeam.name = $scope.selectedAwayTeam.name;
+                data.awayTeam.logo = $scope.selectedAwayTeam.logo
+
+                // Cleanup players:
+                var p = [];
+                for (var i in data.homeTeam.players) {
+                    if (data.homeTeam.players[i].name == "") {
+                        continue;
+                    }
+                    p.push(data.homeTeam.players[i]);
+                }
+                data.homeTeam.players = p;
+
+                p = [];
+                for (var i in data.awayTeam.players) {
+                    if (data.awayTeam.players[i].name == "") {
+                        continue;
+                    }
+                    p.push(data.awayTeam.players[i]);
+                }
+                data.awayTeam.players = p;
+
+            }
+
+            if ($scope.selectedGameType.id == 2) {
+                var htName = "";
+                var p1 = data.homeTeam.players[0].name.match(/\s(\S+)$/);
+                if (p1) {
+                    htName += p1[1];
+                }
+                var p2 = data.homeTeam.players[1].name.match(/\s(\S+)$/);
+                if (p2) {
+                    htName += ' / ' + p2[1];
+                }
+
+                var atName = "";
+                p1 = data.awayTeam.players[0].name.match(/\s(\S+)$/);
+                if (p1) {
+                    atName += p1[1];
+                }
+                p2 = data.awayTeam.players[1].name.match(/\s(\S+)$/);
+                if (p2) {
+                    atName += ' / ' + p2[1];
+                }
+
+                data.homeTeam.name = htName;
+                data.awayTeam.name = atName;
+
+                data.setPoints = [21, 21, 15];
+                data.type = 'beach-volleyball';
+            }
+
+            if ($scope.selectedGameType.id == 0) {
                 data = {poengligaGameUrl: $scope.eliteGame.poengligaGameUrl};
             }
 

@@ -1,5 +1,5 @@
 <div class="col-xs-12 col-md-6">
-    <h1>{{getTeamName('home')}} <img class="team-logo" ng-src="{{getTeamLogo('home')}}"></h1>
+    <h1> <img class="team-logo" ng-src="{{getTeamLogo('home')}}"><input type="text" ng-model="homeTeamName" ng-change="setTeamName('home')" placeholder="Lagnavn"> </h1>
 
     <table>
         <thead>
@@ -10,7 +10,7 @@
                 <th title="Height">H</th>
                 <th title="Reach">R</th>
                 <th title="Block Reach">BR</th>
-                <th title="Not in lineup">NL</th>
+                <th title="Not present">NP</th>
             </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('home')"  ng-class="player.deleted ? 'deleted' : ''">
@@ -25,7 +25,7 @@
     </table>
 
     <p>
-        <a ng-click="addPlayer('Away')">Add player</a>
+        <a ng-click="addPlayer('home')">Add player</a>
     </p>
     <!--
     <p>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="col-xs-12 col-md-6">
-    <h1>{{getTeamName('away')}} <img class="team-logo" ng-src="{{getTeamLogo('away')}}"></h1>
+    <h1><img class="team-logo" ng-src="{{getTeamLogo('away')}}"> <input type="text" ng-model="awayTeamName" ng-change="setTeamName('away')" placeholder="Lagnavn"> </h1>
 
     <table>
         <thead>
@@ -46,7 +46,7 @@
             <th title="Height">H</th>
             <th title="Reach">R</th>
             <th title="Block Reach">BR</th>
-            <th title="Not in lineup">NL</th>
+            <th title="Not present">NP</th>
         </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('away')"  ng-class="player.deleted ? 'deleted' : ''">
@@ -60,7 +60,7 @@
         </tr>
     </table>
     <p>
-        <a ng-click="addPlayer('Away')">Add player</a>
+        <a ng-click="addPlayer('away')">Add player</a>
     </p>
     <!--
     <p>

@@ -4,7 +4,10 @@
     app.controller('scoreBoardController', ['$scope', 'CasparCGService', 'GameService', function ($scope, CasparCGService, GameService) {
         $scope.showing = false;
 
-        $scope.manualScore = false;
+        $scope.manualScore = GameService.getManualScore ();
+
+        $scope.gameSetPoints = GameService.getSetPoints()
+
 
         $scope.toggleShowing = function () {
             if (CasparCGService.getCurrentOverlay() == 'scoreboard') {
@@ -40,13 +43,20 @@
 
         });
 
-        $scope.pointsHomeTeam = [0, 0, 0, 0, 0];
-        $scope.pointsAwayTeam = [0, 0, 0, 0, 0];
+        $scope.pointsHomeTeam = [];
+        for (var i in $scope.gameSetPoints) {
+            $scope.pointsHomeTeam.push(0);
+        }
+        $scope.pointsAwayTeam = [];
+        for (var i in $scope.gameSetPoints) {
+            $scope.pointsAwayTeam.push(0);
+        }
+
 
 
         $scope.addPoint = function (team) {
             for (var i in $scope.pointsHomeTeam) {
-                if ( $scope.pointsHomeTeam[i] < 25 && $scope.pointsAwayTeam[i] < 25) {
+                if ( $scope.pointsHomeTeam[i] <  $scope.gameSetPoints[i] && $scope.pointsAwayTeam[i] <  $scope.gameSetPoints[i]) {
                     break;
                 }
                 else if (Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) < 2) {
@@ -88,16 +98,22 @@
         };
 
         var getScoreData = function () {
+
+            var ht = GameService.getTeam('home');
+            var at = GameService.getTeam('away');
+
             var data = {
                 homeTeam: {
-                    name: GameService.getTeamName('home'),
+                    name: ht.name,
                     sets: 0,
-                    points: 0
+                    points: 0,
+                    logo: ht.logo
                 },
                 awayTeam: {
-                    name: GameService.getTeamName('away'),
+                    name: at.name,
                     sets: 0,
-                    points: 0
+                    points: 0,
+                    logo: at.logo
                 }
             };
 

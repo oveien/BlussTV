@@ -9,6 +9,11 @@
     font-size: 22px;
 }
 
+.sb-team-name img {
+    width: 30px;
+    margin-right: 20px;
+}
+
 .sb-team-sets {
     background-color: red;
     border-radius: 2px;

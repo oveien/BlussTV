@@ -7,7 +7,22 @@
         console.log ( GameService.getGameInfo() );
         GameService.getGameInfo().then( function (data) {
             game = data;
+            $scope.homeTeamName = game.homeTeam.name;
+            $scope.awayTeamName = game.awayTeam.name;
         });
+
+        $scope.setTeamName = function (team) {
+            var td = GameService.getTeam(team);
+
+            if (team == 'home') {
+                td.name = $scope.homeTeamName;
+            }
+            else {
+                td.name = $scope.awayTeamName;
+            }
+
+            GameService.setTeamData(team, td);
+        }
 
         $scope.getTeamName = function (ha) {
             if (game) {
