@@ -8,21 +8,22 @@
 <body>
 
 <div class="screen">
-    <div class="dialog hidden-bottom slide lineup-dialog">
-        <div class="dialog-club-logo"></div>
-        <div class="dialog-heading"></div>
-        <div class="dialog-body">
+
+   <div class="court-background hidden-bottom slide">
+        <div class="court-players">
             <div class="lineup-court">
-                <div class="lineup-net"></div>
-                <div class="lineup-three-meter"></div>
 
                 <div class="lineup-players">
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
+       <div class="court-team-info">
+           <div class="court-team-logo"></div>
+           <div class="court-team-name"></div>
+       </div>
+   </div>
+</div>
 
 </body>
 <script>
@@ -73,8 +74,8 @@
             return;
         }
 
-        $('.dialog-heading').html(data.name);
-        $('.dialog-club-logo').html( $('<img>').attr('src', data.logo));
+        $('.court-team-name').html(data.name);
+        $('.court-team-logo').html( $('<img>').attr('src', data.logo));
 
         $('.lineup-players').html('');
 
@@ -114,7 +115,7 @@
             console.log((i+1));
             console.log($.inArray(i+1, [1,2]));
             name = $('<div class="lineup-player-name" />').html( data.players[i].name );
-            number = $('<div class="lineup-player-number" />').append($('<span />').text(data.players[i].number));
+            number = $('<div class="lineup-player-number" />').html(data.players[i].number);
 
             c.append(number);
             c.append(name);
@@ -123,17 +124,17 @@
 
         }
 
-        $('.dialog').removeClass('hidden-bottom');
+        $('.court-background').removeClass('hidden-bottom');
     }
 
     function remove() {
         // Animate away to the bottom:
-        $('.dialog').addClass('hidden-bottom');
+        $('.court-background').addClass('hidden-bottom');
     }
 
     if (getUrlParameter('debug')) {
         setTimeout(function () {
-            update(data);
+            play(data);
         }, 2);
     }
 
