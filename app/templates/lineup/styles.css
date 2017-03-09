@@ -18,7 +18,7 @@
     width: 160px;
     height: 99px;
     text-align: center;
-    background-image: url(img/jersey.png);
+    background-image: url(../../graphics/jersey/blue.png);
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -65,7 +65,7 @@
 .lineup-player-libero {
     top: 300px;
     left: 550px;
-    background-image: url(img/libero.png);
+    background-image: url(../../graphics/jersey/red.png);
 }
 
 .lineup-player-libero {
