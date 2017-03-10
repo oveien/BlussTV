@@ -139,7 +139,7 @@ angular.module('services', [])
     .factory('GameService', ['$http', '$q', function ($http, $q) {
 
 
-        var scoreBoardUpdateTime = 20;
+        var scoreBoardUpdateTime = 8;
         var game = null;
 
         var currentScore = {};
@@ -267,7 +267,7 @@ angular.module('services', [])
                         libero: 'red'
                     };
                     game.setPoints = [25, 25, 25, 25, 15];
-                    game.manualScore = true;
+                    game.manualScore = false;
 
                     f.saveChanges(game);
                     deferred.resolve(game);
