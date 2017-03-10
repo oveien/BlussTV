@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="/css/generic.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
 </head>
@@ -59,16 +60,16 @@
         var htInfo = $('<div>').html(data.homeTeam.name).html();
         var atInfo = $('<div>').html(data.awayTeam.name).html();
 
-        if (data.homeTeam.logo) {
-            htInfo = "<img src='"+data.homeTeam.logo+"'> " + htInfo;
+        if (data.homeTeam.jersey) {
+            $('#homeTeamName').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.homeTeam.jersey.player);
         }
 
-        if (data.awayTeam.logo) {
-            atInfo = "<img src='"+data.awayTeam.logo+"'> " + atInfo;
+        if (data.awayTeam.jersey) {
+            $('#awayTeamName').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.awayTeam.jersey.player);
         }
         
-        $('#homeTeamName').html(htInfo);
-        $('#awayTeamName').html(atInfo);
+        $('#homeTeamName').html(data.homeTeam.name);
+        $('#awayTeamName').html(data.awayTeam.name);
 
         $('#homeTeamSets').html(data.homeTeam.sets);
         $('#awayTeamSets').html(data.awayTeam.sets);

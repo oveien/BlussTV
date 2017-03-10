@@ -9,6 +9,7 @@
         $scope.gameSetPoints = GameService.getSetPoints()
 
 
+
         $scope.toggleShowing = function () {
             if (CasparCGService.getCurrentOverlay() == 'scoreboard') {
                 CasparCGService.removeOverlay();
@@ -23,10 +24,22 @@
         $scope.homeTeamName = GameService.getTeamName('home');
         $scope.awayTeamName = GameService.getTeamName('away');
 
-        GameService.registerObserverCallback('game-info', function () {
-            $scope.homeTeamName = GameService.getTeamName('home');
-            $scope.awayTeamName = GameService.getTeamName('away');
-        });
+
+        var onGameInfo = function () {
+            GameService.getGameInfo().then( function (game) {
+
+                $scope.homeTeamName = game.homeTeam.name;
+                $scope.awayTeamName = game.awayTeam.name;
+
+                $scope.manualScore = game.manualScore;
+                $scope.gameSetPoints = game.setPoints;
+                console.log(game);
+            });
+        }
+        GameService.getGameInfo().then (onGameInfo);
+
+        GameService.registerObserverCallback('game-info', onGameInfo);
+
 
         GameService.registerObserverCallback('score-update', function () {
             console.log('Woho, got score update!');
@@ -107,13 +120,15 @@
                     name: ht.name,
                     sets: 0,
                     points: 0,
-                    logo: ht.logo
+                    logo: ht.logo,
+                    jersey: ht.jersey
                 },
                 awayTeam: {
                     name: at.name,
                     sets: 0,
                     points: 0,
-                    logo: at.logo
+                    logo: at.logo,
+                    jersey: at.jersey
                 }
             };
 
@@ -165,6 +180,7 @@
             }
 
         });
+
 
     }]);
 })(window.angular);

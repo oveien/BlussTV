@@ -75,6 +75,7 @@
                 var d = {};
                 d.name = data.name;
                 d.logo = data.logo;
+                d.jersey = data.jersey;
                 d.players = [];
 
                 var numbers = $scope.homeTeamLineup;

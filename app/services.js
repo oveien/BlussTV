@@ -191,6 +191,7 @@ angular.module('services', [])
             if (typeof type === 'string') {
                 type = [type];
             }
+
             for (var i in type) {
                 observerCallbacks.push({type: type[i], callback: callback});
             }
@@ -199,6 +200,8 @@ angular.module('services', [])
         //call this when you know 'foo' has been changed
         var notifyObservers = function(type, data) {
             angular.forEach(observerCallbacks, function(observer) {
+                console.log(type);
+                console.log(observer.type);
                 if (observer.type == type) {
                     observer.callback(type, data);
                 }
@@ -225,7 +228,8 @@ angular.module('services', [])
                 awayTeam: {
                     name: '',
                     logo: '',
-                    players: []
+                    players: [],
+
                 },
                 setPoints: [25, 25, 25, 25, 15],
                 manualScore: true,
@@ -245,6 +249,19 @@ angular.module('services', [])
 
                     game = gameDefaults;
 
+                    // This is not extended?
+                    game.homeTeam.jersey = {
+                        player: 'red',
+                        libero: 'black'
+                    };
+
+                    game.awayTeam.jersey = {
+                        player: 'blue',
+                        libero: 'red'
+                    };
+                    game.setPoints = [25, 25, 25, 25, 15];
+                    game.manualScore = true;
+
                     f.saveChanges(game);
                     deferred.resolve(game);
                 });
@@ -254,6 +271,18 @@ angular.module('services', [])
                 angular.extend(gameDefaults, options);
 
                 game = gameDefaults;
+
+                // This is not extended?
+                game.homeTeam.jersey = {
+                    player: 'red',
+                    libero: 'black'
+                };
+
+                game.awayTeam.jersey = {
+                    player: 'blue',
+                    libero: 'red'
+                };
+
                 f.saveChanges(game);
                 deferred.resolve(game);
             }
@@ -386,6 +415,7 @@ angular.module('services', [])
         };
 
         game = f.getStoredValue('game');
+
 
         return f;
 

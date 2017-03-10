@@ -1,0 +1,44 @@
+.jersey {
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.jersey-fit {
+    background-size: contain;
+}
+
+.jersey-blue {
+    background-image: url(/graphics/jersey/blue.png);
+}
+
+.jersey-black {
+    background-image: url(/graphics/jersey/black.png);
+}
+
+.jersey-red {
+    background-image: url(/graphics/jersey/red.png);
+}
+
+.jersey-green {
+    background-image: url(/graphics/jersey/green.png);
+}
+
+.jersey-yellow {
+    background-image: url(/graphics/jersey/yellow.png);
+}
+
+.jersey-grey {
+    background-image: url(/graphics/jersey/grey.png);
+}
+
+.jersey-orange {
+    background-image: url(/graphics/jersey/orange.png);
+}
+
+.jersey-white {
+    background-image: url(/graphics/jersey/white.png);
+}
+
+.jersey-pink {
+    background-image: url(/graphics/jersey/pink.png);
+}

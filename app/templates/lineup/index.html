@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="/css/generic.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
@@ -89,7 +90,7 @@
                 continue;
             }
 
-            c = $('<div class="lineup-player">');
+            c = $('<div class="lineup-player jersey">');
             if ($.inArray(i+1, [2, 3, 4]) >= 0) {
                 c.addClass('lineup-player-fr');
             }
@@ -107,9 +108,12 @@
                 c.addClass('lineup-player-3');
             }
 
+            c.addClass('jersey-' + data.jersey.player);
+
             // Libero:
             if (i+1 == 7) {
                 c.addClass('lineup-player-libero');
+                c.addClass('jersey-' + data.jersey.libero);
             }
 
             console.log((i+1));

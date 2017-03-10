@@ -24,3 +24,9 @@
     font-size: 22px;
     padding: 10px;
 }
+
+
+.sb-team-name.jersey {
+    background-position: left center;
+    text-indent: 40px;
+}
