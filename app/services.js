@@ -213,6 +213,13 @@ angular.module('services', [])
             return currentScore;
         };
 
+        f.newGame = function (url) {
+            game = null;
+            f.createNewGame({poengligaGameUrl: url}).then ( function () {
+                document.location.reload();
+            });
+        };
+
         // Dummy functions:
         f.createNewGame = function (options) {
             var deferred = $q.defer();
