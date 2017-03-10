@@ -28,7 +28,8 @@
     line-height: 42px;
     text-align: center;
     font-size: 42px;
-    color: white;
+/* Color inherit from jersey
+    color: white;*/
     margin-top: 10px;
     margin-bottom: 45px;
 }
@@ -66,9 +67,6 @@
     left: 550px;
 }
 
-.lineup-player-libero {
-    color: red;
-}
 
 .court-team-info {
     position: absolute;

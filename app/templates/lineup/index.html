@@ -108,12 +108,15 @@
                 c.addClass('lineup-player-3');
             }
 
-            c.addClass('jersey-' + data.jersey.player);
+
 
             // Libero:
             if (i+1 == 7) {
                 c.addClass('lineup-player-libero');
                 c.addClass('jersey-' + data.jersey.libero);
+            }
+            else {
+                c.addClass('jersey-' + data.jersey.player);
             }
 
             console.log((i+1));

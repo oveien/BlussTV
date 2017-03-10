@@ -1,6 +1,7 @@
 .jersey {
     background-repeat: no-repeat;
     background-position: center center;
+    color: white;
 }
 
 .jersey-fit {
@@ -25,6 +26,7 @@
 
 .jersey-yellow {
     background-image: url(/graphics/jersey/yellow.png);
+    color: black;
 }
 
 .jersey-grey {
@@ -37,6 +39,7 @@
 
 .jersey-white {
     background-image: url(/graphics/jersey/white.png);
+    color: black;
 }
 
 .jersey-pink {
