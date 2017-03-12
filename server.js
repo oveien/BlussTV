@@ -29,10 +29,11 @@ console.log(__dirname);
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         if (err) callback(err, filename);
-        else if (res.statusCode == 404) {
+        else if (res.statusCode >= 400) {
             callback({status: res.statusCode}, filename);
         }
         else {
+            console.log(uri);
             var stream = request(uri);
             stream.pipe(
                 fs.createWriteStream(filename)
@@ -83,6 +84,7 @@ function getPlayersInfo (sex, club, players, callback) {
     console.log(url);
 
     var infoPlayers = [];
+    console.log('Info players: ' + url);
     request({
         url: url,
         encoding: "latin1"
@@ -207,8 +209,8 @@ function getPlayersInfo (sex, club, players, callback) {
 
 
 app.get('/game-info', function (req, res) {
-
-
+    console.log('Game info')
+    console.log(req.query.url);
     request({
         url: req.query.url,
         encoding: "latin1"
@@ -307,6 +309,7 @@ app.get('/game-info', function (req, res) {
 
 
 router.get("/update-score",function(req,res) {
+    console.log('Update score: ' + req.query.url);
     request({
         url: req.query.url,
         encoding: "latin1"

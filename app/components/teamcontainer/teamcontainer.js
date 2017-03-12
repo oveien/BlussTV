@@ -56,13 +56,14 @@
                 team.jersey.libero = color;
             }
 
-            var g = GameService.getGameInfo();
-            g.homeTeam = $scope.homeTeam;
-            g.awayTeam = $scope.awayTeam;
+            GameService.getGameInfo(function () {
+                g.homeTeam = $scope.homeTeam;
+                g.awayTeam = $scope.awayTeam;
 
-            GameService.saveChanges(g)
+                GameService.saveChanges(g)
 
-            $scope.homeTeamChooseJersey = $scope.awayTeamChooseJersey = false;
+                $scope.homeTeamChooseJersey = $scope.awayTeamChooseJersey = false;
+            });
         }
 
         $scope.setTeamName = function (team) {

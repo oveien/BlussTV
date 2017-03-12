@@ -10,7 +10,7 @@
 <div class="screen">
 <div class="dialog scoreboard-container">
     <table>
-        <tr>
+        <tr class="sb-home-team">
             <td class='sb-team-name' id="homeTeamName"></td>
             <td class='sb-team-sets' id="homeTeamSets"></td>
             <td class='sb-team-points' id="homeTeamPoints"></td>
@@ -60,16 +60,22 @@
         var htInfo = $('<div>').html(data.homeTeam.name).html();
         var atInfo = $('<div>').html(data.awayTeam.name).html();
 
+        $('#homeTeamName').html('');
+        $('#awayTeamName').html('');
+
+
         if (data.homeTeam.jersey) {
-            $('#homeTeamName').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.homeTeam.jersey.player);
+            var elm = $('<div>').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.homeTeam.jersey.player);
+            $('#homeTeamName').append(elm);
         }
 
         if (data.awayTeam.jersey) {
-            $('#awayTeamName').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.awayTeam.jersey.player);
+            var elm = $('<div>').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.awayTeam.jersey.player);
+            $('#awayTeamName').append(elm);
         }
         
-        $('#homeTeamName').html(data.homeTeam.name);
-        $('#awayTeamName').html(data.awayTeam.name);
+        $('#homeTeamName').append(data.homeTeam.name);
+        $('#awayTeamName').append(data.awayTeam.name);
 
         $('#homeTeamSets').html(data.homeTeam.sets);
         $('#awayTeamSets').html(data.awayTeam.sets);

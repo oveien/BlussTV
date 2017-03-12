@@ -157,6 +157,7 @@ angular.module('services', [])
         };
 
         var updateScore = function () {
+            console.log(game);
             if (!game || !game.poengligaGameUrl) {
                 setTimeout(updateScore, scoreBoardUpdateTime*1000);
                 return;
@@ -247,9 +248,6 @@ angular.module('services', [])
             if (options && options.poengligaGameUrl) {
                 f.getGameInfo(options.poengligaGameUrl).then ( function (data) {
                     console.log(data);
-                    data.url = options.poengligaGameUrl;
-                    data.poengligaGameUrl = options.poengligaGameUrl;
-                    data.gameCode = createGameId();
                     data.manualScore = false;
 
                     angular.extend(gameDefaults, data);
@@ -268,6 +266,9 @@ angular.module('services', [])
                     };
                     game.setPoints = [25, 25, 25, 25, 15];
                     game.manualScore = false;
+                    game.url = options.poengligaGameUrl;
+                    game.poengligaGameUrl = options.poengligaGameUrl;
+                    game.gameCode = createGameId();
 
                     f.saveChanges(game);
                     deferred.resolve(game);
