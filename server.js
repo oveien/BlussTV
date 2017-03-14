@@ -24,6 +24,7 @@ var ffdevices = require('ffdevices')
 
 console.log(__dirname);
 
+const PORT = process.env.PORT || 3000;
 
 
 var download = function(uri, filename, callback){
@@ -452,7 +453,7 @@ router.post("/caspar/templates/:template/:what",function(req,res){ //
 
 
         if (req.params.what == 'play') {
-            var path = "http://127.0.0.1:3000/templates/" + req.params.template;
+            var path = `http://127.0.0.1:${PORT}/templates/${req.params.template}`;
             var addCommand = 'PLAY 1-11 [HTML] "' + path + '"';
 
             console.log('Loading ' + path);
@@ -584,7 +585,7 @@ app.listen(3000, function () {
 })
 */
 
-var server = http.createServer(app).listen(3000);
+var server = http.createServer(app).listen(PORT);
 
 
 var clients = {};
