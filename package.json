@@ -4,6 +4,10 @@
   "description": "Scrape le web.",
   "main": "server.js",
   "author": "Scotch",
+  "engines": {
+    "node": "7.7.2",
+    "npm": "4.1.2"
+  },
   "dependencies": {
     "angular": "^1.6.2",
     "angular-ui-bootstrap": "^2.5.0",
