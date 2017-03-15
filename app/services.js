@@ -106,6 +106,10 @@ angular.module('services', [])
                     'logo': 'sunnfjord.svg'
                 },
                 {
+                    'name': 'TBK',
+                    'logo': 'tbk.svg',
+                },
+                {
                     'name': 'Tønsberg',
                     'logo': 'tonsberg.svg'
                 },
@@ -579,7 +583,3 @@ angular.module('services', [])
 
         return f;
     }]);
-
-
-
-
