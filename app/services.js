@@ -58,7 +58,7 @@ angular.module('services', [])
                     'logo': 'egersund.svg'
                 },
                 {
-                    'name': 'Førde',
+                    'name': 'Førde VBK',
                     'logo': 'forde.svg'
                 },
                 {
@@ -180,7 +180,7 @@ angular.module('services', [])
         return f;
     }])
 
-    .factory('GameService', ['$http', '$q', function ($http, $q) {
+    .factory('GameService', ['$http', '$q', 'BlussTVService', function ($http, $q, BlussTVService) {
 
 
         var scoreBoardUpdateTime = 8;
@@ -323,8 +323,21 @@ angular.module('services', [])
                     game.poengligaGameUrl = options.poengligaGameUrl;
                     game.gameCode = createGameId();
 
-                    f.saveChanges(game);
-                    deferred.resolve(game);
+                    // We rather have the svg
+                    BlussTVService.getAllTeams().then( function (teams) {
+                        for (var i in teams) {
+                            console.log(teams[i].name + ' vs ' + game.homeTeam.name);
+                            if (teams[i].name == game.homeTeam.name) {
+                                game.homeTeam.logo = teams[i].logo;
+                            }
+                            if (teams[i].name == game.awayTeam.name) {
+                                game.awayTeam.logo = teams[i].logo;
+                            }
+                        }
+
+                        f.saveChanges(game);
+                        deferred.resolve(game);
+                    });
                 });
             }
             else {
