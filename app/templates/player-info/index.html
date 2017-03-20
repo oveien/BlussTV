@@ -13,7 +13,7 @@
         <div class="interviewee-info">
             <div class="interviewee-image-container"><div class="interviewee-image"></div></div>
             <div class="player-info-container">
-                <div class="interviewee-age-container">Alder: <span id="interviewee-age"></span> </div>
+                <div class="interviewee-age-container">Fødselsår: <span id="interviewee-age"></span> </div>
                 <div class="interviewee-height-container">Høyde: <span id="interviewee-height"></span> </div>
                 <div class="interviewee-reach-container">Rekkevidde: <span id="interviewee-reach"></span> </div>
             </div>
@@ -44,7 +44,7 @@
         $('.interviewee-name').text(data.name);
         $('.interviewee-role').text(data.team.name);
 
-        $('#interviewee-age').html(new Date().getFullYear() - parseInt(data.birthyear));
+        $('#interviewee-age').html(parseInt(data.birthyear));
         $('#interviewee-height').html(data.height);
         $('#interviewee-reach').html(data.reach);
 
