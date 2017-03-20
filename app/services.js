@@ -15,8 +15,12 @@ angular.module('services', [])
         f.getAllTeams = function () {
             var deferred = $q.defer();
 
-            // Might be async in the feature:
+            // Might be async in the future:
             var teams = [
+                {
+                    'name': 'Asker',
+                    'logo': 'asker.svg'
+                },
                 {
                     'name': 'Askim',
                     'logo': 'askim.svg'
@@ -38,6 +42,10 @@ angular.module('services', [])
                     'logo': 'blussuvoll.svg'
                 },
                 {
+                    'name': 'Bodø',
+                    'logo': 'bodo.svg'
+                },
+                {
                     'name': 'BSI',
                     'logo': 'bsi.svg'
                 },
@@ -56,6 +64,22 @@ angular.module('services', [])
                 {
                     'name': 'Gneist',
                     'logo': 'gneist.svg'
+                },
+                {
+                    'name': 'Haugesund',
+                    'logo': 'haugesund.svg'
+                },
+                {
+                    'name': 'Holstad',
+                    'logo': 'holstad.svg'
+                },
+                {
+                    'name': 'KFUM Stavanger',
+                    'logo': 'kfumstavanger.svg'
+                },
+                {
+                    'name': 'Kolbotn',
+                    'logo': 'kolbotn.svg'
                 },
                 {
                     'name': 'Koll',
@@ -94,6 +118,10 @@ angular.module('services', [])
                     'logo': 'sandnes.svg'
                 },
                 {
+                    'name': 'Sarpsborg',
+                    'logo': 'sarpsborg.svg'
+                },
+                {
                     'name': 'Spirit Lørenskog',
                     'logo': 'spiritlorenskog.svg'
                 },
@@ -102,8 +130,16 @@ angular.module('services', [])
                     'logo': 'stod.svg'
                 },
                 {
+                    'name': 'Strand-Ulv',
+                    'logo': 'strandulv.svg'
+                },
+                {
                     'name': 'Sunnfjord',
                     'logo': 'sunnfjord.svg'
+                },
+                {
+                    'name': 'Svelgen',
+                    'logo': 'svelgen.svg'
                 },
                 {
                     'name': 'TBK',
@@ -124,6 +160,10 @@ angular.module('services', [])
                 {
                     'name': 'Viking',
                     'logo': 'viking.svg'
+                },
+                {
+                    'name': 'KFUM Volda',
+                    'logo': 'volda.svg'
                 }
             ];
 
