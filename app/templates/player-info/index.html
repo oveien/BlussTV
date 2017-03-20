@@ -48,10 +48,21 @@
         $('#interviewee-height').html(data.height);
         $('#interviewee-reach').html(data.reach);
 
-        $('#interviewee-stats-blocks').html('Blokk: ' + data.blocks);
-        $('#interviewee-stats-attack').html('Angrep: ' + data.attack);
-        $('#interviewee-stats-ace').html('Serve-ess: ' + data.ace);
-        $('#interviewee-stats-total').html('Totalt: ' + (parseInt(data.ace) + parseInt(data.attack) + parseInt(data.blocks)) );
+        if (typeof(data.blocks) != 'undefined') {
+            $('#interviewee-stats-blocks').html('Blokk: ' + data.blocks);
+        }
+
+        if (typeof(data.attack) != 'undefined') {
+            $('#interviewee-stats-attack').html('Angrep: ' + data.attack);
+        }
+
+        if (typeof(data.ace) != 'undefined') {
+            $('#interviewee-stats-ace').html('Serve-ess: ' + data.ace);
+        }
+
+        if (typeof(data.ace) != 'undefined') {
+            $('#interviewee-stats-total').html('Totalt: ' + (parseInt(data.ace) + parseInt(data.attack) + parseInt(data.blocks)));
+        }
 
         $('.interviewee-container').removeClass('hidden-left');
 

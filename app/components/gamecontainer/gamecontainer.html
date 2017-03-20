@@ -2,15 +2,15 @@
     <score-board></score-board>
 </div>
 
-<div  class="col-xs-12 col-md-8">
+<div  class="col-xs-12 col-md-8" ng-if="getGameType() == 'indoor-volleyball'">
     <lineup></lineup>
 </div>
 
 
-<div  class="col-xs-12">
+<div  class="col-xs-12" ng-if="getGameType() == 'indoor-volleyball'">
     <statistics></statistics>
 </div>
 
-<div  class="col-xs-12">
+<div  class="col-xs-12 col-md-4">
     <player-info></player-info>
 </div>

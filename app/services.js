@@ -225,6 +225,15 @@ angular.module('services', [])
             });
         };
 
+        f.getGameType = function () {
+            if (game) {
+                return game.type;
+            }
+            else {
+                return null;
+            }
+        }
+
         // Dummy functions:
         f.createNewGame = function (options) {
             var deferred = $q.defer();

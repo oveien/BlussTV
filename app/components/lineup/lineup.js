@@ -125,5 +125,9 @@
 
         });
 
+        $scope.getGameType = function () {
+            return GameService.getGameType();
+        }
+
     }]);
 })(window.angular);

@@ -251,7 +251,7 @@
                 if (p2) {
                     htName += ' / ' + p2[1];
                 }
-                else if (data.homeTeam.players[1]) {
+                else if (data.homeTeam.players[1].name) {
                     htName += ' / ' + data.homeTeam.players[1].name;
                 }
 

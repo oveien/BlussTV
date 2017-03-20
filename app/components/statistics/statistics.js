@@ -209,5 +209,10 @@
 
         });
 
+        $scope.getGameType = function () {
+            alert('get game type');
+            return GameService.getGameType();
+        }
+
     }]);
 })(window.angular);
