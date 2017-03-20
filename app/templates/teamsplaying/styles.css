@@ -112,6 +112,9 @@
 }
 
 .team-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -142,9 +145,8 @@
 }
 
 .team-logo img {
-    max-height: 120px;
-    max-width: 120px;
-    padding: 5px;
+    max-height: 110px;
+    max-width: 110px;
 
     /*
     transform: rotateY(40deg);
