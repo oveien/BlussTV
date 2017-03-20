@@ -43,7 +43,17 @@
 
             </uib-tab>
 
+
             <uib-tab index="21" heading="Static title">
+
+                <div class="well row">
+                    <label>Velg antall sett</label>
+                    <select class='form-control' ng-model="$parent.$parent.currentIndoorSets" ng-options="item as item.name for item in numSetsIndoor"></select>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="22" heading="Static title">
 
                 <div class="well row">
                     <div class="col-xs-6">
@@ -58,7 +68,7 @@
 
             </uib-tab>
 
-            <uib-tab index="22" heading="Static title">
+            <uib-tab index="23" heading="Static title">
 
                 <div class="well row">
                     <div class="col-xs-6">
@@ -95,6 +105,15 @@
             </uib-tab>
 
             <uib-tab index="31" heading="Static title">
+
+                <div class="well row">
+                    <label>Velg antall sett</label>
+                    <select class='form-control' ng-model="$parent.$parent.currentBeachSets" ng-options="item as item.name for item in numSetsBeach"></select>
+                </div>
+
+            </uib-tab>
+
+            <uib-tab index="32" heading="Static title">
 
                 <div class="well row">
                     <div class="col-xs-6">
