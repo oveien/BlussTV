@@ -33,6 +33,7 @@
     background-color: red;
     border-radius: 2px;
     padding: 4px;
+    font-size: 18px;
 }
 
 .sb-team-points {
@@ -40,8 +41,20 @@
     padding: 10px;
 }
 
+table {
+    border-spacing:0 5px;
+}
+
 
 .sb-team-name.jersey {
     background-position: left center;
     text-indent: 40px;
+}
+
+.sb-previous-set {
+    color: #ddd;
+    text-align: right;
+    width: 0;
+    max-width: 0;
+    overflow: hidden;
 }

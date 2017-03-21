@@ -9,7 +9,7 @@
 
 <div class="screen">
 <div class="dialog scoreboard-container">
-    <table>
+    <table cellspacing="0" cellpadding="0">
         <tr class="sb-home-team">
             <td class='sb-team-name' id="homeTeamName"></td>
             <td class='sb-team-sets' id="homeTeamSets"></td>
@@ -46,11 +46,19 @@
         $('.dialog').fadeIn();
     }
 
+    var oldObject = null;
     function update(str) {
 
         var obj = JSON.parse(str);
 
         var data = obj.data;
+
+        // Same data, return:
+        if (JSON.stringify(data) === JSON.stringify(oldObject)) {
+            return;
+        }
+
+        oldObject = data;
 
         if (!data) {
             return;
@@ -82,6 +90,25 @@
 
         $('#homeTeamPoints').html(data.homeTeam.points);
         $('#awayTeamPoints').html(data.awayTeam.points);
+
+        // We might want to show previous sets:
+        if (data.homeTeam.sets > 0 || data.awayTeam.sets > 0 && (data.homeTeam.points + data.awayTeam.points) % 10 == 0) {
+            $('.sb-previous-set').remove();
+            for (var i = 0; i <(data.homeTeam.sets + data.awayTeam.sets); i++) {
+                var elm = $('<td>').html(data.homeTeam.pointsSets[i]).addClass('sb-previous-set');
+                elm.insertBefore($('#homeTeamPoints'));
+
+                elm = $('<td>').html(data.awayTeam.pointsSets[i]).addClass('sb-previous-set');
+                elm.insertBefore($('#awayTeamPoints'));
+            }
+
+
+            $('.sb-previous-set').animate({width: '30px', maxWidth: '30px'});
+
+            setTimeout(function () {
+                $('.sb-previous-set').animate({width: '0', maxWidth: '0'});
+            }, 5000);
+        }
     }
 
     function remove() {

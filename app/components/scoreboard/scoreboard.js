@@ -120,6 +120,7 @@
                     name: ht.name,
                     sets: 0,
                     points: 0,
+                    pointsSets: $scope.pointsHomeTeam,
                     logo: ht.logo,
                     jersey: ht.jersey
                 },
@@ -127,6 +128,7 @@
                     name: at.name,
                     sets: 0,
                     points: 0,
+                    pointsSets: $scope.pointsAwayTeam,
                     logo: at.logo,
                     jersey: at.jersey
                 }
@@ -135,8 +137,7 @@
             for (var i in $scope.pointsHomeTeam) {
 
                 if (  Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) >= 2 &&
-                    ( ($scope.pointsHomeTeam[i] >= 25 || $scope.pointsAwayTeam[i] >= 25) ||
-                        (i == 4 && ($scope.pointsHomeTeam[i] >= 15 || $scope.pointsAwayTeam[i] >= 15) ))  ) {
+                    ( ($scope.pointsHomeTeam[i] >= $scope.gameSetPoints[i] || $scope.pointsAwayTeam[i] >= $scope.gameSetPoints[i]) ) ) {
 
                     if ($scope.pointsHomeTeam[i] > $scope.pointsAwayTeam[i]) {
                         data.homeTeam.sets++;
