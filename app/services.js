@@ -12,6 +12,23 @@ angular.module('services', [])
     .factory('BlussTVService', ['$http', '$q', function ($http, $q) {
         var f = {};
 
+        f.getLivePoengligaMatches = function () {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: '/poengliga-matches'
+            }).then(function (response) {
+                var games = response.data;
+
+                deferred.resolve(games);
+
+            }, function () {
+                deferred.resolve([]);
+            });
+
+            return deferred.promise;
+        };
+
         f.getAllTeams = function () {
             var deferred = $q.defer();
 

@@ -90,22 +90,33 @@
             console.log($scope.selectedGameType.id);
         }
 
+        $scope.liveEliteGames = true;
         $scope.eliteGames = [
             {
-                'sex': 'm',
                 'homeTeam': 'BK Tromsø',
                 'awayTeam': 'Viking',
                 'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/9web.html',
                 'title': 'Herrer: BK Tromsø - Viking'
             },
             {
-                'sex': 'f',
                 'homeTeam': 'Randaberg',
                 'awayTeam': 'Oslo Volley',
                 'poengligaGameUrl': 'http://www.poengliga.no/elited/1617/kamper/10web.html',
                 'title': 'Damer: Randaberg - Oslo Volley'
             }
         ];
+
+        BlussTVService.getLivePoengligaMatches().then ( function (matches) {
+            if (matches.length > 0) {
+                $scope.eliteGames = matches;
+                $scope.eliteGame = $scope.eliteGames[0];
+                $scope.liveEliteGames = true;
+            }
+            else {
+                $scope.liveEliteGames = false;
+            }
+        });
+
 
         $scope.lowerDivisionVolleyball = {
             homeTeam: {

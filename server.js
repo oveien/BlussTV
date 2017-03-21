@@ -208,6 +208,45 @@ function getPlayersInfo (sex, club, players, callback) {
     });
 }
 
+app.get('/poengliga-matches/', function (req, res) {
+    //var url = 'http://localhost:3000/kamper.html';
+    var url = 'http://www.poengliga.no/liveres.php';
+
+    request({
+        url: url,
+        encoding: "utf-8"
+    }, function (error, response, html) {
+        if (!error) {
+            var $ = cheerio.load(html);
+            var games = [];
+
+            $('table[cellpadding=2]').each ( function () {
+               console.log('Got table');
+                var gameLink = $(this).find('a').attr('href');
+                var homeTeam = $(this).find('th[align=left][width=150]').text();
+                var awayTeam = $(this).find('tr').eq(2).find('th[align=left]').text();
+
+                var title = '';
+                if (gameLink.match(/eliteh/)) {
+                    title = 'Herrer: ';
+                }
+                else {
+                    title = 'Damer: ';
+                }
+
+                title += homeTeam + ' - ' + awayTeam;
+                games.push({
+                    homeTeam: homeTeam,
+                    awayTeam: awayTeam,
+                    poengligaGameUrl: 'http://www.poengliga.no/' + gameLink,
+                    title: title
+                })
+            });
+
+            res.send(JSON.stringify(games));
+        }
+    });
+});
 
 app.get('/game-info', function (req, res) {
     console.log('Game info')
