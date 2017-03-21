@@ -39,6 +39,7 @@
 .sb-team-points {
     font-size: 22px;
     padding: 10px;
+    text-align: right;
 }
 
 table {
