@@ -16,6 +16,7 @@ var sanitize = require("sanitize-filename");
 var io = require('socket.io');
 var http = require('http');
 
+var formidable = require("formidable");
 
 var app = express ();
 var path = require("path");
@@ -175,6 +176,7 @@ function getPlayersInfo (sex, club, players, callback) {
 
                     var filename = playersDir + '/' +  infoPlayer.id + '_' + sex + '.jpg';
 
+                    infoPlayer.sid = infoPlayer.id + '_' + sex;
                     if (!fs.existsSync(filename)) {
                         var baseUrl = 'http://poengliga.no/img_players/';
                         console.log('Downloading image...');
@@ -337,6 +339,7 @@ app.get('/game-info', function (req, res) {
         // Lookup more player info:
         getPlayersInfo(sex, game.homeTeam.name, game.homeTeam.players, function (players) {
             game.homeTeam.players = players;
+            game.sex = sex;
             getPlayersInfo(sex, game.awayTeam.name, game.awayTeam.players, function (players) {
                 game.awayTeam.players = players;
                 res.send(JSON.stringify(game));
@@ -567,6 +570,57 @@ router.get("/graphics/:club/players/:id/image",function(req,res) { //
 
     res.sendFile(playerImagePath);
 });
+
+app.route('/upload-profile-image')
+    .post(function (req, res, next) {
+        // create an incoming form object
+        var form = new formidable.IncomingForm();
+
+        // specify that we want to allow the user to upload multiple files in a single request
+        form.multiples = false;
+
+        // store all uploads in the /uploads directory
+        form.uploadDir = path.join(__dirname, '/tmp/uploads');
+
+        // every time a file has been uploaded successfully,
+        // rename it to it's orignal name
+        var ulPath = "";
+        form.on('file', function(field, file) {
+            ulPath = file.path;
+
+        });
+
+        // log any errors that occur
+        form.on('error', function(err) {
+            console.log('<script>alert("An error has occured: \n' + err + '");</script>');
+        });
+
+        var data = {};
+        form.parse(req, function(err, fields, files) {
+            data = fields;
+        });
+        // once all the files have been uploaded, send a response to the client
+        form.on('end', function() {
+            if (ulPath) {
+                var safeClubPath = sanitize(data.team_name);
+                var destPath = __dirname + '/data/' + safeClubPath + '/';
+                if (!fs.existsSync(destPath)) {
+                    fs.mkdirSync(destPath);
+                }
+                destPath += 'players/';
+                if (!fs.existsSync(destPath)) {
+                    fs.mkdirSync(destPath);
+                }
+                destPath +=  sanitize(data.player_sid) + '.jpg';
+                console.log('Writing ' + destPath);
+                fs.rename(ulPath, destPath);
+            }
+            res.end("<script>alert('Added image');</script>");
+        });
+
+        // parse the incoming request containing the form data
+        form.parse(req);
+    });
 
 router.get("/graphics/:club/logo.jpg",function(req,res) { //
     var safeClubName = sanitize(req.params.club);

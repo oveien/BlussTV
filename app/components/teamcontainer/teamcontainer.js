@@ -16,6 +16,17 @@
             console.log(game);
         });
 
+        $scope.hasPlayerId = function () {
+            if ($scope.homeTeam) {
+                for (var i in $scope.homeTeam.players) {
+                    if ($scope.homeTeam.players[i].sid) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         // Hide when out of scope:
         var onClickOutSideJersey = function () {
 

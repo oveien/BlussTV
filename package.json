@@ -17,6 +17,7 @@
     "cheerio": "latest",
     "express": "latest",
     "ffdevices": "^0.1.1",
+    "formidable": "^1.1.1",
     "http": "0.0.0",
     "iconv-lite": "^0.4.15",
     "jquery": "^3.1.1",
