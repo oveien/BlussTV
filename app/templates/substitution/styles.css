@@ -1,0 +1,123 @@
+/*
+.screen {
+    background-color: red;
+}
+*/
+
+.interviewee-container {
+    width: 400px;
+    bottom: 50px;
+    left: 30px;
+    position: absolute;
+    text-align: right;
+}
+
+.interviewee2-container {
+    width: 400px;
+    bottom: 50px;
+    left: 850px;
+    position: absolute;
+}
+
+
+.interviewee-info {
+    background-color: rgba(153, 153, 153, 0.7);
+    color: white;
+    height: 80px;
+    position: relative;
+    line-height: 80px;
+}
+
+
+
+.interviewee-info div.interviewee-name {
+    margin-right: 20px;
+    text-indent: 20px;
+    font-size: 36px;
+    white-space: nowrap;
+}
+
+.st-switch-container {
+    position: absolute;
+    left: 620px;
+    top: 600px;
+    display: none;
+}
+
+.player-info-container {
+    float: right;
+    padding-right: 50px;
+}
+
+.player-info-container div {
+    float: left;
+    font-size: 28px;
+    margin-left: 30px;
+}
+
+.interviewee-age-container {
+    float: left;
+    font-size: 32px;
+}
+
+.interviewee-image-container {
+    background-color: #999;
+    width: 150px;
+    height: 200px;
+    position: absolute;
+    bottom: -40px;
+    border-radius: 5px;
+    left: auto;
+    right: -150px;
+}
+
+.interviewee2-container .interviewee-image-container {
+    left: -150px;
+}
+
+.interviewee-image {
+    background-position: center center;
+    background-size: cover;
+    width: 140px;
+    height: 190px;
+    top: 5px;
+    left: 5px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.interviewee-role-container {
+    background-color: rgba(170, 170, 170, 0.7);
+    color: white;
+    height: 40px;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.interviewee-role {
+    text-indent: 200px;
+}
+
+.interviewee-stats-container {
+    float: right;
+    padding-right: 50px;
+    font-size: 24px;
+}
+
+.interviewee-stats-container div {
+    float: left;
+    margin-left: 20px;
+}
+
+#interviewee-stats-total {
+    font-weight: bold;
+}
+
+
+.hidden-left {
+    left: -550px !important;
+}
+
+.hidden-right {
+    left: 1430px !important;
+}

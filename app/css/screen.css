@@ -74,7 +74,11 @@ th, td {
 }
 
 .hidden-left {
-    left: -1280px !important;
+     left: -1280px !important;
+ }
+
+.hidden-right {
+    left: 1280px !important;
 }
 
 .slide {

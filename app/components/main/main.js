@@ -73,4 +73,9 @@
         controller: 'playerInfoController'
     });
 
+    app.component('playerSubstitution', {
+        templateUrl: '/components/playersubstitution/playersubstitution.html',
+        controller: 'playerSubstitutionController'
+    });
+
 })(window.angular);
