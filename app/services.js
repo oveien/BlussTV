@@ -12,11 +12,32 @@ angular.module('services', [])
     .factory('BlussTVService', ['$http', '$q', function ($http, $q) {
         var f = {};
 
+        f.getLivePoengligaMatches = function () {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: '/poengliga-matches'
+            }).then(function (response) {
+                var games = response.data;
+
+                deferred.resolve(games);
+
+            }, function () {
+                deferred.resolve([]);
+            });
+
+            return deferred.promise;
+        };
+
         f.getAllTeams = function () {
             var deferred = $q.defer();
 
-            // Might be async in the feature:
+            // Might be async in the future:
             var teams = [
+                {
+                    'name': 'Asker',
+                    'logo': 'asker.svg'
+                },
                 {
                     'name': 'Askim',
                     'logo': 'askim.svg'
@@ -38,6 +59,10 @@ angular.module('services', [])
                     'logo': 'blussuvoll.svg'
                 },
                 {
+                    'name': 'Bodø',
+                    'logo': 'bodo.svg'
+                },
+                {
                     'name': 'BSI',
                     'logo': 'bsi.svg'
                 },
@@ -50,12 +75,28 @@ angular.module('services', [])
                     'logo': 'egersund.svg'
                 },
                 {
-                    'name': 'Førde',
+                    'name': 'Førde VBK',
                     'logo': 'forde.svg'
                 },
                 {
                     'name': 'Gneist',
                     'logo': 'gneist.svg'
+                },
+                {
+                    'name': 'Haugesund',
+                    'logo': 'haugesund.svg'
+                },
+                {
+                    'name': 'Holstad',
+                    'logo': 'holstad.svg'
+                },
+                {
+                    'name': 'KFUM Stavanger',
+                    'logo': 'kfumstavanger.svg'
+                },
+                {
+                    'name': 'Kolbotn',
+                    'logo': 'kolbotn.svg'
                 },
                 {
                     'name': 'Koll',
@@ -94,6 +135,10 @@ angular.module('services', [])
                     'logo': 'sandnes.svg'
                 },
                 {
+                    'name': 'Sarpsborg',
+                    'logo': 'sarpsborg.svg'
+                },
+                {
                     'name': 'Spirit Lørenskog',
                     'logo': 'spiritlorenskog.svg'
                 },
@@ -102,8 +147,20 @@ angular.module('services', [])
                     'logo': 'stod.svg'
                 },
                 {
+                    'name': 'Strand-Ulv',
+                    'logo': 'strandulv.svg'
+                },
+                {
                     'name': 'Sunnfjord',
                     'logo': 'sunnfjord.svg'
+                },
+                {
+                    'name': 'Svelgen',
+                    'logo': 'svelgen.svg'
+                },
+                {
+                    'name': 'TBK',
+                    'logo': 'tbk.svg',
                 },
                 {
                     'name': 'Tønsberg',
@@ -120,6 +177,10 @@ angular.module('services', [])
                 {
                     'name': 'Viking',
                     'logo': 'viking.svg'
+                },
+                {
+                    'name': 'KFUM Volda',
+                    'logo': 'volda.svg'
                 }
             ];
 
@@ -136,10 +197,10 @@ angular.module('services', [])
         return f;
     }])
 
-    .factory('GameService', ['$http', '$q', function ($http, $q) {
+    .factory('GameService', ['$http', '$q', 'BlussTVService', function ($http, $q, BlussTVService) {
 
 
-        var scoreBoardUpdateTime = 20;
+        var scoreBoardUpdateTime = 8;
         var game = null;
 
         var currentScore = {};
@@ -157,6 +218,7 @@ angular.module('services', [])
         };
 
         var updateScore = function () {
+            console.log(game);
             if (!game || !game.poengligaGameUrl) {
                 setTimeout(updateScore, scoreBoardUpdateTime*1000);
                 return;
@@ -191,6 +253,7 @@ angular.module('services', [])
             if (typeof type === 'string') {
                 type = [type];
             }
+
             for (var i in type) {
                 observerCallbacks.push({type: type[i], callback: callback});
             }
@@ -199,6 +262,8 @@ angular.module('services', [])
         //call this when you know 'foo' has been changed
         var notifyObservers = function(type, data) {
             angular.forEach(observerCallbacks, function(observer) {
+                console.log(type);
+                console.log(observer.type);
                 if (observer.type == type) {
                     observer.callback(type, data);
                 }
@@ -209,6 +274,22 @@ angular.module('services', [])
         f.getCurrentScore = function () {
             return currentScore;
         };
+
+        f.newGame = function (url) {
+            game = null;
+            f.createNewGame({poengligaGameUrl: url}).then ( function () {
+                document.location.reload();
+            });
+        };
+
+        f.getGameType = function () {
+            if (game) {
+                return game.type;
+            }
+            else {
+                return null;
+            }
+        }
 
         // Dummy functions:
         f.createNewGame = function (options) {
@@ -225,7 +306,8 @@ angular.module('services', [])
                 awayTeam: {
                     name: '',
                     logo: '',
-                    players: []
+                    players: [],
+
                 },
                 setPoints: [25, 25, 25, 25, 15],
                 manualScore: true,
@@ -236,17 +318,43 @@ angular.module('services', [])
             if (options && options.poengligaGameUrl) {
                 f.getGameInfo(options.poengligaGameUrl).then ( function (data) {
                     console.log(data);
-                    data.url = options.poengligaGameUrl;
-                    data.poengligaGameUrl = options.poengligaGameUrl;
-                    data.gameCode = createGameId();
                     data.manualScore = false;
 
                     angular.extend(gameDefaults, data);
 
                     game = gameDefaults;
 
-                    f.saveChanges(game);
-                    deferred.resolve(game);
+                    // This is not extended?
+                    game.homeTeam.jersey = {
+                        player: 'red',
+                        libero: 'black'
+                    };
+
+                    game.awayTeam.jersey = {
+                        player: 'blue',
+                        libero: 'red'
+                    };
+                    game.setPoints = [25, 25, 25, 25, 15];
+                    game.manualScore = false;
+                    game.url = options.poengligaGameUrl;
+                    game.poengligaGameUrl = options.poengligaGameUrl;
+                    game.gameCode = createGameId();
+
+                    // We rather have the svg
+                    BlussTVService.getAllTeams().then( function (teams) {
+                        for (var i in teams) {
+                            console.log(teams[i].name + ' vs ' + game.homeTeam.name);
+                            if (teams[i].name == game.homeTeam.name) {
+                                game.homeTeam.logo = teams[i].logo;
+                            }
+                            if (teams[i].name == game.awayTeam.name) {
+                                game.awayTeam.logo = teams[i].logo;
+                            }
+                        }
+
+                        f.saveChanges(game);
+                        deferred.resolve(game);
+                    });
                 });
             }
             else {
@@ -254,6 +362,18 @@ angular.module('services', [])
                 angular.extend(gameDefaults, options);
 
                 game = gameDefaults;
+
+                // This is not extended?
+                game.homeTeam.jersey = {
+                    player: 'red',
+                    libero: 'black'
+                };
+
+                game.awayTeam.jersey = {
+                    player: 'blue',
+                    libero: 'red'
+                };
+
                 f.saveChanges(game);
                 deferred.resolve(game);
             }
@@ -386,6 +506,7 @@ angular.module('services', [])
         };
 
         game = f.getStoredValue('game');
+
 
         return f;
 
@@ -541,7 +662,3 @@ angular.module('services', [])
 
         return f;
     }]);
-
-
-
-

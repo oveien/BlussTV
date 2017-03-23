@@ -3,10 +3,25 @@
     left: 20px;
 }
 
+.sb-team-logo {
+    padding-right: 20px;
+    padding-left: 10px;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
 .sb-team-name {
     padding-right: 20px;
     padding-left: 10px;
     font-size: 22px;
+}
+
+.sb-team-name .jersey {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
 }
 
 .sb-team-name img {
@@ -18,9 +33,29 @@
     background-color: red;
     border-radius: 2px;
     padding: 4px;
+    font-size: 18px;
 }
 
 .sb-team-points {
     font-size: 22px;
     padding: 10px;
+    text-align: right;
+}
+
+table {
+    border-spacing:0 5px;
+}
+
+
+.sb-team-name.jersey {
+    background-position: left center;
+    text-indent: 40px;
+}
+
+.sb-previous-set {
+    color: #ddd;
+    text-align: right;
+    width: 0;
+    max-width: 0;
+    overflow: hidden;
 }

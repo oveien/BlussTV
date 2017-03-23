@@ -4,6 +4,10 @@
   "description": "Scrape le web.",
   "main": "server.js",
   "author": "Scotch",
+  "engines": {
+    "node": "7.7.2",
+    "npm": "4.1.2"
+  },
   "dependencies": {
     "angular": "^1.6.2",
     "angular-ui-bootstrap": "^2.5.0",
@@ -13,11 +17,13 @@
     "cheerio": "latest",
     "express": "latest",
     "ffdevices": "^0.1.1",
+    "formidable": "^1.1.1",
     "http": "0.0.0",
     "iconv-lite": "^0.4.15",
     "jquery": "^3.1.1",
     "request": "latest",
     "sanitize-filename": "^1.6.1",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3"
   }
 }

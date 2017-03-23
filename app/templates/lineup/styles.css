@@ -1,67 +1,52 @@
-.lineup-dialog {
-    left: 350px;
-}
-.lineup-court {
-    width: 500px;
-    height: 400px;
-    border: 2px solid white;
-    position: relative;
-    background-color: blue;
+.court-background {
+    background-image: url(img/court.png);
+    width: 1280px;
+    height: 720px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
-.lineup-net {
+.court-players {
     position: absolute;
-    width: 100%;
-    left: 0;
-    top: 5px;
-    height: 4px;
-    background-color: white;
-}
-
-.lineup-three-meter {
-    height: 4px;
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 150px;
+    top: 200px;
+    left: 420px;
 }
 
 .lineup-player {
     position: absolute;
-    width: 166px;
+    width: 160px;
+    height: 99px;
     text-align: center;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .lineup-player-number {
     text-align: center;
     margin-bottom: 10px;
-}
-
-
-.lineup-player-libero .lineup-player-number span {
-    background-color: white;
-    color: red;
-}
-
-.lineup-player-number span {
-    background-color: red;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    line-height: 40px;
+    line-height: 42px;
     text-align: center;
-    font-size: 20px;
-    display: inline-block;
+    font-size: 42px;
+/* Color inherit from jersey
+    color: white;*/
+    margin-top: 10px;
+    margin-bottom: 45px;
 }
+
+.lineup-player-name {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 
 .lineup-player-fr {
     top: 20px;
 }
 
 .lineup-player-br {
-    top: 200px;
+    top: 170px;
 }
 
 .lineup-player-1 {
@@ -76,6 +61,30 @@
     left: 332px;
 }
 
+
 .lineup-player-libero {
     top: 300px;
+    left: 550px;
+}
+
+
+.court-team-info {
+    position: absolute;
+    left: 350px;
+    top: 530px;
+}
+
+.court-team-info div {
+    float: left;
+}
+
+.court-team-info img {
+    height: 100px;
+    margin-right: 20px;
+}
+
+.court-team-info .court-team-name {
+    font-size: 48px;
+    height: 100px;
+    line-height: 100px;
 }

@@ -1,0 +1,119 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/templates/utils.js"></script>
+</head>
+<body>
+
+
+<div class="screen">
+    <div class="interviewee-container slide hidden-left">
+        <div class="interviewee-info">
+            <div class="interviewee-image-container">
+                <div class="interviewee-image"></div>
+            </div>
+            <!--
+            <div class="player-info-container">
+                <div class="interviewee-age-container">Fødselsår: <span id="interviewee-age"></span> </div>
+                <div class="interviewee-height-container">Høyde: <span id="interviewee-height"></span> </div>
+                <div class="interviewee-reach-container">Rekkevidde: <span id="interviewee-reach"></span> </div>
+            </div>
+            -->
+                <div class="interviewee-name"></div>
+        </div>
+    </div>
+    <div class="st-switch-container"><img src="img/switch.png" width="48"></div>
+
+    <div class="interviewee2-container slide hidden-right">
+        <div class="interviewee-info">
+            <div class="interviewee-image-container">
+                <div class="interviewee-image"></div>
+            </div>
+            <div class="interviewee-name"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script>
+    function play(str) {
+        var data = JSON.parse(str);
+
+        var data = data.data;
+        console.log(data);
+        $('.interviewee-image').css('backgroundImage', 'url(' + data.playerOut.image + ')');
+        $('.interviewee-name').text(data.playerOut.number + '. ' + data.playerOut.name);
+
+        $('.interviewee2-container .interviewee-image').css('backgroundImage', 'url(' + data.playerIn.image + ')');
+        $('.interviewee2-container .interviewee-name').text(data.playerIn.number + '. ' + data.playerIn.name);
+        $('.interviewee-role').text(data.team.name);
+
+        $('#interviewee-age').html(parseInt(data.birthyear));
+        $('#interviewee-height').html(data.height);
+        $('#interviewee-reach').html(data.reach);
+
+        if (typeof(data.blocks) != 'undefined') {
+            $('#interviewee-stats-blocks').html('Blokk: ' + data.blocks);
+        }
+
+        if (typeof(data.attack) != 'undefined') {
+            $('#interviewee-stats-attack').html('Angrep: ' + data.attack);
+        }
+
+        if (typeof(data.ace) != 'undefined') {
+            $('#interviewee-stats-ace').html('Serve-ess: ' + data.ace);
+        }
+
+        if (typeof(data.ace) != 'undefined') {
+            $('#interviewee-stats-total').html('Totalt: ' + (parseInt(data.ace) + parseInt(data.attack) + parseInt(data.blocks)));
+        }
+
+        $('.interviewee-container').removeClass('hidden-left');
+        $('.interviewee2-container').removeClass('hidden-right');
+        $('.st-switch-container').fadeIn();
+
+    }
+
+    function remove(str) {
+        $('.interviewee-container').addClass('hidden-left');
+        $('.interviewee2-container').addClass('hidden-right');
+        $('.st-switch-container').fadeOut();
+    }
+
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            play(JSON.stringify({
+                data: {
+                    playerIn: {
+                        "name": 'Øystein Veien',
+                        "number": 8,
+                        blocks: 0,
+                        attack: 0,
+                        ace: 0,
+                        total: 0,
+                        "birthyear": 1983,
+                        "image": '/graphics/Oslo Volley/players/121_f/image'
+                    },
+                    playerOut: {
+                        "name": 'Sindre Svendby',
+                        "number": 10,
+                        blocks: 0,
+                        attack: 0,
+                        ace: 0,
+                        total: 0,
+                        "birthyear": 1983,
+                        "image": '/graphics/Oslo Volley/players/121_f/image'
+                    },
+                    "team": {
+                        name: 'Blussuvoll'
+                    }
+                }
+            }));
+        }, 50);
+    }
+
+</script>
+</html>

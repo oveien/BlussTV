@@ -1,24 +1,90 @@
 
 (function (angular) {
     var app = angular.module('blussTV');
-    app.controller('teamContainerController', ['$scope',  'GameService', 'CasparCGService', function ($scope, GameService, CasparCGService) {
+    app.controller('teamContainerController', ['$scope',  'GameService', 'CasparCGService', '$document', function ($scope, GameService, CasparCGService, $document) {
         var game = null;
 
-        console.log ( GameService.getGameInfo() );
+        $scope.jerseyColors = ['blue', 'red', 'black', 'grey', 'orange', 'white', 'green', 'yellow', 'pink'];
+        $scope.homeTeamChooseJersey = false;
+        var currentJerseyType = "";
+        var onJerseyOpen = false;
+
         GameService.getGameInfo().then( function (data) {
             game = data;
-            $scope.homeTeamName = game.homeTeam.name;
-            $scope.awayTeamName = game.awayTeam.name;
+            $scope.homeTeam = game.homeTeam;
+            $scope.awayTeam = game.awayTeam;
+            console.log(game);
         });
+
+        $scope.hasPlayerId = function () {
+            if ($scope.homeTeam) {
+                for (var i in $scope.homeTeam.players) {
+                    if ($scope.homeTeam.players[i].sid) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Hide when out of scope:
+        var onClickOutSideJersey = function () {
+
+            if (onJerseyOpen) {
+                onJerseyOpen = false;
+                return;
+            }
+
+            $scope.homeTeamChooseJersey = $scope.awayTeamChooseJersey  = false;
+
+            $document.off("click", onClickOutSideJersey);
+            $scope.$apply();
+        };
+
+        $scope.changeTeamJersey = function (team, type) {
+            $scope.homeTeamChooseJersey = $scope.awayTeamChooseJersey = false;
+            currentJerseyType = type;
+            if (team == 'home') {
+                $scope.homeTeamChooseJersey = true;
+            }
+            else {
+                $scope.awayTeamChooseJersey = true;
+            }
+            onJerseyOpen = true;
+            $document.on("click", onClickOutSideJersey);
+        }
+
+        $scope.chooseJersey = function (color) {
+            var team = $scope.homeTeam;
+            if ($scope.awayTeamChooseJersey) {
+                team = $scope.awayTeam;
+            }
+
+            if (currentJerseyType == 'player') {
+                team.jersey.player = color;
+            }
+            else {
+                team.jersey.libero = color;
+            }
+
+            GameService.getGameInfo(function () {
+                g.homeTeam = $scope.homeTeam;
+                g.awayTeam = $scope.awayTeam;
+
+                GameService.saveChanges(g)
+
+                $scope.homeTeamChooseJersey = $scope.awayTeamChooseJersey = false;
+            });
+        }
 
         $scope.setTeamName = function (team) {
             var td = GameService.getTeam(team);
 
             if (team == 'home') {
-                td.name = $scope.homeTeamName;
+                td.name = $scope.homeTeam.name;
             }
             else {
-                td.name = $scope.awayTeamName;
+                td.name = $scope.awayTeam.name;
             }
 
             GameService.setTeamData(team, td);

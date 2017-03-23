@@ -17,6 +17,49 @@
 
         $scope.pages = [0, 1];
 
+        $scope.numSetsBeach = [
+            {
+                name: '3 set (2x21 + 1x15)',
+                sets: [21, 21, 15]
+            },
+            {
+                name: '3 set (3x15)',
+                sets: [15, 15, 15]
+            },
+            {
+                name: '1 set (1x21)',
+                sets: [21]
+            },
+            {
+                name: '1 set (1x15)',
+                sets: [15]
+            }
+        ];
+
+        $scope.currentBeachSets = $scope.numSetsBeach[0];
+
+
+        $scope.numSetsIndoor = [
+            {
+                name: '5 set (4x25 + 1x15)',
+                sets: [25, 25, 25, 25, 15]
+            },
+            {
+                name: '3 set (2x25 + 1x15)',
+                sets: [25, 25, 15]
+            },
+            {
+                name: '1 set (1x25)',
+                sets: [25]
+            },
+            {
+                name: '1 set (1x15)',
+                sets: [15]
+            },
+        ]
+
+        $scope.currentIndoorSets = $scope.numSetsIndoor[0];
+
 
         $scope.selectedHomeTeam = null;
         $scope.selectedAwayTeam = null;
@@ -47,22 +90,33 @@
             console.log($scope.selectedGameType.id);
         }
 
+        $scope.liveEliteGames = true;
         $scope.eliteGames = [
             {
-                'sex': 'm',
                 'homeTeam': 'BK Tromsø',
                 'awayTeam': 'Viking',
                 'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/9web.html',
                 'title': 'Herrer: BK Tromsø - Viking'
             },
             {
-                'sex': 'f',
                 'homeTeam': 'Randaberg',
                 'awayTeam': 'Oslo Volley',
                 'poengligaGameUrl': 'http://www.poengliga.no/elited/1617/kamper/10web.html',
                 'title': 'Damer: Randaberg - Oslo Volley'
             }
         ];
+
+        BlussTVService.getLivePoengligaMatches().then ( function (matches) {
+            if (matches.length > 0) {
+                $scope.eliteGames = matches;
+                $scope.eliteGame = $scope.eliteGames[0];
+                $scope.liveEliteGames = true;
+            }
+            else {
+                $scope.liveEliteGames = false;
+            }
+        });
+
 
         $scope.lowerDivisionVolleyball = {
             homeTeam: {
@@ -106,8 +160,8 @@
                     $scope.pages = [0, 1];
                 }
                 if ($scope.selectedGameType.id == 1) {
-                    $scope.numSteps = 3;
-                    $scope.pages = [0, 21, 22];
+                    $scope.numSteps = 4;
+                    $scope.pages = [0, 21, 22, 23];
                     if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
                         $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
                         $scope.addPlayer('home', 8);
@@ -115,8 +169,8 @@
                     }
                 }
                 if ($scope.selectedGameType.id == 2) {
-                    $scope.numSteps = 2;
-                    $scope.pages = [0, 31];
+                    $scope.numSteps = 3;
+                    $scope.pages = [0, 31, 32];
 
                     if ($scope.lowerDivisionVolleyball.homeTeam.players.length == 0 &&
                         $scope.lowerDivisionVolleyball.awayTeam.players.length == 0) {
@@ -188,6 +242,8 @@
                     }
                     p.push(data.awayTeam.players[i]);
                 }
+
+                data.setPoints = $scope.currentIndoorSets.sets;
                 data.awayTeam.players = p;
 
             }
@@ -198,9 +254,16 @@
                 if (p1) {
                     htName += p1[1];
                 }
+                else {
+                    htName = data.homeTeam.players[0].name;
+                }
+
                 var p2 = data.homeTeam.players[1].name.match(/\s(\S+)$/);
                 if (p2) {
                     htName += ' / ' + p2[1];
+                }
+                else if (data.homeTeam.players[1].name) {
+                    htName += ' / ' + data.homeTeam.players[1].name;
                 }
 
                 var atName = "";
@@ -208,15 +271,21 @@
                 if (p1) {
                     atName += p1[1];
                 }
+                else {
+                    atName += data.awayTeam.players[0].name;
+                }
                 p2 = data.awayTeam.players[1].name.match(/\s(\S+)$/);
                 if (p2) {
                     atName += ' / ' + p2[1];
+                }
+                else if (data.awayTeam.players[1].name) {
+                    atName += ' / ' + data.awayTeam.players[1].name;
                 }
 
                 data.homeTeam.name = htName;
                 data.awayTeam.name = atName;
 
-                data.setPoints = [21, 21, 15];
+                data.setPoints = $scope.currentBeachSets.sets;
                 data.type = 'beach-volleyball';
             }
 

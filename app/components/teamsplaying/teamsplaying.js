@@ -21,7 +21,8 @@
                     awayTeam: {
                         logo: at.logo,
                         name: at.name
-                    }
+                    },
+                    gameType: GameService.getGameType()
                 }
 
                 console.log(JSON.stringify(data));

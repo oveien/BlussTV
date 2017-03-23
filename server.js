@@ -16,6 +16,7 @@ var sanitize = require("sanitize-filename");
 var io = require('socket.io');
 var http = require('http');
 
+var formidable = require("formidable");
 
 var app = express ();
 var path = require("path");
@@ -24,16 +25,17 @@ var ffdevices = require('ffdevices')
 
 console.log(__dirname);
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 
 var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
         if (err) callback(err, filename);
-        else if (res.statusCode == 404) {
+        else if (res.statusCode >= 400) {
             callback({status: res.statusCode}, filename);
         }
         else {
+            console.log(uri);
             var stream = request(uri);
             stream.pipe(
                 fs.createWriteStream(filename)
@@ -84,6 +86,7 @@ function getPlayersInfo (sex, club, players, callback) {
     console.log(url);
 
     var infoPlayers = [];
+    console.log('Info players: ' + url);
     request({
         url: url,
         encoding: "latin1"
@@ -173,6 +176,7 @@ function getPlayersInfo (sex, club, players, callback) {
 
                     var filename = playersDir + '/' +  infoPlayer.id + '_' + sex + '.jpg';
 
+                    infoPlayer.sid = infoPlayer.id + '_' + sex;
                     if (!fs.existsSync(filename)) {
                         var baseUrl = 'http://poengliga.no/img_players/';
                         console.log('Downloading image...');
@@ -206,10 +210,49 @@ function getPlayersInfo (sex, club, players, callback) {
     });
 }
 
+app.get('/poengliga-matches/', function (req, res) {
+    //var url = 'http://localhost:3000/kamper.html';
+    var url = 'http://www.poengliga.no/liveres.php';
+
+    request({
+        url: url,
+        encoding: "utf-8"
+    }, function (error, response, html) {
+        if (!error) {
+            var $ = cheerio.load(html);
+            var games = [];
+
+            $('table[cellpadding=2]').each ( function () {
+               console.log('Got table');
+                var gameLink = $(this).find('a').attr('href');
+                var homeTeam = $(this).find('th[align=left][width=150]').text();
+                var awayTeam = $(this).find('tr').eq(2).find('th[align=left]').text();
+
+                var title = '';
+                if (gameLink.match(/eliteh/)) {
+                    title = 'Herrer: ';
+                }
+                else {
+                    title = 'Damer: ';
+                }
+
+                title += homeTeam + ' - ' + awayTeam;
+                games.push({
+                    homeTeam: homeTeam,
+                    awayTeam: awayTeam,
+                    poengligaGameUrl: 'http://www.poengliga.no/' + gameLink,
+                    title: title
+                })
+            });
+
+            res.send(JSON.stringify(games));
+        }
+    });
+});
 
 app.get('/game-info', function (req, res) {
-
-
+    console.log('Game info')
+    console.log(req.query.url);
     request({
         url: req.query.url,
         encoding: "latin1"
@@ -296,6 +339,7 @@ app.get('/game-info', function (req, res) {
         // Lookup more player info:
         getPlayersInfo(sex, game.homeTeam.name, game.homeTeam.players, function (players) {
             game.homeTeam.players = players;
+            game.sex = sex;
             getPlayersInfo(sex, game.awayTeam.name, game.awayTeam.players, function (players) {
                 game.awayTeam.players = players;
                 res.send(JSON.stringify(game));
@@ -308,6 +352,7 @@ app.get('/game-info', function (req, res) {
 
 
 router.get("/update-score",function(req,res) {
+    console.log('Update score: ' + req.query.url);
     request({
         url: req.query.url,
         encoding: "latin1"
@@ -450,7 +495,7 @@ router.post("/caspar/templates/:template/:what",function(req,res){ //
 
 
         if (req.params.what == 'play') {
-            var path = `http://127.0.0.1:${port}/templates/${req.params.template}`;
+            var path = `http://127.0.0.1:${PORT}/templates/${req.params.template}`;
             var addCommand = 'PLAY 1-11 [HTML] "' + path + '"';
 
             console.log('Loading ' + path);
@@ -526,6 +571,57 @@ router.get("/graphics/:club/players/:id/image",function(req,res) { //
     res.sendFile(playerImagePath);
 });
 
+app.route('/upload-profile-image')
+    .post(function (req, res, next) {
+        // create an incoming form object
+        var form = new formidable.IncomingForm();
+
+        // specify that we want to allow the user to upload multiple files in a single request
+        form.multiples = false;
+
+        // store all uploads in the /uploads directory
+        form.uploadDir = path.join(__dirname, '/tmp/uploads');
+
+        // every time a file has been uploaded successfully,
+        // rename it to it's orignal name
+        var ulPath = "";
+        form.on('file', function(field, file) {
+            ulPath = file.path;
+
+        });
+
+        // log any errors that occur
+        form.on('error', function(err) {
+            console.log('<script>alert("An error has occured: \n' + err + '");</script>');
+        });
+
+        var data = {};
+        form.parse(req, function(err, fields, files) {
+            data = fields;
+        });
+        // once all the files have been uploaded, send a response to the client
+        form.on('end', function() {
+            if (ulPath) {
+                var safeClubPath = sanitize(data.team_name);
+                var destPath = __dirname + '/data/' + safeClubPath + '/';
+                if (!fs.existsSync(destPath)) {
+                    fs.mkdirSync(destPath);
+                }
+                destPath += 'players/';
+                if (!fs.existsSync(destPath)) {
+                    fs.mkdirSync(destPath);
+                }
+                destPath +=  sanitize(data.player_sid) + '.jpg';
+                console.log('Writing ' + destPath);
+                fs.rename(ulPath, destPath);
+            }
+            res.end("<script>alert('Added image');</script>");
+        });
+
+        // parse the incoming request containing the form data
+        form.parse(req);
+    });
+
 router.get("/graphics/:club/logo.jpg",function(req,res) { //
     var safeClubName = sanitize(req.params.club);
 
@@ -576,7 +672,13 @@ app.use("*",function(req,res){
     res.sendFile(__dirname + "/app/404.html");
 });
 
-var server = http.createServer(app).listen(port);
+/*
+app.listen(3000, function () {
+    console.log('Example app listening on port 3000!')
+})
+*/
+
+var server = http.createServer(app).listen(PORT);
 
 
 var clients = {};

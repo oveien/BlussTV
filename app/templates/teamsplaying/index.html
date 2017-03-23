@@ -66,6 +66,11 @@
         $('.tp-awayteam-container').addClass('tp-team-container-expanded');
         $('.tp-centre-box').addClass('tp-center-box-animation');
 
+        if (data.gameType && data.gameType == 'beach-volleyball') {
+
+            $('.screen').addClass('beach-volleyball');
+        }
+
 
     }
 
@@ -82,7 +87,8 @@
             play(JSON.stringify({
                 data: {
                     "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
-                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"}
+                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
+                    "gameType": 'beach-volleyball'
                 }
             }));
         }, 10);

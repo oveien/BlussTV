@@ -9,6 +9,7 @@
         $scope.gameSetPoints = GameService.getSetPoints()
 
 
+
         $scope.toggleShowing = function () {
             if (CasparCGService.getCurrentOverlay() == 'scoreboard') {
                 CasparCGService.removeOverlay();
@@ -23,10 +24,22 @@
         $scope.homeTeamName = GameService.getTeamName('home');
         $scope.awayTeamName = GameService.getTeamName('away');
 
-        GameService.registerObserverCallback('game-info', function () {
-            $scope.homeTeamName = GameService.getTeamName('home');
-            $scope.awayTeamName = GameService.getTeamName('away');
-        });
+
+        var onGameInfo = function () {
+            GameService.getGameInfo().then( function (game) {
+
+                $scope.homeTeamName = game.homeTeam.name;
+                $scope.awayTeamName = game.awayTeam.name;
+
+                $scope.manualScore = game.manualScore;
+                $scope.gameSetPoints = game.setPoints;
+                console.log(game);
+            });
+        }
+        GameService.getGameInfo().then (onGameInfo);
+
+        GameService.registerObserverCallback('game-info', onGameInfo);
+
 
         GameService.registerObserverCallback('score-update', function () {
             console.log('Woho, got score update!');
@@ -107,21 +120,24 @@
                     name: ht.name,
                     sets: 0,
                     points: 0,
-                    logo: ht.logo
+                    pointsSets: $scope.pointsHomeTeam,
+                    logo: ht.logo,
+                    jersey: ht.jersey
                 },
                 awayTeam: {
                     name: at.name,
                     sets: 0,
                     points: 0,
-                    logo: at.logo
+                    pointsSets: $scope.pointsAwayTeam,
+                    logo: at.logo,
+                    jersey: at.jersey
                 }
             };
 
             for (var i in $scope.pointsHomeTeam) {
 
                 if (  Math.abs($scope.pointsHomeTeam[i] - $scope.pointsAwayTeam[i] ) >= 2 &&
-                    ( ($scope.pointsHomeTeam[i] >= 25 || $scope.pointsAwayTeam[i] >= 25) ||
-                        (i == 4 && ($scope.pointsHomeTeam[i] >= 15 || $scope.pointsAwayTeam[i] >= 15) ))  ) {
+                    ( ($scope.pointsHomeTeam[i] >= $scope.gameSetPoints[i] || $scope.pointsAwayTeam[i] >= $scope.gameSetPoints[i]) ) ) {
 
                     if ($scope.pointsHomeTeam[i] > $scope.pointsAwayTeam[i]) {
                         data.homeTeam.sets++;
@@ -165,6 +181,7 @@
             }
 
         });
+
 
     }]);
 })(window.angular);

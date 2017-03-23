@@ -1,8 +1,14 @@
  <fieldset>
-        <legend>Player info</legend>
+        <legend>Player substitution</legend>
 
         <button ng-click="toggleShowTeam('home');">{{homeTeam.name}}</button>
         <button ng-click="toggleShowTeam('away');">{{awayTeam.name}}</button>
+
+        <p>Select the player coming in,</p>
+
+        <h4 ng-if="currentPlayerIn">In: {{currentPlayerIn.number}}. {{currentPlayerIn.name}}</h4>
+
+        <h4 ng-if="currentPlayerOut">Out: {{currentPlayerOut.number}}. {{currentPlayerOut.name}}</h4>
 
         <ul class="player-info-list">
             <li ng-repeat="player in players">
@@ -10,10 +16,9 @@
             </li>
         </ul>
 
-        <h4 ng-if="currentPlayer">{{currentPlayer.team.name}}: {{currentPlayer.number}}. {{currentPlayer.name}}</h4>
 
         <div class="button-container">
-            <button ng-disabled="!currentPlayer" ng-click="toggleShowPlayer()" ng-class='showing == "player-info" ? "showing" : ""' class="toggle-button">Show player info</button>
+            <button ng-disabled="!currentPlayerIn" ng-click="toggleShowPlayer()" ng-class='showing == "substitution" ? "showing" : ""' class="toggle-button">Show substitution</button>
         </div>
 
  </fieldset>
