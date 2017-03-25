@@ -236,24 +236,23 @@ angular.module('services', [])
 
                     for (var i in score.homeTeam.players) {
                         var pl = score.homeTeam.players[i];
-                        var p = f.getPlayerByName('home', pl.name);
-                        old = p.ace;
-                        p.ace = pl.ace;
-                        p.blocks = pl.blocks;
-                        p.attack = pl.attack;
-                        p.total = pl.total;
+                        var p = f.getPlayerByNumber('home', pl.number);
+                        if (p) {
+                            p.ace = pl.ace;
+                            p.blocks = pl.blocks;
+                            p.attack = pl.attack;
+                        }
                     }
 
                     for (var i in score.awayTeam.players) {
                         var pl = score.awayTeam.players[i];
-                        var p = f.getPlayerByName('away', pl.name);
-                        old = p.ace;
-                        p.ace = pl.ace;
-                        p.blocks = pl.blocks;
-                        p.attack = pl.attack;
-                        p.total = pl.total;
+                        var p = f.getPlayerByNumber('away', pl.number);
+                        if (p) {
+                            p.ace = pl.ace;
+                            p.blocks = pl.blocks;
+                            p.attack = pl.attack;
+                        }
                     }
-
                     notifyObservers('score-update');
                 }
 
