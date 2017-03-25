@@ -26,9 +26,8 @@
                 }
             }
             $scope.players = players;
-
-
         }
+
 
         $scope.selectPlayer = function (player) {
             $scope.currentPlayer = player;
