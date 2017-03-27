@@ -175,9 +175,9 @@
             }
 
             window.cloudinary.openUploadWidget({
-                cloud_name: 'volleystream',
-                api_key: '563498731497358',
-                upload_preset: 'o4omshjq' 
+                cloud_name: '',
+                api_key: '',
+                upload_preset: '' 
             }, handleImageUpload)
         }        
 

@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
 </head>
@@ -9,42 +9,23 @@
 
 
 <div class="screen">
-    <div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+    <div id='dialog' class="dialog hidden-bottom slide" style="left: 186px;">
         <div class="dialog-heading">
             <div class="teams-container">
                 <div id='homeTeam' class="team">
-                    <!--<div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>-->
+                    <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
                     <div class="team-name">NTNUI</div>
                 </div>
 
                 <div id='awayTeam' class="team away-team">
-                    <!--<div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>-->
                     <div class="team-name">Viking</div>
+                    <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
                 </div>
             </div>
 
         </div>
         <div class="dialog-body">
 
-            <table id="stats-table" class="stats-table">
-            <thead>
-                <tr>
-
-                    <th>S</th>
-                    <th>B</th>
-                    <th>A</th>
-                    <th>Navn</th>
-                    <th>T</th>
-                    <th>#</th>
-                    <th>T</th>
-                    <th>Navn</th>
-                    <th>A</th>
-                    <th>B</th>
-                    <th>S</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-            </table>
         </div>
     </div>
 </div>
@@ -69,25 +50,29 @@
 
         for (var i in data.stats) {
             console.log(data.stats[i]);
-            var html = '<tr>';
+            var html = '<div class="dialog-row">';
 
 
-            html += '<td>' + data.stats[i].homeTeam.ace + "</td>";
-            html += '<td>' + data.stats[i].homeTeam.blocks + "</td>";
-            html += '<td>' + data.stats[i].homeTeam.attack + "</td>";
-            html += '<td>' + data.stats[i].homeTeam.name + "</td>";
-            html += '<td  style="font-weight: bold;">' + data.stats[i].homeTeam.total + "</td>";
-            html += '<td>#' + (parseInt(i)+1) + "</td>";
+            /*
+            html += '<div>' + data.stats[i].homeTeam.ace + "</div>";
+            html += '<div>' + data.stats[i].homeTeam.blocks + "</div>";
+            html += '<div>' + data.stats[i].homeTeam.attack + "</div>";
+            */
+            html += '<div class="player-name">' + data.stats[i].homeTeam.name + "</div>";
+            html += '<div class="dialog-row-role">' + data.stats[i].homeTeam.total + "</div>";
+            html += '<div  class="dialog-row-number">' + (parseInt(i)+1) + "</div>";
 
-            html += '<td style="font-weight: bold;">' + data.stats[i].awayTeam.total + "</td>";
-            html += '<td>' + data.stats[i].awayTeam.name + "</td>";
-            html += '<td>' + data.stats[i].awayTeam.attack + "</td>";
-            html += '<td>' + data.stats[i].awayTeam.blocks + "</td>";
-            html += '<td>' + data.stats[i].awayTeam.ace + "</td>";
+            html += '<div  class="dialog-row-role">' + data.stats[i].awayTeam.total + "</div>";
+            html += '<div  class="player-name nd-half">' + data.stats[i].awayTeam.name + "</div>";
+            /*
+            html += '<div>' + data.stats[i].awayTeam.attack + "</div>";
+            html += '<div>' + data.stats[i].awayTeam.blocks + "</div>";
+            html += '<div>' + data.stats[i].awayTeam.ace + "</div>";
+            */
 
-            html += '</tr>';
+            html += '</div>';
             console.log(html);
-            $('#stats-table tbody').append(html);
+            $('.dialog-body').append(html);
         }
 
         console.log('Done loading');

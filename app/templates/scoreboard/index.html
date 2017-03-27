@@ -8,20 +8,21 @@
 <body>
 
 <div class="screen">
-<div class="dialog scoreboard-container">
-    <table cellspacing="0" cellpadding="0">
-        <tr class="sb-home-team">
-            <td class='sb-team-name' id="homeTeamName"></td>
-            <td class='sb-team-sets' id="homeTeamSets"></td>
-            <td class='sb-team-points' id="homeTeamPoints"></td>
-        </tr>
-        <tr>
-            <td class='sb-team-name' id="awayTeamName"></td>
-            <td class='sb-team-sets' id="awayTeamSets"></td>
-            <td class='sb-team-points' id="awayTeamPoints"></td>
-        </tr>
-    </table>
-</div>
+    <div class="dialog scoreboard-container">
+
+        <div class="dialog-row">
+            <div class='sb-team-name' id="homeTeamName"></div>
+            <div class='sb-team-sets' id="homeTeamSets"></div>
+            <div class='sb-team-points' id="homeTeamPoints"></div>
+        </div>
+
+        <div class="dialog-row">
+            <div class='sb-team-name' id="awayTeamName"></div>
+            <div class='sb-team-sets' id="awayTeamSets"></div>
+            <div class='sb-team-points' id="awayTeamPoints"></div>
+        </div>
+
+    </div>
 </div>
 
 
@@ -71,15 +72,16 @@
         $('#homeTeamName').html('');
         $('#awayTeamName').html('');
 
+        $('.sb-team-jersey').remove ();
 
         if (data.homeTeam.jersey) {
-            var elm = $('<div>').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.homeTeam.jersey.player);
-            $('#homeTeamName').append(elm);
+            var elm = $('<div class="sb-team-jersey">').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.homeTeam.jersey.player);
+            elm.insertBefore($('#homeTeamName'));
         }
 
         if (data.awayTeam.jersey) {
-            var elm = $('<div>').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.awayTeam.jersey.player);
-            $('#awayTeamName').append(elm);
+            var elm = $('<div class="sb-team-jersey">').addClass('jersey-fit').addClass('jersey').addClass('jersey-' + data.awayTeam.jersey.player);
+            elm.insertBefore($('#awayTeamName'));
         }
         
         $('#homeTeamName').append(data.homeTeam.name);
@@ -95,19 +97,30 @@
         if ( (data.homeTeam.sets > 0 || data.awayTeam.sets > 0) && (data.homeTeam.points + data.awayTeam.points) % 10 == 0) {
             $('.sb-previous-set').remove();
             for (var i = 0; i <(data.homeTeam.sets + data.awayTeam.sets); i++) {
-                var elm = $('<td>').html(data.homeTeam.pointsSets[i]).addClass('sb-previous-set');
+                var elm = $('<div>').html(data.homeTeam.pointsSets[i]).addClass('sb-previous-set');
                 elm.insertBefore($('#homeTeamPoints'));
 
-                elm = $('<td>').html(data.awayTeam.pointsSets[i]).addClass('sb-previous-set');
+                elm = $('<div>').html(data.awayTeam.pointsSets[i]).addClass('sb-previous-set');
                 elm.insertBefore($('#awayTeamPoints'));
             }
 
 
-            $('.sb-previous-set').animate({width: '30px', maxWidth: '30px'});
+            $('.sb-previous-set').animate({width: '50px', maxWidth: '50px'});
 
             setTimeout(function () {
                 $('.sb-previous-set').animate({width: '0', maxWidth: '0'});
-            }, 5000);
+            }, 10000);
+        }
+
+        // Blæh, team names:
+        var tl1 = $('#homeTeamName').width ();
+        var tl2 = $('#awayTeamName').width ();
+
+        if (tl1 < tl2) {
+            $('#homeTeamName').css('width', tl2);
+        }
+        else {
+            $('#awayTeamName').css('width', tl1);
         }
     }
 

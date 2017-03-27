@@ -1,26 +1,36 @@
-.selected-player {
-    font-weight: bold;
+.dialog-body {
+    align-items: flex-start;
+    flex-direction: row;
 }
 
-.player-table {
-    font-size: 18px;
+.dialog-row {
+    padding-left: 0;
 }
 
-.player-table td {
-    font-size: 18px;
-    line-height: 30px;
+.dialog-row.selected-player {
+    color: #FFDC00;
 }
 
-.squad-image-container {
-    height: 250px;
-    width: 250px;
-    float: right;
-    text-align: center;
+.dialog-row.selected-player .dialog-row-number {
+    background: #FFDC00;
+    background: linear-gradient(#FFDC00, #FFB54B);
 }
 
-.squad-image-container img {
-    max-height: 250px;
-    max-width: 250px;
-    margin-top: 20px;
-    mask: url(#masking);
+.dialog-row.selected-player .dialog-row-role {
+    color: #FFDC00;
+}
+.player-name {
+    flex-grow: 1;
+}
+
+.players {
+    margin-right: 10px;
+}
+
+.player-image {
+    width: 298px;
+    height: 400px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
