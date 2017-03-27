@@ -15,7 +15,6 @@
     "bootstrap": "^3.3.7",
     "caspar-cg": "^0.1.0",
     "cheerio": "latest",
-    "cloudinary": "^1.8.0",
     "express": "latest",
     "ffdevices": "^0.1.1",
     "formidable": "^1.1.1",
