@@ -129,20 +129,28 @@
             }
         }
 
+        function newPlayerObject() {
+            return {
+                name: '',
+                id: Math.floor((Math.random() * 1000000000000) + 1)
+            };
+        }
+
         $scope.addPlayer = function (team, num) {
             if (!num) {
                 num = 1;
             }
+
             for (var i = 0; i<num; i++) {
                 if (team == 'home') {
-                    $scope.lowerDivisionVolleyball.homeTeam.players.push({name: ''});
+                    $scope.lowerDivisionVolleyball.homeTeam.players.push(newPlayerObject());
                 }
                 else {
-                    $scope.lowerDivisionVolleyball.awayTeam.players.push({name: ''});
+                    $scope.lowerDivisionVolleyball.awayTeam.players.push(newPlayerObject());
                 }
             }
         }
-
+    
         $scope.eliteGame = $scope.eliteGames[0];
 
         var updateProgressWidth = function () {

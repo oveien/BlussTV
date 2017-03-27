@@ -148,7 +148,8 @@
         $scope.addPlayer = function (team) {
 
             var player = {
-                name: ''
+                name: '',
+                id: Math.floor((Math.random() * 1000000000000) + 1)
             }
 
             if (team == "home") {
@@ -161,6 +162,24 @@
             $scope.onChange();
 
         }
+
+        $scope.uploadImage = function (playerId) {
+            console.log('playerId', playerId);
+
+            function handleImageUpload(error, result) {
+                if(error) {
+                    return console.log('error', error) 
+                }
+                console.log(result[0].url)
+                GameService.addPlayerPicture(playerId, result[0].url);
+            }
+
+            window.cloudinary.openUploadWidget({
+                cloud_name: 'volleystream',
+                api_key: '563498731497358',
+                upload_preset: 'o4omshjq' 
+            }, handleImageUpload)
+        }        
 
         $scope.toggleTeamShowing = function (team) {
             var data = null;
