@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
 </head>
@@ -9,26 +9,23 @@
 
 
 <div class="screen">
-    <div id='dialog' class="dialog hidden-bottom slide" style="left: 350px;">
+    <div id='dialog' class="dialog hidden-bottom slide" style="left: 240px;">
         <div class="dialog-heading">
             <div class="teams-container">
                 <div id='homeTeam' class="team">
-                    <!--<div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>-->
+                    <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
                     <div class="team-name">NTNUI</div>
                 </div>
 
                 <div id='awayTeam' class="team away-team">
-                    <!--<div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>-->
                     <div class="team-name">Viking</div>
+                    <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
                 </div>
             </div>
 
         </div>
-        <div class="dialog-body">
-
-            <table id="stats-table" class="stats-table">
-
-            </table>
+        <div class="dialog-body dialog-center-row-content">
+            <div class="wrapper"></div>
         </div>
     </div>
 </div>
@@ -54,32 +51,41 @@
         $('#stats-table').html('');
 
         console.log(data);
-        var html = '<tr>';
-        html += '<td>' + data.homeTeam.blocks + "</td>";
-        html += '<td>Blokk</td>';
-        html += '<td>' + data.awayTeam.blocks + "</td>";
-        html += '</tr>';
+        var html = '<div class="dialog-row">';
+        html += '<div class="dialog-row-number-column">' + data.homeTeam.blocks + "</div>";
+        html += '<div class="dialog-row-role dialog-row-double-width-role">Blokk</div>';
+        html += '<div class="dialog-row-number-column">' + data.awayTeam.blocks + "</div>";
+        html += '</div>';
         console.log(html);
 
-        html += '<tr>';
-        html += '<td>' + data.homeTeam.attack + "</td>";
-        html += '<td>Angrep</td>';
-        html += '<td>' + data.awayTeam.attack + "</td>";
-        html += '</tr>';
-
-        html += '<tr>';
-        html += '<td>' + data.homeTeam.ace + "</td>";
-        html += '<td>Serve-ess</td>';
-        html += '<td>' + data.awayTeam.ace + "</td>";
-        html += '</tr>';
-
-        html += '<tr>';
-        html += '<td>' + data.homeTeam.total + "</td>";
-        html += '<td>Totalt</td>';
-        html += '<td>' + data.awayTeam.total + "</td>";
-        html += '</tr>';
+        html += '<div class="dialog-row">';
+        html += '<div class="dialog-row-number-column">' + data.homeTeam.attack + "</div>";
+        html += '<div class="dialog-row-role dialog-row-double-width-role">Angrep</div>';
+        html += '<div class="dialog-row-number-column">' + data.awayTeam.attack + "</div>";
+        html += '</div>';
         console.log(html);
-        $('#stats-table').append(html);
+
+        html += '<div class="dialog-row">';
+        html += '<div class="dialog-row-number-column">' + data.homeTeam.ace + "</div>";
+        html += '<div class="dialog-row-role dialog-row-double-width-role">Serve-ess</div>';
+        html += '<div class="dialog-row-number-column">' + data.awayTeam.ace + "</div>";
+        html += '</div>';
+        console.log(html);
+
+        html +=  '<div class="dialog-row">';
+        html += '<div class="dialog-row-number-column">' + data.homeTeam.opponentErrors + "</div>";
+        html += '<div class="dialog-row-role dialog-row-double-width-role">Motstanderfeil</div>';
+        html += '<div class="dialog-row-number-column">' + data.awayTeam.opponentErrors + "</div>";
+        html += '</div>';
+
+        html += '<div class="dialog-row" style="margin-top: 10px;">';
+        html += '<div class="dialog-row-number-column">' + data.homeTeam.total + "</div>";
+        html += '<div class="dialog-row-role dialog-row-double-width-role">Totalt</div>';
+        html += '<div class="dialog-row-number-column">' + data.awayTeam.total + "</div>";
+        html += '</div>';
+        console.log(html);
+
+        $('.dialog-body .wrapper').append(html);
 
 
         $('#dialog').removeClass('hidden-bottom');
@@ -93,31 +99,24 @@
         setTimeout(function () {
             play(JSON.stringify({
                 data: {
-                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
-                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
-                    'stats': [
-                        {
-                            homeTeam: 1,
-                            awayTeam: 3,
-                            what: 'Blocks'
-                        },
-                        {
-                            homeTeam: 3,
-                            awayTeam: 3,
-                            what: 'Ace'
-                        },
-                        {
-                            homeTeam: 3,
-                            awayTeam: 3,
-                            what: 'Attack'
-                        },
-                        {
-                            homeTeam: 3,
-                            awayTeam: 3,
-                            what: 'Total'
-                        },
-
-                    ]
+                    "homeTeam": {
+                        "logo": "/graphics/NTNUI/logo.jpg",
+                        "name": "NTNUI",
+                        'blocks': 3,
+                        attack: 4,
+                        ace: 1,
+                        opponentErrors: 3,
+                        total: 10
+                    },
+                    "awayTeam": {
+                        "logo": "/graphics/Randaberg/logo.jpg",
+                        "name": "Randaberg",
+                        'blocks': 4,
+                        attack: 4,
+                        ace: 1,
+                        opponentErrors: 3,
+                        total: 10
+                    }
                 }
             }));
         }, 10);

@@ -234,6 +234,7 @@ angular.module('services', [])
                 if (JSON.stringify(currentScore) != JSON.stringify(score)) {
                     currentScore = score;
 
+                    console.log(score);
                     for (var i in score.homeTeam.players) {
                         var pl = score.homeTeam.players[i];
                         var p = f.getPlayerByNumber('home', pl.number);

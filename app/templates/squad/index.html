@@ -13,61 +13,24 @@
 <body>
 
 <div class="screen">
-<div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 1000px;">
-    <div class="dialog-heading"></div>
+<div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 908px;">
+    <div class="dialog-heading">
+        <div class="teams-container">
+            <div class="team">
+                <div class="team-logo"></div>
+                <div class="team-name"></div>
+            </div>
+        </div>
+    </div>
 
     <div class="dialog-body">
-    <div class="squad-image-container" style="">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250">
-            <mask id="mask1">
-                <ellipse cx="50%" cy="50%" rx="40%" ry="50%" fill="white" filter="url(#filter2)"></ellipse>
-            </mask>
-            <image id='player_image'  xlink:href="" height="250" width="250" mask="url(#mask1)"></image>
-        </svg>
-        <!--<img id='player_image' src="" style="border-radius: 20px;">-->
-    </div>
-
-    <table class="player-table" style="width: 600px;">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Navn</th>
-            <th>Posisjon</th>
-            <th>Høyde</th>
-            <th>Rekkevidde</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
+        <div class="players"></div>
+        <div class="player-image"></div>
     </div>
 
 </div>
 </div>
 
-
-<svg width="0" height="0">
-    <defs>
-        <filter id="filter2">
-            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
-        </filter>
-        <linearGradient id="gradient" x1="0" y1="00%" x2="0" y2="100%">
-            <stop stop-color="black" offset="0"></stop>
-            <stop stop-color="white" offset="1"></stop>
-        </linearGradient>
-        <mask id="masking2" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
-            <rect y="0.3" width="1" height=".7" fill="url(#gradient)"></rect>
-            <circle cx=".5" cy=".5" r=".35" fill="white"></circle>
-        </mask>
-        <clipPath id="clipping4">
-            <polygon points="0 0, 20 20, 40 0, 60 20, 80 0, 100 20, 120 0, 140 20, 160 0, 180 20, 200 0, 220 20, 240 0, 255 0, 255 300, 240 300, 220 280, 200 300, 180 280, 160 300, 140 280, 120 300, 100 280, 80 300, 60 280, 40 300, 20 280, 0 300"></polygon>
-        </clipPath>
-        <clipPath id="clipping5" clipPathUnits="objectBoundingBox">
-            <polygon points="1.00 .50,.8470057014808336 .545684167277018,.910518476172854 .6099980941685713,.8233578363789503 .6339392013277814,.9330127018922194 .75,.7776736691019323 .7130665001530522,.8005203820042827 .8005203820042827,.7130665001530522 .7776736691019323,.75 .9330127018922192,.6339392013277814 .8233578363789503,.6099980941685714 .910518476172854,.5456841672770181 .8470057014808336,.50 1.00,.454315832722982 .8470057014808336,.39000190583142874 .910518476172854,.36606079867221865 .8233578363789505,.2500000000000001 .9330127018922194,.28693349984694787 .7776736691019323,.19947961799571733 .8005203820042827,.2223263308980677 .7130665001530522,.06698729810778076 .7500000000000001,.17664216362104966 .6339392013277815,.08948152382714603 .6099980941685715,.15299429851916635 .54568416727701816,0 .5000000000000001,.15299429851916635 .45431583272298205,.0894815238271459 .3900019058314288,.1766421636210496 .3660607986722188,.06698729810778062 .25000000000000014,.2223263308980676 .28693349984694787,.19947961799571715 .19947961799571747,.2869334998469477 .22232633089806775,.2499999999999998 .06698729810778083,.3660607986722184 .17664216362104973,.3900019058314284 .08948152382714603,.4543158327229816 .15299429851916642,.4999999999999999 0,.54568416727701795 .15299429851916635,.6099980941685711 .0894815238271459,.6339392013277812 .1766421636210496,.7499999999999997 .066987298107780475,.713066500153052 .2223263308980675,.8005203820042826 .19947961799571722,.7776736691019323 .2869334998469477,.9330127018922192 .2499999999999998,.8233578363789502 .3660607986722184,.910518476172854 .3900019058314283,.8470057014808336 .4543158327229816"></polygon>
-        </clipPath>
-    </defs>
-</svg>
 
 </body>
 <script>
@@ -75,6 +38,7 @@
     var data = JSON.stringify({
         "data": {
             "name": 'NTNUI',
+            "logo": "/graphics/NTNUI/logo.jpg",
             players: [
                 {
                     'number': 1,
@@ -147,38 +111,57 @@
 
         console.log(str);
         var obj = JSON.parse(str);
-        var players = obj.data.players;
+
+
+        $('.team-name').html(obj.data.name);
 
 
 
-        $('.dialog-heading').html(obj.data.name);
+        var players = obj.data.players.sort ( function (a, b) {
+            if (a.position.toLowerCase() == 'libero' && b.position.toLowerCase() != 'libero' ) {
+                return 1;
+            }
 
-        // Clear the table:
-        var tbl = $('.player-table tbody');
+            a.number = parseInt(a.number);
+            b.number = parseInt(b.number);
+            console.log(a.number);
+            if (a.number > b.number) {
+                return 1;
+            }
+            if (a.number == b.number) {
+                return 0;
+            }
 
-        tbl.html('');
+            if (a.number < b.number) {
+                return -1;
+            }
+        })
 
-        var elm = '';
+        if (obj.data.logo) {
+            $('.team-logo').html ( $('<img>').attr('src', obj.data.logo));
+        }
+
+        var html = '';
         for (var i in players) {
             var player = players[i];
-            console.log(player);
-            elm = '<tr>';
-            elm += '<td>' + player.number + '</td>';
-            elm += '<td>' + player.name + '</td>';
-            elm += '<td>' + player.position + '</td>';
-            elm += '<td align="center">' + player.height + '</td>';
-            elm += '<td align="center">' + player.reach + '</td>';
-            elm += '</tr>';
 
-            console.log(elm);
-            tbl.append(elm);
+            html += '<div class="dialog-row">';
+            html += '<div class="dialog-row-number">' + player.number + '</div>';
+            html += '<div class="player-name">' + player.name + '</div>';
+            html += '<div class="dialog-row-role">' + player.position + '</div>';
+            html += '</div>';
+
         }
+
+        $('.players').append(html);
 
         $('#dialog').removeClass('hidden-bottom');
 
+
+        var playersElement = $('.players');
         var playerIndex = 0;
         var viewPlayerInfo = function () {
-            $('table tbody tr').removeClass('selected-player');
+            $('.dialog-row').removeClass('selected-player');
 
             if (typeof(players[playerIndex]) == 'undefined') {
                 $('#player_image').attr('src','');
@@ -188,15 +171,21 @@
             var player = players[playerIndex];
 
 
-            tbl.find('tr').eq(playerIndex).addClass('selected-player');
+            playersElement.find('.dialog-row').eq(playerIndex).addClass('selected-player');
 
             // Show the player image:
             console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
             //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
 
-            $('#player_image').attr('xlink:href', player.image);
+            $('.player-image').css('backgroundImage', 'url(' + player.image +')');
 
             playerIndex++;
+
+            if (typeof(players[playerIndex]) != 'undefined') {
+                // Wannabe preload:
+                var img = new Image();
+                img.src = player.image;
+            }
             setTimeout(viewPlayerInfo, 2000);
         };
 
@@ -215,7 +204,7 @@
 
     if (getUrlParameter('debug')) {
         setTimeout(function () {
-            update(data);
+            play(data);
         }, 2);
     }
 

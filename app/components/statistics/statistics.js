@@ -28,7 +28,8 @@
                         blocks: ht.blocks || 0,
                         attack: ht.attack || 0,
                         ace: ht.ace || 0,
-                        total: (ht.blocks || 0 ) + (ht.attack || 0) + (ht.ace || 0)
+                        opponentErrors: ht.opponentErrors || 0,
+                        total: (ht.blocks || 0 ) + (ht.attack || 0) + (ht.ace || 0) + (ht.opponentErrors || 0)
                     },
                     awayTeam: {
                         logo: at.logo,
@@ -36,7 +37,8 @@
                         blocks: at.blocks || 0,
                         attack: at.attack || 0,
                         ace: at.ace || 0,
-                        total: (at.blocks || 0 ) + (at.attack || 0) + (at.ace || 0)
+                        opponentErrors: at.opponentErrors || 0,
+                        total: (at.blocks || 0 ) + (at.attack || 0) + (at.ace || 0) + (at.opponentErrors || 0)
                     }
                 }
 
@@ -89,13 +91,18 @@
                     $scope.homeTeam.ace = score.homeTeam.ace;
                     $scope.homeTeam.attack = score.homeTeam.attack;
                     $scope.homeTeam.blocks = score.homeTeam.blocks;
+                    $scope.homeTeam.opponentErrors = score.homeTeam.opponentErrors;
                     $scope.homeTeam.name = score.homeTeam.name;
                     $scope.homeTeam.logo = score.homeTeam.logo;
                     $scope.awayTeam.ace = score.awayTeam.ace;
                     $scope.awayTeam.attack = score.awayTeam.attack;
                     $scope.awayTeam.blocks = score.awayTeam.blocks;
+                    $scope.awayTeam.opponentErrors = score.awayTeam.opponentErrors;
                     $scope.awayTeam.name = score.awayTeam.name;
                     $scope.awayTeam.logo = score.awayTeam.logo;
+
+                    console.log('Yello');
+                    console.log($scope.awayTeam);
                 }
 
                 if (!$scope.manualPlayerPoints) {
