@@ -412,6 +412,7 @@ router.get("/update-score",function(req,res) {
             game.homeTeam.setPoints[2] = parseInt(homeTeamRow.find('th').eq(5).text());
             game.homeTeam.setPoints[3] = parseInt(homeTeamRow.find('th').eq(6).text());
             game.homeTeam.setPoints[4] = parseInt(homeTeamRow.find('th').eq(7).text());
+            game.homeTeam.opponentErrors = parseInt(homeTeamRow.find('th').eq(11).text());
 
 
             game.awayTeam.setPoints[0] = parseInt(awayTeamRow.find('th').eq(3).text());
@@ -420,6 +421,10 @@ router.get("/update-score",function(req,res) {
             game.awayTeam.setPoints[3] = parseInt(awayTeamRow.find('th').eq(6).text());
             game.awayTeam.setPoints[4] = parseInt(awayTeamRow.find('th').eq(7).text());
 
+            game.awayTeam.opponentErrors = parseInt(awayTeamRow.find('th').eq(11).text());
+
+            console.log('AT');
+            console.log(awayTeamRow.find('th').eq(11).text())
 
             // FIXMEEE!!!!
             //game.awayTeam.setPoints[4] = Math.floor(Math.random() * (15 - 1 + 1)) + 1;

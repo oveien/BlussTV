@@ -231,9 +231,29 @@ angular.module('services', [])
             }).then(function (response) {
                 var score = response.data;
 
-                if (!Object.equals(score, currentScore)) {
+                if (JSON.stringify(currentScore) != JSON.stringify(score)) {
                     currentScore = score;
 
+                    console.log(score);
+                    for (var i in score.homeTeam.players) {
+                        var pl = score.homeTeam.players[i];
+                        var p = f.getPlayerByNumber('home', pl.number);
+                        if (p) {
+                            p.ace = pl.ace;
+                            p.blocks = pl.blocks;
+                            p.attack = pl.attack;
+                        }
+                    }
+
+                    for (var i in score.awayTeam.players) {
+                        var pl = score.awayTeam.players[i];
+                        var p = f.getPlayerByNumber('away', pl.number);
+                        if (p) {
+                            p.ace = pl.ace;
+                            p.blocks = pl.blocks;
+                            p.attack = pl.attack;
+                        }
+                    }
                     notifyObservers('score-update');
                 }
 
@@ -479,7 +499,27 @@ angular.module('services', [])
             }
 
             for (var i in players) {
-                if (players[i].number == number) {
+                if (!players[i].deleted && players[i].number == number) {
+                    return players[i];
+                }
+            }
+            return null;
+        };
+
+        f.getPlayerByName = function (team, name) {
+            if (!game) {
+                return;
+            }
+            if (team == 'home') {
+                players = game.homeTeam.players;
+            }
+            else {
+                players = game.awayTeam.players;
+            }
+
+            for (var i in players) {
+                if (!players[i].deleted && players[i].name == name) {
+                    console.log('Found player');
                     return players[i];
                 }
             }
