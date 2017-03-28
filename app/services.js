@@ -34,7 +34,7 @@ angular.module('services', [])
 
             var teamTag = teamName.toLowerCase().replace(/ /g, "").replace(/\//g, "");
 
-            var teamTag = "veien svenby";
+            //var teamTag = "veien svenby";
 
             var url = $.cloudinary.url(teamTag, {format: 'json', type: 'list'});
 
