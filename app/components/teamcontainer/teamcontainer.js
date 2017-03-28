@@ -1,7 +1,7 @@
 
 (function (angular) {
     var app = angular.module('blussTV');
-    app.controller('teamContainerController', ['$scope',  'GameService', 'CasparCGService', '$document', function ($scope, GameService, CasparCGService, $document) {
+    app.controller('teamContainerController', ['$scope',  'GameService', 'BlussTVService', 'CasparCGService', '$document', function ($scope, GameService, BlussTVService, CasparCGService, $document) {
         var game = null;
 
         $scope.jerseyColors = ['blue', 'red', 'black', 'grey', 'orange', 'white', 'green', 'yellow', 'pink'];
@@ -163,22 +163,54 @@
 
         }
 
-        $scope.uploadImage = function (playerId) {
-            console.log('playerId', playerId);
+        $scope.uploadImage = function (team, player) {
+
+            var teamName = GameService.getTeamName(team);
+
+
+            if (!player.name) {
+                alert('The player must have a name to upload an image');
+                return;
+            }
 
             function handleImageUpload(error, result) {
                 if(error) {
                     return console.log('error', error) 
                 }
+
+                console.log(result);
                 console.log(result[0].url)
-                GameService.addPlayerPicture(playerId, result[0].url);
+                GameService.addPlayerPicture(player.id, result[0].url);
+
+                // Players updated:
+                $scope.$apply();
             }
 
-            window.cloudinary.openUploadWidget({
-                cloud_name: '',
-                api_key: '',
-                upload_preset: '' 
-            }, handleImageUpload)
+            BlussTVService.getImagesByTeamName(teamName).then ( function (images, teamTag) {
+                angular.forEach(images, function (value, key) {
+                    if (value.context && value.context.custom.playerName == player.name) {
+                        publicId = value.public_id;
+                    }
+                });
+
+                var options = {
+                    cloud_name: CONFIG.cloudinary.cloudName,
+                    api_key: CONFIG.cloudinary.apiKey,
+                    upload_preset: CONFIG.cloudinary.uploadPreset,
+                    tags: teamTag,
+                    context: {
+                        team: teamName,
+                        playerName: player.name
+                    }
+                };
+
+                if (publicId) {
+                    options.public_id = publicId;
+                }
+                window.cloudinary.openUploadWidget(options, handleImageUpload);
+            });
+
+
         }        
 
         $scope.toggleTeamShowing = function (team) {

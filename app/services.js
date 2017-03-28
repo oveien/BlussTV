@@ -29,6 +29,33 @@ angular.module('services', [])
             return deferred.promise;
         };
 
+        f.getImagesByTeamName = function (teamName) {
+            var deferred = $q.defer();
+
+            var teamTag = teamName.toLowerCase().replace(/ /g, "").replace(/\//g, "");
+
+            var teamTag = "veien svenby";
+
+            var url = $.cloudinary.url(teamTag, {format: 'json', type: 'list'});
+
+            var publicId = null;
+            $.getJSON(url)
+                .done(function (data) {
+
+                    deferred.resolve(data.resources, teamTag);
+
+
+                })
+                .fail(function () {
+
+                }).always(function () {
+                deferred.resolve([], teamTag);
+            });
+
+            return deferred.promise;
+        };
+
+
         f.getAllTeams = function () {
             var deferred = $q.defer();
 

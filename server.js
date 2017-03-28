@@ -247,6 +247,25 @@ app.get('/poengliga-matches/', function (req, res) {
     });
 });
 
+
+app.get('/init.js', function (req, res) {
+
+   
+    var config = {
+        cloudinary: {
+            cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+            apiKey: process.env.CLOUDINARY_API_KEY || '',
+            uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || ''
+        }
+    };
+
+    var output = 'window.CONFIG = ' + JSON.stringify(config) + ';';
+
+    output += 'jQuery.cloudinary.config({ cloud_name: CONFIG.cloudinary.cloudName, api_key: CONFIG.cloudinary.apiKey});';
+    res.send(output);
+
+})
+
 app.get('/game-info', function (req, res) {
     console.log('Game info')
     console.log(req.query.url);
