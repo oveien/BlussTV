@@ -545,6 +545,16 @@ angular.module('services', [])
             localStorage.setItem(key, JSON.stringify(value));
         };
 
+        f.addPlayerPicture = function(playerId, url) {
+            game.homeTeam.players.forEach(player => {
+                if(player.id === playerId) {
+                    player.image = url;
+                }
+            })
+            
+            f.setStoredValue('game', game);
+        }
+
         game = f.getStoredValue('game');
 
 

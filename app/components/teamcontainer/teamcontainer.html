@@ -26,11 +26,8 @@
             </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('home')"  ng-class="player.deleted ? 'deleted' : ''">
-            <td ng-if="player.id"><form method='post' action='/upload-profile-image' target='upload' enctype="multipart/form-data">
-                <input type="hidden" name="team_name" value="{{homeTeam.name}}">
-                <input type="hidden" name="player_sid" value="{{player.sid}}">
-                <input style='width: 20px; height: 20px;' type='file' name='fileUploaded' onchange="$(this).closest('form').submit()">
-                </form></td>
+            <td ng-if="!player.image"><button ng-click="uploadImage(player.id)">Upload</button></td>
+            <td ng-if="player.id && player.image"><a ng-href="{{player.image}}">Picture</a></td>
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" style="width: 70px;" ng-change="onChange()"></td>
@@ -79,11 +76,7 @@
         </tr>
         </thead>
         <tr ng-repeat="player in getTeamPlayers('away')"  ng-class="player.deleted ? 'deleted' : ''">
-            <td ng-if="player.id"><form method='post' action='/upload-profile-image' target='upload' enctype="multipart/form-data">
-                <input type="hidden" name="team_name" value="{{homeTeam.name}}">
-                <input type="hidden" name="player_sid" value="{{player.sid}}">
-                <input style='width: 20px; height: 20px;' type='file' name='fileUploaded' onchange="$(this).closest('form').submit()">
-            </form></td>
+            <td ng-if="player.id"><button ng-click="uploadImage(player.id)">Upload</button></td>
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" ng-change="onChange()"></td>
