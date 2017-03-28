@@ -198,12 +198,11 @@
                             }
                         }
                     });
-                });
 
-                GameService.getGameInfo().then ( function (game) {
-                    GameService.saveChanges(game);
+                    GameService.getGameInfo().then ( function (game) {
+                        GameService.saveChanges(game);
+                    });
                 });
-
             });
         }
 
