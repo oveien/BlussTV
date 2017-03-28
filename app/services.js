@@ -29,27 +29,32 @@ angular.module('services', [])
             return deferred.promise;
         };
 
+        f.getNormalizedStringCompare = function (teamName) {
+            return teamName.replace(/\//g, "_").replace(/\s+/g, '').toLowerCase();
+        }
+
         f.getImagesByTeamName = function (teamName) {
             var deferred = $q.defer();
 
-            var teamTag = teamName.toLowerCase().replace(/ /g, "").replace(/\//g, "");
+            teamName = f.getNormalizedStringCompare(teamName);
 
-            //var teamTag = "veien svenby";
+            //teamName = "veiensvenby";
 
-            var url = $.cloudinary.url(teamTag, {format: 'json', type: 'list'});
 
-            var publicId = null;
+            var url = $.cloudinary.url(teamName, {format: 'json', type: 'list'});
+            
+
             $.getJSON(url)
                 .done(function (data) {
 
-                    deferred.resolve(data.resources, teamTag);
+                    deferred.resolve(data.resources);
 
 
                 })
                 .fail(function () {
 
                 }).always(function () {
-                deferred.resolve([], teamTag);
+                deferred.resolve([]);
             });
 
             return deferred.promise;

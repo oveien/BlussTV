@@ -163,6 +163,50 @@
 
         }
 
+
+        $scope.autofillImages = function () {
+
+            BlussTVService.getImagesByTeamName(GameService.getTeamName('home')).then ( function (images) {
+                angular.forEach(images, function (value, key) {
+
+                    if (value.context.custom.playerName) {
+                        var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
+                        if (compareName) {
+                            angular.forEach(game.homeTeam.players, function (player, key) {
+                                if (BlussTVService.getNormalizedStringCompare(player.name) == compareName) {
+                                    console.log('Got a match!');
+                                    var url = $.cloudinary.url(value.public_id);
+                                    player.image = url;
+                                }
+                            });
+                        }
+                    }
+                });
+
+                // Bla bla bla, away team
+                BlussTVService.getImagesByTeamName(GameService.getTeamName('away')).then ( function (images) {
+                    angular.forEach(images, function (value, key) {
+                        if (value.context.custom.playerName) {
+                            var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
+                            if (compareName) {
+                                angular.forEach(game.awayTeam.players, function (player, key) {
+                                    if (BlussTVService.getNormalizedStringCompare(player.name) == compareName) {
+                                        var url = $.cloudinary.url(value.public_id);
+                                        player.image = url;
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+
+                GameService.getGameInfo().then ( function (game) {
+                    GameService.saveChanges(game);
+                });
+
+            });
+        }
+
         $scope.uploadImage = function (team, player) {
 
             var teamName = GameService.getTeamName(team);
@@ -186,9 +230,11 @@
                 $scope.$apply();
             }
 
-            BlussTVService.getImagesByTeamName(teamName).then ( function (images, teamTag) {
+            BlussTVService.getImagesByTeamName(teamName).then ( function (images) {
+                var publicId = null;
                 angular.forEach(images, function (value, key) {
-                    if (value.context && value.context.custom.playerName == player.name) {
+                    if (value.context &&
+                        BlussTVService.getNormalizedStringCompare(value.context.custom.playerName) == BlussTVService.getNormalizedStringCompare(player.name)) {
                         publicId = value.public_id;
                     }
                 });
@@ -197,7 +243,7 @@
                     cloud_name: CONFIG.cloudinary.cloudName,
                     api_key: CONFIG.cloudinary.apiKey,
                     upload_preset: CONFIG.cloudinary.uploadPreset,
-                    tags: teamTag,
+                    tags: BlussTVService.getNormalizedStringCompare(teamName),
                     context: {
                         team: teamName,
                         playerName: player.name
@@ -207,6 +253,9 @@
                 if (publicId) {
                     options.public_id = publicId;
                 }
+
+                console.log('cloud options')
+                console.log(options);
                 window.cloudinary.openUploadWidget(options, handleImageUpload);
             });
 
