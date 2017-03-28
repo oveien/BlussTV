@@ -49,7 +49,7 @@ th, td {
 
 .dialog-row {
     width: 600px;
-    height: 48px;
+    height: 40px;
     background-color: blue;
     display: -webkit-box;
     display: -webkit-flex;
@@ -65,9 +65,9 @@ th, td {
       background: blue;
       background: linear-gradient(#0074D9, #001f3f);
       font-weight: 600;
-      font-size: 28px;
+      font-size: 26px;
       padding-left: 16px;
-      line-height: 48px;
+      line-height: 40px;
       color: white;
       text-shadow: 1px 1px black;
 }
@@ -87,7 +87,7 @@ th, td {
     background: linear-gradient(#0074D9, #001f3f, #001f3f);
     font-weight: 600;
     font-size: 20px;
-    line-height: 48px;
+    line-height: 40px;
     color: #FFFFFF;
     text-transform: uppercase;
     text-align: center;
@@ -196,7 +196,7 @@ th, td {
     justify-content: center;
     margin-right: 20px;
 
-    font-size: 42px;
+    font-size: 28px;
     font-weight: 400;
     color: #001f3f;
 }

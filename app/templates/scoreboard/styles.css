@@ -73,4 +73,6 @@ table {
     heighT: 100%;
     align-items: center;
     margin-bottom: 2px;
+
+    border-radius: 4px;
 }
