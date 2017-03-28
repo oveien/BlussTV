@@ -93,13 +93,13 @@
                     $scope.homeTeam.blocks = score.homeTeam.blocks;
                     $scope.homeTeam.opponentErrors = score.homeTeam.opponentErrors;
                     $scope.homeTeam.name = score.homeTeam.name;
-                    $scope.homeTeam.logo = score.homeTeam.logo;
+                    $scope.homeTeam.logo = ht.logo;
                     $scope.awayTeam.ace = score.awayTeam.ace;
                     $scope.awayTeam.attack = score.awayTeam.attack;
                     $scope.awayTeam.blocks = score.awayTeam.blocks;
                     $scope.awayTeam.opponentErrors = score.awayTeam.opponentErrors;
                     $scope.awayTeam.name = score.awayTeam.name;
-                    $scope.awayTeam.logo = score.awayTeam.logo;
+                    $scope.awayTeam.logo = at.logo;
 
                     console.log('Yello');
                     console.log($scope.awayTeam);
