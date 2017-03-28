@@ -105,10 +105,13 @@
             }
 
 
-            $('.sb-previous-set').animate({width: '50px', maxWidth: '50px'});
+            $('.sb-previous-set').css('borderRight', '1px solid rgba(150, 150, 150, 0.7)');
+            $('.sb-previous-set').animate({width: '40px', maxWidth: '40px', 'paddingLeft': '5px', 'paddingRight': '5px'});
 
             setTimeout(function () {
-                $('.sb-previous-set').animate({width: '0', maxWidth: '0'});
+                $('.sb-previous-set').animate({width: '0', maxWidth: '0', padding: 0}, function () {
+                    $(this).css('borderRight', 'none');
+                });
             }, 10000);
         }
 
