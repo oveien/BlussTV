@@ -181,10 +181,10 @@
 
             playerIndex++;
 
-            if (typeof(players[playerIndex]) != 'undefined') {
+            if (typeof(players[playerIndex]) != 'undefined' && players[playerIndex].image) {
                 // Wannabe preload:
                 var img = new Image();
-                img.src = player.image;
+                img.src = players[playerIndex].image;
             }
             setTimeout(viewPlayerInfo, 2000);
         };
