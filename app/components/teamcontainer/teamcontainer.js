@@ -229,35 +229,23 @@
                 $scope.$apply();
             }
 
-            BlussTVService.getImagesByTeamName(teamName).then ( function (images) {
-                var publicId = null;
-                angular.forEach(images, function (value, key) {
-                    if (value.context &&
-                        BlussTVService.getNormalizedStringCompare(value.context.custom.playerName) == BlussTVService.getNormalizedStringCompare(player.name)) {
-                        publicId = value.public_id;
-                    }
-                });
+            var publicId = BlussTVService.getNormalizedStringCompare(teamName) + BlussTVService.getNormalizedStringCompare(player.name);
 
-                var options = {
-                    cloud_name: CONFIG.cloudinary.cloudName,
-                    api_key: CONFIG.cloudinary.apiKey,
-                    upload_preset: CONFIG.cloudinary.uploadPreset,
-                    tags: BlussTVService.getNormalizedStringCompare(teamName),
-                    context: {
-                        team: teamName,
-                        playerName: player.name
-                    }
-                };
-
-                if (publicId) {
-                    options.public_id = publicId;
-                }
-
-                console.log('cloud options')
-                console.log(options);
-                window.cloudinary.openUploadWidget(options, handleImageUpload);
-            });
-
+            var options = {
+                cloud_name: CONFIG.cloudinary.cloudName,
+                api_key: CONFIG.cloudinary.apiKey,
+                upload_preset: CONFIG.cloudinary.uploadPreset,
+                tags: BlussTVService.getNormalizedStringCompare(teamName),
+                context: {
+                    team: teamName,
+                    playerName: player.name
+                },
+                public_id: publicId
+            };
+            
+            console.log('cloud options')
+            console.log(options);
+            window.cloudinary.openUploadWidget(options, handleImageUpload);
 
         }        
 
