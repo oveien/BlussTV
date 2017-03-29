@@ -229,7 +229,7 @@
                 $scope.$apply();
             }
 
-            var publicId = BlussTVService.getNormalizedStringCompare(teamName) + BlussTVService.getNormalizedStringCompare(player.name);
+            var publicId = BlussTVService.getNormalizedStringCompare(teamName) + '__' +  BlussTVService.getNormalizedStringCompare(player.name);
 
             var options = {
                 cloud_name: CONFIG.cloudinary.cloudName,

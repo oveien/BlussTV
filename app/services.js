@@ -30,6 +30,11 @@ angular.module('services', [])
         };
 
         f.getNormalizedStringCompare = function (teamName) {
+            var sortParts = teamName.split(/\//);
+
+            // Sort the parts, for beach so we get it saved as the same person first:
+            sortParts.sort();
+            teamName = sortParts.join("_");
             return teamName.replace(/\//g, "_").replace(/\s+/g, '').toLowerCase();
         }
 

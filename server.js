@@ -250,9 +250,7 @@ app.get('/poengliga-matches/', function (req, res) {
 
 app.get('/init.js', function (req, res) {
 
-    process.env.CLOUDINARY_CLOUD_NAME = 'volleystream';
-    process.env.CLOUDINARY_API_KEY = '563498731497358';
-    process.env.CLOUDINARY_UPLOAD_PRESET = 'o4omshjq';
+
    
     var config = {
         cloudinary: {
