@@ -1,6 +1,13 @@
-.dialog-row {
-    width: 892px;
+.dialog {
+    left: 165px;
 }
+.dialog-row {
+    width: 950px;
+}
+.dialog-heading {
+    width: 950px;
+}
+
 .dialog-row-number {
     margin-right: 0;
 }
@@ -22,3 +29,25 @@
     text-align: left;
     margin-left: 20px;
 }
+
+.dialog-row {
+    padding: 0;
+}
+
+.dialog-row-points {
+    border-right: 1px solid #001f3f;
+    text-align: right;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 30px;
+}
+
+.dialog-row-heading {
+    background: none;
+}
+
+/*
+.dialog-row-heading .dialog-row-points {
+    width: auto;
+}
+*/

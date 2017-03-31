@@ -9,7 +9,7 @@
 
 
 <div class="screen">
-    <div id='dialog' class="dialog hidden-bottom slide" style="left: 186px;">
+    <div id='dialog' class="dialog hidden-bottom slide">
         <div class="dialog-heading">
             <div class="teams-container">
                 <div id='homeTeam' class="team">
@@ -48,6 +48,21 @@
         at.find('.team-name').html(data.awayTeam.name);
         at.find('.team-logo img').attr('src', data.awayTeam.logo);
 
+        var html = '<div class="dialog-row dialog-row-heading">';
+        html += '<div class="dialog-row-role dialog-row-points">S</div>';
+        html += '<div class="dialog-row-role dialog-row-points">B</div>';
+        html += '<div class="dialog-row-role dialog-row-points">A</div>';
+        html += '<div class="player-name"></div>';
+        html += '<div class="dialog-row-role">T</div>';
+        html += '<div  class="dialog-row-number">#</div>';
+        html += '<div class="dialog-row-role">T</div>';
+        html += '<div class="player-name nd-half"></div>';
+        html += '<div class="dialog-row-role dialog-row-points">A</div>';
+        html += '<div class="dialog-row-role dialog-row-points">B</div>';
+        html += '<div class="dialog-row-role dialog-row-points">S</div>';
+        html += '</div>';
+        $('.dialog-body').append(html);
+
         for (var i in data.stats) {
             console.log(data.stats[i]);
             var html = '<div class="dialog-row">';
@@ -58,12 +73,20 @@
             html += '<div>' + data.stats[i].homeTeam.blocks + "</div>";
             html += '<div>' + data.stats[i].homeTeam.attack + "</div>";
             */
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.ace + "</div>";
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.blocks + "</div>";
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.attack + "</div>";
+
             html += '<div class="player-name">' + data.stats[i].homeTeam.name + "</div>";
             html += '<div class="dialog-row-role">' + data.stats[i].homeTeam.total + "</div>";
             html += '<div  class="dialog-row-number">' + (parseInt(i)+1) + "</div>";
 
             html += '<div  class="dialog-row-role">' + data.stats[i].awayTeam.total + "</div>";
             html += '<div  class="player-name nd-half">' + data.stats[i].awayTeam.name + "</div>";
+
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.attack + "</div>";
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.blocks + "</div>";
+            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.ace + "</div>";
             /*
             html += '<div>' + data.stats[i].awayTeam.attack + "</div>";
             html += '<div>' + data.stats[i].awayTeam.blocks + "</div>";

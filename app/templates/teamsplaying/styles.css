@@ -123,7 +123,7 @@
     background-color: #333;
     border-radius: 5px;
     perspective: 1000px;
-
+    margin: 0;
 }
 
 .nvbf-logo {
