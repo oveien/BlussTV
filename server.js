@@ -250,8 +250,7 @@ app.get('/poengliga-matches/', function (req, res) {
 
 app.get('/init.js', function (req, res) {
 
-
-   
+  
     var config = {
         cloudinary: {
             cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
@@ -412,6 +411,7 @@ router.get("/update-score",function(req,res) {
 
             var homeTeamRow = teamRows.eq(2);
             var awayTeamRow = teamRows.eq(3);
+            var infoRow = teamRows.eq(1);
 
             game.homeTeam.name = homeTeamRow.find('th').eq(1).text();
             game.awayTeam.name = awayTeamRow.find('th').eq(1).text();
@@ -429,7 +429,16 @@ router.get("/update-score",function(req,res) {
             game.homeTeam.setPoints[2] = parseInt(homeTeamRow.find('th').eq(5).text());
             game.homeTeam.setPoints[3] = parseInt(homeTeamRow.find('th').eq(6).text());
             game.homeTeam.setPoints[4] = parseInt(homeTeamRow.find('th').eq(7).text());
-            game.homeTeam.opponentErrors = parseInt(homeTeamRow.find('th').eq(11).text());
+
+            var opponentErrorIndex = 11;
+            console.log('Info row');
+            console.log(infoRow.find('th').eq(5).text());
+            console.log(infoRow.find('th').eq(6).text());
+            if ( infoRow.find('th').eq(6).text() == 'GS') {
+                opponentErrorIndex = 12;
+            }
+
+            game.homeTeam.opponentErrors = parseInt(homeTeamRow.find('th').eq(opponentErrorIndex).text());
 
 
             game.awayTeam.setPoints[0] = parseInt(awayTeamRow.find('th').eq(3).text());
@@ -438,7 +447,7 @@ router.get("/update-score",function(req,res) {
             game.awayTeam.setPoints[3] = parseInt(awayTeamRow.find('th').eq(6).text());
             game.awayTeam.setPoints[4] = parseInt(awayTeamRow.find('th').eq(7).text());
 
-            game.awayTeam.opponentErrors = parseInt(awayTeamRow.find('th').eq(11).text());
+            game.awayTeam.opponentErrors = parseInt(awayTeamRow.find('th').eq(opponentErrorIndex).text());
 
             console.log('AT');
             console.log(awayTeamRow.find('th').eq(11).text())
