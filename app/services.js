@@ -587,8 +587,14 @@ angular.module('services', [])
                 if(player.id === playerId) {
                     player.image = url;
                 }
-            })
-            
+            });
+
+            game.awayTeam.players.forEach(player => {
+                if(player.id === playerId) {
+                player.image = url;
+            }
+        });
+
             f.setStoredValue('game', game);
         }
 
