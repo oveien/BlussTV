@@ -118,7 +118,7 @@
 
 
         var players = obj.data.players.sort ( function (a, b) {
-            if (a.position.toLowerCase() == 'libero' && b.position.toLowerCase() != 'libero' ) {
+            if (a.position && a.position.toLowerCase() == 'libero' && b.position && b.position.toLowerCase() != 'libero' ) {
                 return 1;
             }
 
@@ -144,9 +144,12 @@
         var html = '';
         for (var i in players) {
             var player = players[i];
-
+            var number = '';
+            if (!isNaN(player.number)) {
+                number = player.number;
+            }
             html += '<div class="dialog-row">';
-            html += '<div class="dialog-row-number">' + player.number + '</div>';
+            html += '<div class="dialog-row-number">' + number + '</div>';
             html += '<div class="player-name">' + player.name + '</div>';
             html += '<div class="dialog-row-role">' + player.position + '</div>';
             html += '</div>';

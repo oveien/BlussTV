@@ -129,10 +129,17 @@
             }
         }
 
-        function newPlayerObject() {
+        function newPlayerObject(numb) {
+            var number = "";
+            if (numb) {
+                number = numb;
+            }
+
             return {
                 name: '',
-                id: Math.floor((Math.random() * 1000000000000) + 1)
+                id: Math.floor((Math.random() * 1000000000000) + 1),
+                number: number,
+                position: 'libero'
             };
         }
 
