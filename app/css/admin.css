@@ -122,3 +122,11 @@ button.showing {
     margin-right: 20px;
     cursor: pointer;
 }
+
+.img-preload {
+    position: absolute;
+    left: -3000px;
+    top: -3000px;
+    width: 1px;
+    heighT: 1px;
+}
