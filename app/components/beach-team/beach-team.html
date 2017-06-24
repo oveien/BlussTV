@@ -1,0 +1,6 @@
+<fieldset>
+    <legend>Show beach team</legend>
+
+    <button ng-click='toggleTeamsSquad("home")' class="toggle-button" ng-class="showing == 'home' ? 'showing' : ''" >Show team {{homeTeam.name}}</button>
+    <button ng-click='toggleTeamsSquad("away")' class="toggle-button" ng-class="showing == 'away' ? 'showing' : ''" >Show team {{awayTeam.name}}</button>
+</fieldset>

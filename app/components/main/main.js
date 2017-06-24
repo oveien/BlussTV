@@ -53,6 +53,11 @@
         controller: "teamSquadsController"
     });
 
+    app.component('beachTeam', {
+        templateUrl: '/components/beach-team/beach-team.html',
+        controller: "beachTeamController"
+    });
+
     app.component('preGameContainer', {
         templateUrl: '/components/pregamecontainer/pregamecontainer.html',
         controller: 'preGameContainerController'

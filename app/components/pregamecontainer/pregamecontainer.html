@@ -1,2 +1,3 @@
 <teams-playing></teams-playing>
-<team-squads></team-squads>
+<team-squads ng-if="getGameType() == 'indoor-volleyball'"></team-squads>
+<beach-team ng-if="getGameType() == 'beach-volleyball'"></beach-team>
