@@ -4,28 +4,38 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
-    <script>
-        function jalla() {
-            alert('hello');
-        }
-    </script>
+
 </head>
 <body>
 
 <div class="screen">
+
 <div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 908px;">
     <div class="dialog-heading">
-        <div class="teams-container">
-            <div class="team">
-                <div class="team-logo"></div>
-                <div class="team-name"></div>
-            </div>
-        </div>
+
+        <div class="team-name"></div>
     </div>
 
     <div class="dialog-body">
-        <div class="players"></div>
-        <div class="player-image"></div>
+        <div class="players">
+            <div id='player1' class="player">
+                <div id="player1-image"></div>
+                <div class="dialog-row">
+                    <div class="dialog-row-number"></div>
+                    <div class="player-name"></div>
+                    <div class="dialog-row-role"></div>
+                </div>
+            </div>
+            <div id="player2"  class="player">
+                <div id="player2-image"></div>
+                <div class="dialog-row">
+                    <div class="dialog-row-number"></div>
+                    <div class="player-name"></div>
+                    <div class="dialog-row-role"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -37,22 +47,23 @@
 
     var data = JSON.stringify({
         "data": {
-            "name": 'NTNUI',
-            "logo": "/graphics/NTNUI/logo.jpg",
+            "name": 'Bergerud / Solhaug',
             players: [
                 {
+                    image: 'player1.png',
                     'number': 1,
                     'name': 'Rune Hamnes',
                     'height': 191,
                     'reach': '340',
-                    'position': 'M',
+                    'position': 'Forsvar',
                     'id': 127
                 },
                 {
+                    image: 'player2.png',
                     'number': 2,
                     'name': 'Morten Lillehagen',
                     'height': 203,
-                    'position': 'K',
+                    'position': 'Blokk',
                     'reach': '340',
                     'id': 54
                 }
@@ -69,83 +80,38 @@
 
 
 
-        var players = obj.data.players.sort ( function (a, b) {
-            if (a.position && a.position.toLowerCase() == 'libero' && b.position && b.position.toLowerCase() != 'libero' ) {
-                return 1;
-            }
-
-            a.number = parseInt(a.number);
-            b.number = parseInt(b.number);
-            console.log(a.number);
-            if (a.number > b.number) {
-                return 1;
-            }
-            if (a.number == b.number) {
-                return 0;
-            }
-
-            if (a.number < b.number) {
-                return -1;
-            }
-        })
+        var players = obj.data.players;
 
         if (obj.data.logo) {
             $('.team-logo').html ( $('<img>').attr('src', obj.data.logo));
         }
 
         var html = '';
-        for (var i in players) {
-            var player = players[i];
-            var number = '';
-            if (!isNaN(player.number)) {
-                number = player.number;
-            }
-            html += '<div class="dialog-row">';
-            html += '<div class="dialog-row-number">' + number + '</div>';
-            html += '<div class="player-name">' + player.name + '</div>';
-            html += '<div class="dialog-row-role">' + player.position + '</div>';
-            html += '</div>';
 
+        var p1 = players[0];
+        var p2 = players[1];
+
+        $('#player1 .player-name').html(p1.name);
+        $('#player1 .dialog-row-number').html(p1.number);
+        $('#player1 .dialog-row-role').html(p1.position);
+        if (p1.image) {
+            $('#player1-image').append( $('<img>').attr('src', p1.image) );
         }
 
-        $('.players').append(html);
+        $('#player2 .player-name').html(p2.name);
+        $('#player2 .dialog-row-number').html(p2.number);
+        $('#player2 .dialog-row-role').html(p2.position);
+        if (p2.image) {
+            $('#player2-image').append( $('<img>').attr('src', p2.image) );
+        }
+
 
         $('#dialog').removeClass('hidden-bottom');
 
 
         var playersElement = $('.players');
-        var playerIndex = 0;
-        var viewPlayerInfo = function () {
-            $('.dialog-row').removeClass('selected-player');
-
-            if (typeof(players[playerIndex]) == 'undefined') {
-                $('#player_image').attr('src','');
-                return;
-            }
-
-            var player = players[playerIndex];
 
 
-            playersElement.find('.dialog-row').eq(playerIndex).addClass('selected-player');
-
-            // Show the player image:
-            console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
-            //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
-
-            $('.player-image').css('backgroundImage', 'url(' + player.image +')');
-
-            playerIndex++;
-
-            if (typeof(players[playerIndex]) != 'undefined' && players[playerIndex].image) {
-                // Wannabe preload:
-                var img = new Image();
-                img.src = players[playerIndex].image;
-            }
-            setTimeout(viewPlayerInfo, 2000);
-        };
-
-        // Hack for now to know the animation is done:
-        setTimeout(viewPlayerInfo, 1000);
     }
 
     function remove(callback) {

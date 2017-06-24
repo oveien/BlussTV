@@ -1,0 +1,12 @@
+.player img {
+    max-width: 150px;
+}
+
+.team-name {
+    text-align: center;
+    line-height: 96px;
+}
+
+.player-name {
+    flex-grow: 1;
+}
