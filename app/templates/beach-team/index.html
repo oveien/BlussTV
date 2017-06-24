@@ -16,23 +16,26 @@
         <div class="team-name"></div>
     </div>
 
-    <div class="dialog-body">
-        <div class="players">
-            <div id='player1' class="player">
-                <div id="player1-image"></div>
-                <div class="dialog-row">
-                    <div class="dialog-row-number"></div>
-                    <div class="player-name"></div>
-                    <div class="dialog-row-role"></div>
-                </div>
+    <div class="players">
+        <div id="player2"  class="player">
+            <div id="player2-image"  class="player-image-container"></div>
+            <div class="dialog-row">
+                <div class="dialog-row-number"></div>
+                <div class="player-name"></div>
             </div>
-            <div id="player2"  class="player">
-                <div id="player2-image"></div>
-                <div class="dialog-row">
-                    <div class="dialog-row-number"></div>
-                    <div class="player-name"></div>
-                    <div class="dialog-row-role"></div>
-                </div>
+            <div class="player-info">
+
+            </div>
+        </div>
+
+        <div id='player1' class="player">
+            <div id="player1-image" class="player-image-container"></div>
+            <div class="dialog-row">
+                <div class="dialog-row-number"></div>
+                <div class="player-name"></div>
+            </div>
+            <div class="player-info">
+
             </div>
         </div>
 
@@ -94,6 +97,17 @@
         $('#player1 .player-name').html(p1.name);
         $('#player1 .dialog-row-number').html(p1.number);
         $('#player1 .dialog-row-role').html(p1.position);
+
+        if (p1.position) {
+            $('#player1 .player-info').append( $('<div>').html('Posisjon: ' + p1.position));
+        }
+        if (p1.height) {
+            $('#player1 .player-info').append( $('<div>').html('Høyde: ' + p1.height));
+        }
+        if (p1.reach) {
+            $('#player1 .player-info').append( $('<div>').html('Rekkevidde: ' + p1.reach));
+        }
+
         if (p1.image) {
             $('#player1-image').append( $('<img>').attr('src', p1.image) );
         }
@@ -101,6 +115,17 @@
         $('#player2 .player-name').html(p2.name);
         $('#player2 .dialog-row-number').html(p2.number);
         $('#player2 .dialog-row-role').html(p2.position);
+
+        if (p2.position) {
+            $('#player2 .player-info').append( $('<div>').html('Posisjon: ' + p2.position));
+        }
+        if (p2.height) {
+            $('#player2 .player-info').append( $('<div>').html('Høyde: ' + p2.height));
+        }
+        if (p2.reach) {
+            $('#player2 .player-info').append( $('<div>').html('Rekkevidde: ' + p2.reach));
+        }
+
         if (p2.image) {
             $('#player2-image').append( $('<img>').attr('src', p2.image) );
         }

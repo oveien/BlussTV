@@ -1,5 +1,24 @@
+.dialog-row {
+    width: 420px;
+}
+
+.player-image-container {
+    height: 450px;
+    position: relative;
+}
+
+.player-image-container img {
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+}
+
+.player {
+    display: inline-block;
+}
 .player img {
-    max-width: 150px;
+    max-width: 400px;
+    max-height: 450px;
 }
 
 .team-name {
@@ -9,4 +28,16 @@
 
 .player-name {
     flex-grow: 1;
+}
+
+#player2 {
+    float: righT;
+}
+
+.player-info {
+    color: white;
+    background-color: #0074d9;
+    padding: 10px;
+    height: 70px;
+    font-size: 20px;
 }
