@@ -28,6 +28,8 @@
 
 .player-name {
     flex-grow: 1;
+    white-space: nowrap;
+    font-size: 22px;
 }
 
 #player2 {
