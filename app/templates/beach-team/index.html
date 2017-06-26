@@ -10,7 +10,7 @@
 
 <div class="screen">
 
-<div id='dialog' class="dialog hidden-bottom slide" style="left: 140px; width: 908px;">
+<div id='dialog' class="dialog slide" style="left: 140px; width: 908px;">
     <div class="dialog-heading">
 
         <div class="team-name"></div>
@@ -24,7 +24,9 @@
                 <div class="player-name"></div>
             </div>
             <div class="player-info">
+                <table>
 
+                </table>
             </div>
         </div>
 
@@ -35,7 +37,9 @@
                 <div class="player-name"></div>
             </div>
             <div class="player-info">
+                <table>
 
+                </table>
             </div>
         </div>
 
@@ -98,14 +102,19 @@
         $('#player1 .dialog-row-number').html(p1.number);
         $('#player1 .dialog-row-role').html(p1.position);
 
+
+        var addPlayerInfo = function (selector, desc, val) {
+            $(selector).find('.player-info table').append('<tr><td>' + desc + '</td><td>'+val+'</td>');
+        }
+
         if (p1.position) {
-            $('#player1 .player-info').append( $('<div>').html('Posisjon: ' + p1.position));
+            addPlayerInfo('#player1', 'Posisjon', p1.position);
         }
         if (p1.height) {
-            $('#player1 .player-info').append( $('<div>').html('Høyde: ' + p1.height));
+            addPlayerInfo('#player1', 'Høyde', p1.height);
         }
         if (p1.reach) {
-            $('#player1 .player-info').append( $('<div>').html('Rekkevidde: ' + p1.reach));
+            addPlayerInfo('#player1', 'Rekkevidde', p1.reach);
         }
 
         if (p1.image) {
@@ -117,14 +126,15 @@
         $('#player2 .dialog-row-role').html(p2.position);
 
         if (p2.position) {
-            $('#player2 .player-info').append( $('<div>').html('Posisjon: ' + p2.position));
+            addPlayerInfo('#player2', 'Posisjon', p2.position);
         }
         if (p2.height) {
-            $('#player2 .player-info').append( $('<div>').html('Høyde: ' + p2.height));
+            addPlayerInfo('#player2', 'Høyde', p2.height);
         }
         if (p2.reach) {
-            $('#player2 .player-info').append( $('<div>').html('Rekkevidde: ' + p2.reach));
+            addPlayerInfo('#player2', 'Rekkevidde', p2.reach);
         }
+
 
         if (p2.image) {
             $('#player2-image').append( $('<img>').attr('src', p2.image) );

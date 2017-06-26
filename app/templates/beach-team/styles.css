@@ -3,7 +3,7 @@
 }
 
 .player-image-container {
-    height: 450px;
+    height: 440px;
     position: relative;
 }
 
@@ -18,7 +18,7 @@
 }
 .player img {
     max-width: 400px;
-    max-height: 450px;
+    max-height: 440px;
 }
 
 .team-name {
@@ -40,6 +40,14 @@
     color: white;
     background-color: #0074d9;
     padding: 10px;
-    height: 70px;
+    height: 90px;
+}
+
+.player-info table {
+    width: 100%;
     font-size: 20px;
+}
+
+.player-info table tr td {
+    border-bottom: 1px solid #1065af;
 }
