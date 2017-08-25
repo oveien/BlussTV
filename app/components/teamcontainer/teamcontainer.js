@@ -173,7 +173,8 @@
                         var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
                         if (compareName) {
                             angular.forEach(game.homeTeam.players, function (player, key) {
-                                if (BlussTVService.getNormalizedStringCompare(player.name) == compareName) {
+                                var nl = BlussTVService.getNormalizedStringCompare(player.name);
+                                if (nl == compareName.substr(0, nl.length)) {
                                     console.log('Got a match!');
                                     var url = $.cloudinary.url(value.public_id);
                                     player.image = url;
@@ -190,7 +191,8 @@
                             var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
                             if (compareName) {
                                 angular.forEach(game.awayTeam.players, function (player, key) {
-                                    if (BlussTVService.getNormalizedStringCompare(player.name) == compareName) {
+                                    var nl = BlussTVService.getNormalizedStringCompare(player.name);
+                                    if (nl == compareName.substr(0, nl.length)) {
                                         var url = $.cloudinary.url(value.public_id);
                                         player.image = url;
                                     }
@@ -231,6 +233,9 @@
 
             var publicId = BlussTVService.getNormalizedStringCompare(teamName) + '__' +  BlussTVService.getNormalizedStringCompare(player.name);
 
+            var d = new Date();
+            var n = d.getTime();
+
             var options = {
                 cloud_name: CONFIG.cloudinary.cloudName,
                 api_key: CONFIG.cloudinary.apiKey,
@@ -240,7 +245,8 @@
                     team: teamName,
                     playerName: player.name
                 },
-                public_id: publicId
+                // To avoid cache, add time:
+                public_id: publicId + "_" + n
             };
             
             console.log('cloud options')
