@@ -17,7 +17,7 @@
 
 .interviewee-info div.interviewee-name {
     margin-right: 50px;
-    text-indent: 200px;
+    text-indent: 20px;
     font-size: 36px;
     white-space: nowrap;
 }
@@ -49,6 +49,15 @@
     border-radius: 5px;
 }
 
+
+.beach-volleyball .interviewee-image-container {
+    width: 300px;
+    height: 450px;
+    bottom: 80px;
+    background-color: transparent;
+}
+
+
 .interviewee-image {
     background-position: center center;
     background-size: cover;
@@ -69,7 +78,7 @@
 }
 
 .interviewee-role {
-    text-indent: 200px;
+    text-indent: 20px;
 }
 
 .interviewee-stats-container {

@@ -3,11 +3,13 @@
     var app = angular.module('blussTV');
 
 
-    app.controller('mainController', ['$scope', 'CasparCGService', 'GameService', '$http', function($scope, CasparCGService, GameService, $http){
+    app.controller('mainController', ['$scope', 'CasparCGService', 'GameService', '$http', '$uibModal',
+        function($scope, CasparCGService, GameService, $http, $uibModal){
 
         $scope.inputs = [];
 
         $scope.onNewGame = function () {
+
             var prompt = window.prompt("Finn url på poengliga.no.", 'http://www.poengliga.no/eliteh/1617/kamper/9web.html');
 
             if (prompt) {
@@ -16,9 +18,34 @@
             }
         }
 
+        $scope.onNewFirebaseGame = function () {
+            $scope.modalInstance = $uibModal.open({
+                animation: true,
+                component: 'newFirebaseGameDialog'
+            });
+
+            $scope.modalInstance.result.then(function (data) {
+                //startFirebaseGame
+
+                //GameService.newGam
+
+            }, function () {
+
+                $log.info('modal-component dismissed at: ' + new Date());
+            });
+        }
+
         $scope.htmlOverLayURL = CasparCGService.getHtmlOverlayUrl ();
     }]);
 
+    app.component('newFirebaseGameDialog', {
+        templateUrl: '/components/dialogs/newfirebasegame/newfirebasegame.html',
+        controller: "newFirebaseGameDialogController",
+        bindings: {
+            modalInstance: "<",
+            resolve: "<"
+        }
+    });
 
     app.component('gameContainer', {
         templateUrl: '/components/gamecontainer/gamecontainer.html',

@@ -1,13 +1,13 @@
 
 (function (angular) {
     var app = angular.module('blussTV');
-    app.controller('scoreBoardController', ['$scope', 'CasparCGService', 'GameService', function ($scope, CasparCGService, GameService) {
+    app.controller('scoreBoardController', ['$scope', 'CasparCGService', 'GameService', '$document','$firebaseObject',
+        function ($scope, CasparCGService, GameService, $document, $firebaseObject) {
         $scope.showing = false;
 
         $scope.manualScore = GameService.getManualScore ();
 
         $scope.gameSetPoints = GameService.getSetPoints()
-
 
 
         $scope.toggleShowing = function () {
@@ -33,9 +33,53 @@
 
                 $scope.manualScore = game.manualScore;
                 $scope.gameSetPoints = game.setPoints;
-                console.log(game);
+
+                if (game.firebase) {
+                    // Auto-score:
+                    runFirebaseScore(game);
+                }
             });
+        };
+
+        var fireBaseTournamentId = "";
+        var fireBaseMatchId = "";
+        var runFirebaseScore = function (game) {
+            if (game.firebase.tournamentId != fireBaseTournamentId && game.firebase.matchId != fireBaseMatchId) {
+                // Start new watcher:
+                fireBaseTournamentId = game.firebase.tournamentId;
+                fireBaseMatchId = game.firebase.matchId;
+                var url = '/tournament_matches/'+fireBaseTournamentId + '/' + fireBaseMatchId;
+                console.log(url);
+                var matchRef = firebase.database().ref(url);
+                var matchInfo = $firebaseObject(matchRef);
+                matchInfo.$watch( function () {
+                    var m = matchInfo;
+                    console.log(matchInfo);
+
+                    var sets = m.scoreInCompletedSet.split(",");
+                    console.log(sets);
+                    var s = 0;
+                    for (var i = 0; i<sets.length; i++) {
+                      console.log(sets[i]);
+                        var re = sets[i].match(/(\d+)[\s\-]+(\d+)/);
+                        console.log(re);
+                        if (re) {
+                            $scope.pointsHomeTeam[s] = re[1];
+                            $scope.pointsAwayTeam[s] = re[2];
+                            s++;
+                        }
+                    }
+
+                    $scope.pointsHomeTeam[s] = m.pointsInCurrentSet[0];
+                    $scope.pointsAwayTeam[s] = m.pointsInCurrentSet[1];
+                    
+                    $scope.updateScoreboard();
+                });
+            }
         }
+
+
+
         GameService.getGameInfo().then (onGameInfo);
 
         GameService.registerObserverCallback('game-info', onGameInfo);
@@ -52,8 +96,6 @@
 
                 $scope.updateScoreboard();
             }
-
-
         });
 
         $scope.pointsHomeTeam = [];
@@ -66,6 +108,29 @@
         }
 
 
+        $document.keydown ( function (e) {
+            console.log(e.keyCode);
+            if (e.keyCode == 72 || e.keyCode == 65) {
+                var team = '';
+                if (e.keyCode == 72) {
+                    team = 'home';
+                }
+                else {
+                    team = 'away';
+                }
+                
+                if (e.ctrlKey) {
+                    $scope.removePoint(team);
+                }
+                else {
+                    $scope.addPoint(team);
+                }
+                $scope.$digest ();
+                console.log(e);
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        });
 
         $scope.addPoint = function (team) {
             for (var i in $scope.pointsHomeTeam) {
@@ -112,6 +177,7 @@
 
         var getScoreData = function () {
 
+
             var ht = GameService.getTeam('home');
             var at = GameService.getTeam('away');
 
@@ -131,8 +197,10 @@
                     pointsSets: $scope.pointsAwayTeam,
                     logo: at.logo,
                     jersey: at.jersey
-                }
+                },
             };
+
+
 
             for (var i in $scope.pointsHomeTeam) {
 

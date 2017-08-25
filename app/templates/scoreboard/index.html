@@ -94,7 +94,7 @@
         $('#awayTeamPoints').html(data.awayTeam.points);
 
         // We might want to show previous sets:
-        if ( (data.homeTeam.sets > 0 || data.awayTeam.sets > 0) && (data.homeTeam.points + data.awayTeam.points) % 10 == 0) {
+        if ((data.homeTeam.sets > 0 || data.awayTeam.sets > 0) && (data.homeTeam.points + data.awayTeam.points) % 10 == 0) {
             $('.sb-previous-set').remove();
             for (var i = 0; i <(data.homeTeam.sets + data.awayTeam.sets); i++) {
                 var elm = $('<div>').html(data.homeTeam.pointsSets[i]).addClass('sb-previous-set');

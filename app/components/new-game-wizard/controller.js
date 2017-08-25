@@ -7,7 +7,8 @@
         };
     });
 
-    app.controller('newGameWizardController',  ['$scope', 'GameService', 'BlussTVService', function ($scope, GameService, BlussTVService) {
+    app.controller('newGameWizardController',  ['$scope', 'GameService', 'BlussTVService', 
+        function ($scope, GameService, BlussTVService) {
         var $ctrl = this;
 
         $scope.active = 0;

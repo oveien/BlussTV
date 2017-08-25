@@ -5,7 +5,7 @@
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
 </head>
-<body>
+<body class="beach-volleyball">
 
 
 <div class="screen">
@@ -13,9 +13,9 @@
         <div class="interviewee-info">
             <div class="interviewee-image-container"><div class="interviewee-image"></div></div>
             <div class="player-info-container">
-                <div class="interviewee-age-container">Fødselsår: <span id="interviewee-age"></span> </div>
-                <div class="interviewee-height-container">Høyde: <span id="interviewee-height"></span> </div>
-                <div class="interviewee-reach-container">Rekkevidde: <span id="interviewee-reach"></span> </div>
+                <div class="interviewee-age-container"><span id="interviewee-age"></span> </div>
+                <div class="interviewee-height-container"><span id="interviewee-height"></span> </div>
+                <div class="interviewee-reach-container"><span id="interviewee-reach"></span> </div>
             </div>
             <div class="interviewee-name"></div>
         </div>
@@ -44,9 +44,15 @@
         $('.interviewee-name').text(data.name);
         $('.interviewee-role').text(data.team.name);
 
-        $('#interviewee-age').html(parseInt(data.birthyear));
-        $('#interviewee-height').html(data.height);
-        $('#interviewee-reach').html(data.reach);
+        if (parseInt(data.birthyear)) {
+            $('#interviewee-age').html('Fødselsår: ' + parseInt(data.birthyear));
+        }
+        if (data.height) {
+            $('#interviewee-height').html('Høyde: ' + data.height);
+        }
+        if (data.reach) {
+            $('#interviewee-reach').html('Rekkevidde: ' + data.reach);
+        }
 
         if (typeof(data.blocks) != 'undefined') {
             $('#interviewee-stats-blocks').html('Blokk: ' + data.blocks);
@@ -85,7 +91,7 @@
                       ace: 0,
                       total: 0,
                     "birthyear": 1983,
-                    "image": '/graphics/Oslo Volley/players/121_f/image'
+                    "image": '../beach-team/player1.png'
                 }
             }));
         }, 50);

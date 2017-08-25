@@ -347,6 +347,7 @@ angular.module('services', [])
                 return null;
             }
         }
+        
 
         // Dummy functions:
         f.createNewGame = function (options) {
