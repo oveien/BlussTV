@@ -178,7 +178,10 @@
                             angular.forEach(game.homeTeam.players, function (player, key) {
                                 var nl = BlussTVService.getNormalizedStringCompare(player.name);
                                 if (nl == compareName) {
-                                    if (hasImage[nl] && hasImage[nl] > value.context.custom.time) {
+                                    if (hasImage[nl] && !value.context.custom.time) {
+                                        return true;
+                                    }
+                                    if (hasImage[nl] > value.context.custom.time) {
                                         return true;
                                     }
                                     var url = $.cloudinary.url(value.public_id);
@@ -202,7 +205,10 @@
                                 angular.forEach(game.awayTeam.players, function (player, key) {
                                     var nl = BlussTVService.getNormalizedStringCompare(player.name);
                                     if (nl == compareName) {
-                                        if (hasImage[nl] && hasImage[nl] > value.context.custom.time) {
+                                        if (hasImage[nl] && !value.context.custom.time) {
+                                            return true;
+                                        }
+                                        if (hasImage[nl] > value.context.custom.time) {
                                             return true;
                                         }
                                         var url = $.cloudinary.url(value.public_id);
