@@ -166,7 +166,9 @@
 
         $scope.autofillImages = function () {
 
+
             BlussTVService.getImagesByTeamName(GameService.getTeamName('home')).then ( function (images) {
+                var hasImage = {}
                 angular.forEach(images, function (value, key) {
 
                     if (value.context.custom.playerName) {
@@ -174,10 +176,11 @@
                         if (compareName) {
                             angular.forEach(game.homeTeam.players, function (player, key) {
                                 var nl = BlussTVService.getNormalizedStringCompare(player.name);
-                                if (nl == compareName.substr(0, nl.length)) {
+                                if (!hasImage[nl] && nl == compareName.substr(0, nl.length)) {
                                     console.log('Got a match!');
                                     var url = $.cloudinary.url(value.public_id);
                                     player.image = url;
+                                    hasImage[nl] = 1;
                                 }
                             });
                         }
@@ -186,17 +189,19 @@
 
                 // Bla bla bla, away team
                 BlussTVService.getImagesByTeamName(GameService.getTeamName('away')).then ( function (images) {
+                    var hasImage = {}
                     angular.forEach(images, function (value, key) {
                         if (value.context.custom.playerName) {
                             var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
                             if (compareName) {
                                 angular.forEach(game.awayTeam.players, function (player, key) {
                                     var nl = BlussTVService.getNormalizedStringCompare(player.name);
-                                    if (nl == compareName.substr(0, nl.length)) {
+                                    if (!hasImage[nl] && nl == compareName.substr(0, nl.length)) {
+                                        console.log('Got a match!');
                                         var url = $.cloudinary.url(value.public_id);
                                         player.image = url;
-                                    }
-                                });
+                                        hasImage[nl] = 1;
+                                    }                                });
                             }
                         }
                     });
