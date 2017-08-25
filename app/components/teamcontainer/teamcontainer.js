@@ -169,6 +169,7 @@
 
             BlussTVService.getImagesByTeamName(GameService.getTeamName('home')).then ( function (images) {
                 var hasImage = {}
+                console.log(images);
                 angular.forEach(images, function (value, key) {
 
                     if (value.context.custom.playerName) {
@@ -182,6 +183,7 @@
                                     player.image = url;
                                     hasImage[nl] = 1;
                                 }
+                                console.log(hasImage);
                             });
                         }
                     }
@@ -190,6 +192,7 @@
                 // Bla bla bla, away team
                 BlussTVService.getImagesByTeamName(GameService.getTeamName('away')).then ( function (images) {
                     var hasImage = {}
+                    console.log(images);
                     angular.forEach(images, function (value, key) {
                         if (value.context.custom.playerName) {
                             var compareName = BlussTVService.getNormalizedStringCompare(value.context.custom.playerName);
@@ -201,7 +204,9 @@
                                         var url = $.cloudinary.url(value.public_id);
                                         player.image = url;
                                         hasImage[nl] = 1;
-                                    }                                });
+                                    }
+                                    console.log(hasImage);
+                                });
                             }
                         }
                     });
