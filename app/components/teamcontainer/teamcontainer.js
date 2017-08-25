@@ -177,11 +177,13 @@
                         if (compareName) {
                             angular.forEach(game.homeTeam.players, function (player, key) {
                                 var nl = BlussTVService.getNormalizedStringCompare(player.name);
-                                if (!hasImage[nl] && nl == compareName.substr(0, nl.length)) {
-                                    console.log('Got a match!');
+                                if (nl == compareName) {
+                                    if (hasImage[nl] && hasImage[nl] > value.context.custom.time) {
+                                        return true;
+                                    }
                                     var url = $.cloudinary.url(value.public_id);
                                     player.image = url;
-                                    hasImage[nl] = 1;
+                                    hasImage[nl] = value.context.custom.time;
                                 }
                                 console.log(hasImage);
                             });
@@ -199,11 +201,13 @@
                             if (compareName) {
                                 angular.forEach(game.awayTeam.players, function (player, key) {
                                     var nl = BlussTVService.getNormalizedStringCompare(player.name);
-                                    if (!hasImage[nl] && nl == compareName.substr(0, nl.length)) {
-                                        console.log('Got a match!');
+                                    if (nl == compareName) {
+                                        if (hasImage[nl] && hasImage[nl] > value.context.custom.time) {
+                                            return true;
+                                        }
                                         var url = $.cloudinary.url(value.public_id);
                                         player.image = url;
-                                        hasImage[nl] = 1;
+                                        hasImage[nl] = value.context.custom.time;
                                     }
                                     console.log(hasImage);
                                 });
@@ -253,7 +257,8 @@
                 tags: BlussTVService.getNormalizedStringCompare(teamName),
                 context: {
                     team: teamName,
-                    playerName: player.name
+                    playerName: player.name,
+                    time: n
                 },
                 // To avoid cache, add time:
                 public_id: publicId + "_" + n
