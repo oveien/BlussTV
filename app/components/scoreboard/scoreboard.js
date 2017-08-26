@@ -107,7 +107,7 @@
             $scope.pointsAwayTeam.push(0);
         }
 
-
+        /*
         $document.keydown ( function (e) {
             console.log(e.keyCode);
             if (e.keyCode == 72 || e.keyCode == 65) {
@@ -131,6 +131,7 @@
                 e.preventDefault();
             }
         });
+        */
 
         $scope.addPoint = function (team) {
             for (var i in $scope.pointsHomeTeam) {
