@@ -1,0 +1,132 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/css/screen.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/lib/jquery.js"></script>
+    <script src="/templates/utils.js"></script>
+
+</head>
+<body>
+
+<div class="screen">
+
+<div id='dialog' class="dialog slide" style="left: 186px; width: 908px;">
+    <div class="dialog-heading">
+
+        <div class="team-name"></div>
+    </div>
+
+    <div class="timeout-dialog">
+        <div class="dialog-row">
+            Timeout:&nbsp;<span id="who"></span>
+        </div>
+
+        <div class="timeout-info">
+
+        </div>
+    </div>
+    <!--
+        <div class="players">
+            <div id="player2"  class="player">
+                <div id="player2-image"  class="player-image-container"></div>
+                <div class="dialog-row">
+                    <div class="dialog-row-number"></div>
+                    <div class="player-name"></div>
+                </div>
+                <div class="player-info">
+                    <table>
+
+                    </table>
+                </div>
+            </div>
+
+            <div id='player1' class="player
+">
+                <div id="player1-image" class="player-image-container"></div>
+                <div class="dialog-row">
+                    <div class="dialog-row-number"></div>
+                    <div class="player-name"></div>
+                </div>
+                <div class="player-info">
+                    <table>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        -->
+
+</div>
+</div>
+
+
+</body>
+<script>
+
+    var data = '{"data":{"homeTeam":{"name":"Veien / Hamnes"},"awayTeam":{"name":"Løkken / Skogen"},"gameType":"beach-volleyball","who":"home"}}';
+
+    function play(str) {
+
+        console.log(str);
+        var obj = JSON.parse(str);
+
+        console.log(obj)
+        $('.team-name').html(obj.data.homeTeam.name + ' - ' + obj.data.awayTeam.name);
+
+
+        var players = obj.data.players;
+
+        if (obj.data.logo) {
+            $('.team-logo').html ( $('<img>').attr('src', obj.data.logo));
+        }
+
+        var html = '';
+
+        html += "";
+
+        var ht = obj.data.homeTeam;
+        var at = obj.data.awayTeam;
+        if (ht.gameSets) {
+            for (var i = 0; i < ht.gameSets.length; i++) {
+                if (ht.gameSets[i] > 0 || at.gameSets[i] > 0) {
+                    html += 'Set ' + (i + 1) + ": " + ht.gameSets[i] + ' - ' + at.gameSets[i] + "<br>";
+                }
+            }
+        }
+
+        $('.timeout-info').html(html);
+
+        if (obj.data.who == "technical") {
+            $('#who').html('Technical')
+        }
+        else if (obj.data.who == "home") {
+
+            $('#who').html(obj.data.homeTeam.name)
+        }
+        else if (obj.data.who == "away") {
+            $('#who').html(obj.data.awayTeam.name)
+        }
+
+        $('#dialog').removeClass('hidden-bottom');
+
+
+
+    }
+
+    function remove(callback) {
+        // Animate away to the bottom:
+        $('#dialog').addClass('hidden-bottom');
+        if (callback) {
+            callback();
+        }
+    }
+
+
+    if (getUrlParameter('debug')) {
+        setTimeout(function () {
+            play(data);
+        }, 2);
+    }
+
+</script>
+</html>

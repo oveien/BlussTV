@@ -110,4 +110,9 @@
         controller: 'playerSubstitutionController'
     });
 
+    app.component('timeOut', {
+        templateUrl: '/components/timeout/timeout.html',
+        controller: 'timeOutController'
+    });
+
 })(window.angular);

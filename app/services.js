@@ -328,6 +328,11 @@ angular.module('services', [])
         };
 
 
+        f.setCurrentScore = function (score) {
+            currentScore = score;
+            notifyObservers('score-update');
+        }
+
         f.getCurrentScore = function () {
             return currentScore;
         };

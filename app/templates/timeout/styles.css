@@ -1,0 +1,30 @@
+.timeout-dialog {
+    position: absolute;
+    width: 500px;
+    left: 204px;
+    top: 500px;
+}
+
+.dialog-row {
+    width: 484px;
+    font-size: 20px;
+}
+
+.timeout-info {
+    color: white;
+    background-color: #0074d9;
+    padding: 10px;
+    height: 90px;
+    font-size: 18px;
+
+}
+
+
+.team-name {
+    text-align: center;
+    line-height: 96px;
+}
+
+.screen {
+   /* background-color: red; */
+}

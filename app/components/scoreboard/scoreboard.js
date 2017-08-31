@@ -72,6 +72,18 @@
 
                     $scope.pointsHomeTeam[s] = m.pointsInCurrentSet[0];
                     $scope.pointsAwayTeam[s] = m.pointsInCurrentSet[1];
+
+                    var score = {
+                        homeTeam: {
+                            setPoints: $scope.pointsHomeTeam
+                        },
+                        awayTeam: {
+                            setPoints: $scope.pointsAwayTeam
+                        },
+
+                    }
+
+                    GameService.setCurrentScore(score);
                     
                     $scope.updateScoreboard();
                 });
@@ -149,6 +161,18 @@
             else {
                 $scope.pointsAwayTeam[i]++;
             }
+
+            var score = {
+                homeTeam: {
+                    setPoints: $scope.pointsHomeTeam
+                },
+                awayTeam: {
+                    setPoints: $scope.pointsAwayTeam
+                },
+
+            }
+
+            GameService.setCurrentScore(score);
 
             $scope.updateScoreboard();
         };
