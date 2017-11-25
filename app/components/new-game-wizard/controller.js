@@ -19,6 +19,7 @@
         $scope.pages = [0, 1];
 
         $scope.loadingEliteGames = true;
+        $scope.loadingEliteGame = false;
 
         $scope.numSetsBeach = [
             {
@@ -320,12 +321,19 @@
                 }
             }
 
+            $scope.loadingEliteGame = true;
+            var nbt = $scope.nextButtonText;
+
+            $scope.nextButtonText = 'Laster spillerbilder';
             GameService.createNewGame(data).then(function (gameData) {
+
                 if (!gameData) {
-                    console.log('alert');
                     alert('Fant ikke kampen. Er den oppretta i DataVolley?')
+                    $scope.loadingEliteGame = false;
+                    $scope.nextButtonText = nbt;
                     return;
                 }
+
                 document.location.href = '/game/' + gameData.gameCode + '/control'
             });
         };

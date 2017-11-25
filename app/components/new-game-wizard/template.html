@@ -146,6 +146,6 @@
     </div>
     <div class="modal-footer">
         <button class="btn" ng-click="close()">Avbryt</button>
-        <button class="btn btn-primary" ng-click="nextStep()">{{nextButtonText}}</button>
+        <button class="btn btn-primary" ng-disabled='loadingEliteGame' ng-click="nextStep()">{{nextButtonText}}</button>
     </div>
 </div>

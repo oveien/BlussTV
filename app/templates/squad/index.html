@@ -177,10 +177,12 @@
             playersElement.find('.dialog-row').eq(playerIndex).addClass('selected-player');
 
             // Show the player image:
-            console.log('http://poengliga.no/img_players/'+ player.id +'.jpg');
+            console.log('Show player image');
+            console.log(player.image);
             //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
 
             $('.player-image').css('backgroundImage', 'url(' + player.image +')');
+            $('.player-image').attr('image', player.image);
 
             playerIndex++;
 
