@@ -12,6 +12,7 @@ angular.module('services', [])
     .factory('BlussTVService', ['$http', '$q', function ($http, $q) {
         var f = {};
 
+
         f.getLivePoengligaMatches = function () {
             var deferred = $q.defer();
             $http({
@@ -28,6 +29,23 @@ angular.module('services', [])
 
             return deferred.promise;
         };
+
+        f.getLiveDataVolleyMatches = function () {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: '/datavolley/current-matches'
+            }).then(function (response) {
+                var games = response.data;
+
+                deferred.resolve(games);
+
+            }, function () {
+                deferred.resolve([]);
+            });
+
+            return deferred.promise;
+        }
 
         f.getNormalizedStringCompare = function (teamName) {
             var sortParts = teamName.split(/\//);
@@ -241,6 +259,10 @@ angular.module('services', [])
         var game = null;
 
         var currentScore = {};
+        var currentLineUp = {
+            homeTeam: ["", "", "", "", "", ""],
+            awayTeam: ["", "", "", "", "", ""],
+        };
 
         var f = {};
 
@@ -256,14 +278,20 @@ angular.module('services', [])
 
         var updateScore = function () {
             console.log(game);
-            if (!game || !game.poengligaGameUrl) {
+            if (!game || (!game.poengligaGameUrl && !game.dataVolley) ) {
                 setTimeout(updateScore, scoreBoardUpdateTime*1000);
                 return;
             }
 
+            var url = '/update-score';
+
+            if (game.dataVolley) {
+                url = '/datavolley/NVBF/' + game.dataVolley.matchId + '/update-score';
+            }
+
             $http({
                 method: 'GET',
-                url: '/update-score',
+                url: url,
                 params: {url: game.poengligaGameUrl}
             }).then(function (response) {
                 var score = response.data;
@@ -292,6 +320,14 @@ angular.module('services', [])
                         }
                     }
                     notifyObservers('score-update');
+                    if (score.homeTeam.lineup) {
+                        var newLineup = {homeTeam: score.homeTeam.lineup, awayTeam: score.awayTeam.lineup};
+                        console.log(newLineup);
+                        if (JSON.stringify(currentLineUp) != JSON.stringify(newLineup)) {
+                            currentLineUp = newLineup;
+                            notifyObservers('lineup-update');
+                        }
+                    }
                 }
 
                 setTimeout(updateScore, scoreBoardUpdateTime*1000);
@@ -344,6 +380,10 @@ angular.module('services', [])
             });
         };
 
+        f.getCurrentLineup = function () {
+            return currentLineUp;
+        }
+
         f.getGameType = function () {
             if (game) {
                 return game.type;
@@ -378,8 +418,9 @@ angular.module('services', [])
             };
 
 
+            // Deprecated :p
             if (options && options.poengligaGameUrl) {
-                f.getGameInfo(options.poengligaGameUrl).then ( function (data) {
+                f.getGameInfo(options).then ( function (data) {
                     console.log(data);
                     data.manualScore = false;
 
@@ -420,6 +461,40 @@ angular.module('services', [])
                     });
                 });
             }
+            else if (options && options.dataVolley) {
+                f.getGameInfo(options).then ( function (data) {
+
+                    if (!data) {
+                        deferred.resolve(null);
+                        return;
+                    }
+
+                    angular.extend(gameDefaults, data);
+
+                    game = gameDefaults;
+
+                    // This is not extended?
+                    game.homeTeam.jersey = {
+                        player: 'red',
+                        libero: 'black'
+                    };
+
+                    game.awayTeam.jersey = {
+                        player: 'blue',
+                        libero: 'red'
+                    };
+                    game.setPoints = [25, 25, 25, 25, 15];
+                    game.manualScore = false;
+                    game.dataVolley = {
+                        matchId: options.dataVolley.matchId,
+                        fedCode: 'NVFB'
+                    }
+                    game.gameCode = createGameId();
+
+                    f.saveChanges(game);
+                    deferred.resolve(game);
+                });
+            }
             else {
                 // Normal game:
                 angular.extend(gameDefaults, options);
@@ -455,39 +530,79 @@ angular.module('services', [])
             }
         }
 
-        f.getGameInfo = function (gameUrl) {
+        f.getGameInfo = function (options) {
+
             var deferred = $q.defer();
 
-            if (game) {
-                deferred.resolve(game);
-                return deferred.promise;
+            if (!options) {
+                if (game) {
+                    deferred.resolve(game);
+                    return deferred.promise;
+                }
             }
 
-            if (!gameUrl && game) {
-                gameUrl = game.poengligaGameUrl;
+            if (options.dataVolley) {
+
+                if (game) {
+                    deferred.resolve(game);
+                    return deferred.promise;
+                }
+
+                $http({
+                    method: 'GET',
+                    url: '/datavolley/NVBF/'+options.dataVolley.matchId+'/game-info',
+                }).then(function (response) {
+                    console.log(response.data);
+
+                    if (response.data == 'null') {
+                        response.data = null;
+                    }
+
+                    deferred.resolve(response.data);
+                    notifyObservers('game-info');
+
+                    // HACK HACK HACK, just reload the page to get the new info :D
+                    //document.location.reload();
+
+
+                }, function (err) {
+                    alert('reject', err);
+                    deferred.reject(err);
+                });
             }
-            else if (!gameUrl && !game) {
-                gameUrl = 'http://www.poengliga.no/eliteh/1617/kamper/9web.html';
+            else {
+
+
+                if (game) {
+                    deferred.resolve(game);
+                    return deferred.promise;
+                }
+                gameUrl = options.poengligaGameUrl
+                if (!gameUrl && game) {
+                    gameUrl = game.poengligaGameUrl;
+                }
+                else if (!gameUrl && !game) {
+                    gameUrl = 'http://www.poengliga.no/eliteh/1617/kamper/9web.html';
+                }
+
+                $http({
+                    method: 'GET',
+                    url: '/game-info',
+                    params: {url: gameUrl}
+                }).then(function (response) {
+
+                    deferred.resolve(response.data);
+
+                    notifyObservers('game-info');
+
+                    // HACK HACK HACK, just reload the page to get the new info :D
+                    // document.location.reload();
+
+
+                }, function (err) {
+                    deferred.reject(err);
+                });
             }
-
-            $http({
-                method: 'GET',
-                url: '/game-info',
-                params: {url: gameUrl}
-            }).then(function (response) {
-
-                deferred.resolve(response.data);
-
-                notifyObservers('game-info');
-
-                // HACK HACK HACK, just reload the page to get the new info :D
-               // document.location.reload();
-
-
-            }, function (err) {
-                deferred.reject(err);
-            });
-
             return deferred.promise;
         };
 

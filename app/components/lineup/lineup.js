@@ -122,6 +122,19 @@
                     $scope.awayShowing = true;
                 }
             }
+        });
+
+        GameService.registerObserverCallback(['lineup-update'], function (type, data) {
+            var lineUps = GameService.getCurrentLineup();
+            console.log(lineUps);
+
+            for (var i = 0; i<lineUps.homeTeam.length; i++) {
+                $scope.homeTeamLineup[i].number = lineUps.homeTeam[i];
+            }
+
+            for (var i = 0; i<lineUps.awayTeam.length; i++) {
+                $scope.awayTeamLineup[i].number = lineUps.awayTeam[i];
+            }
 
         });
 

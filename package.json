@@ -11,10 +11,12 @@
   "dependencies": {
     "angular": "^1.6.2",
     "angular-ui-bootstrap": "^2.5.0",
+    "async-iterate": "^1.0.1",
     "body-parser": "^1.16.0",
     "bootstrap": "^3.3.7",
     "caspar-cg": "^0.1.0",
     "cheerio": "latest",
+    "dotenv": "^4.0.0",
     "express": "latest",
     "ffdevices": "^0.1.1",
     "formidable": "^1.1.1",

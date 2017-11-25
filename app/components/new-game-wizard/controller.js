@@ -18,6 +18,8 @@
 
         $scope.pages = [0, 1];
 
+        $scope.loadingEliteGames = true;
+
         $scope.numSetsBeach = [
             {
                 name: '3 set (2x21 + 1x15)',
@@ -73,7 +75,7 @@
         $scope.gameTypes = [
             {
                 id: 0,
-                name: 'Volleyball - Mizunoligaen/Poengliga'
+                name: 'Volleyball - Mizunoligaen/Datavolley'
             },
             {
                 id: 1,
@@ -94,23 +96,28 @@
         $scope.liveEliteGames = true;
         $scope.eliteGames = [
             {
-                'homeTeam': 'BK Tromsø',
-                'awayTeam': 'Viking',
-                'poengligaGameUrl': 'http://www.poengliga.no/eliteh/1617/kamper/9web.html',
-                'title': 'Herrer: BK Tromsø - Viking'
-            },
-            {
-                'homeTeam': 'Randaberg',
-                'awayTeam': 'Oslo Volley',
-                'poengligaGameUrl': 'http://www.poengliga.no/elited/1617/kamper/10web.html',
-                'title': 'Damer: Randaberg - Oslo Volley'
+                'homeTeam': 'Test Borte',
+                'awayTeam': 'Test Hjemme',
+                'MatchID': '1111',
+                'title': 'Test Hjemme - Test Borte'
             }
         ];
 
-        BlussTVService.getLivePoengligaMatches().then ( function (matches) {
+        //BlussTVService.getLivePoengligaMatches().then ( function (matches) {
+        BlussTVService.getLiveDataVolleyMatches().then ( function (matches) {
+            $scope.loadingEliteGames = false;
             if (matches.length > 0) {
-                $scope.eliteGames = matches;
+                var testGame = $scope.eliteGames[0];
+
+                $scope.eliteGames = [];
+
+                for (var i = 0; i<matches.length; i++) {
+                    matches[i].title = matches[i].time + ': ' + matches[i].homeTeam.name + ' - ' + matches[i].awayTeam.name;
+                    $scope.eliteGames.push(matches[i]);
+                }
                 $scope.eliteGame = $scope.eliteGames[0];
+
+                $scope.eliteGames.push(testGame);
                 $scope.liveEliteGames = true;
             }
             else {
@@ -306,10 +313,19 @@
             }
 
             if ($scope.selectedGameType.id == 0) {
-                data = {poengligaGameUrl: $scope.eliteGame.poengligaGameUrl};
+                data = {
+                    dataVolley: {
+                        matchId: $scope.eliteGame.MatchID
+                    }
+                }
             }
 
             GameService.createNewGame(data).then(function (gameData) {
+                if (!gameData) {
+                    console.log('alert');
+                    alert('Fant ikke kampen. Er den oppretta i DataVolley?')
+                    return;
+                }
                 document.location.href = '/game/' + gameData.gameCode + '/control'
             });
         };

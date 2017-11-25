@@ -37,9 +37,14 @@
 
                 <div class="well">
                     <label>Velg kamp</label>
-                    <div style="color: red;" ng-if="!liveEliteGames">Ingen live-kamper tilgjengelige!</div>
-                    <select class="form-control input-lg" class='form-control' ng-model="$parent.$parent.eliteGame" ng-options="item.title for item in eliteGames">
-                    </select>
+                    <div ng-if="loadingEliteGames">
+                        Laster dagens kamper
+                    </div>
+                    <div ng-if="!loadingEliteGames">
+                        <div style="color: red;" ng-if="!liveEliteGames">Ingen live-kamper tilgjengelige!</div>
+                        <select class="form-control input-lg" class='form-control' ng-model="$parent.$parent.$parent.eliteGame" ng-options="item.title for item in eliteGames">
+                        </select>
+                    </div>
                 </div>
 
             </uib-tab>
