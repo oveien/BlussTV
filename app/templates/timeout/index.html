@@ -11,50 +11,18 @@
 <div class="screen">
 
 <div id='dialog' class="dialog slide" style="left: 186px; width: 908px;">
-    <div class="dialog-heading">
-
-        <div class="team-name"></div>
-    </div>
 
     <div class="timeout-dialog">
         <div class="dialog-row">
             Timeout:&nbsp;<span id="who"></span>
         </div>
 
+        <!--
         <div class="timeout-info">
 
         </div>
-    </div>
-    <!--
-        <div class="players">
-            <div id="player2"  class="player">
-                <div id="player2-image"  class="player-image-container"></div>
-                <div class="dialog-row">
-                    <div class="dialog-row-number"></div>
-                    <div class="player-name"></div>
-                </div>
-                <div class="player-info">
-                    <table>
-
-                    </table>
-                </div>
-            </div>
-
-            <div id='player1' class="player
-">
-                <div id="player1-image" class="player-image-container"></div>
-                <div class="dialog-row">
-                    <div class="dialog-row-number"></div>
-                    <div class="player-name"></div>
-                </div>
-                <div class="player-info">
-                    <table>
-
-                    </table>
-                </div>
-            </div>
-        </div>
         -->
+    </div>
 
 </div>
 </div>
@@ -71,6 +39,7 @@
         var obj = JSON.parse(str);
 
         console.log(obj)
+        /*
         $('.team-name').html(obj.data.homeTeam.name + ' - ' + obj.data.awayTeam.name);
 
 
@@ -95,7 +64,7 @@
         }
 
         $('.timeout-info').html(html);
-
+        */
         if (obj.data.who == "technical") {
             $('#who').html('Technical')
         }

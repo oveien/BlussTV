@@ -49,6 +49,7 @@
     border-radius: 5px;
 }
 
+/*
 
 .beach-volleyball .interviewee-image-container {
     width: 300px;
@@ -57,6 +58,7 @@
     background-color: transparent;
 }
 
+*/
 
 .interviewee-image {
     background-position: center center;
@@ -67,6 +69,10 @@
     left: 5px;
     position: relative;
     border-radius: 5px;
+}
+
+.interviewee-info div.interviewee-has-image {
+    text-indent: 200px;
 }
 
 .interviewee-role-container {

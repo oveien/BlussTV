@@ -40,7 +40,11 @@
 
         var data = data.data;
         console.log(data);
-        $('.interviewee-image').css('backgroundImage', 'url(' + data.image + ')');
+
+        if ( data.image ) {
+            $('.interviewee-image').css('backgroundImage', 'url(' + data.image + ')');
+            $('.interviewee-name').addClass('interviewee-has-image');
+        }
         $('.interviewee-name').text(data.name);
         $('.interviewee-role').text(data.team.name);
 
