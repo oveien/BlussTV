@@ -296,37 +296,43 @@ angular.module('services', [])
             }).then(function (response) {
                 var score = response.data;
 
-                if (JSON.stringify(currentScore) != JSON.stringify(score)) {
-                    currentScore = score;
+                if (typeof(score) == "object" && JSON.stringify(currentScore) != JSON.stringify(score)) {
 
-                    console.log(score);
-                    for (var i in score.homeTeam.players) {
-                        var pl = score.homeTeam.players[i];
-                        var p = f.getPlayerByNumber('home', pl.number);
-                        if (p) {
-                            p.ace = pl.ace;
-                            p.blocks = pl.blocks;
-                            p.attack = pl.attack;
+                    try {
+                        currentScore = score;
+
+                        console.log(score);
+                        for (var i in score.homeTeam.players) {
+                            var pl = score.homeTeam.players[i];
+                            var p = f.getPlayerByNumber('home', pl.number);
+                            if (p) {
+                                p.ace = pl.ace;
+                                p.blocks = pl.blocks;
+                                p.attack = pl.attack;
+                            }
+                        }
+
+                        for (var i in score.awayTeam.players) {
+                            var pl = score.awayTeam.players[i];
+                            var p = f.getPlayerByNumber('away', pl.number);
+                            if (p) {
+                                p.ace = pl.ace;
+                                p.blocks = pl.blocks;
+                                p.attack = pl.attack;
+                            }
+                        }
+                        notifyObservers('score-update');
+                        if (score.homeTeam.lineup) {
+                            var newLineup = {homeTeam: score.homeTeam.lineup, awayTeam: score.awayTeam.lineup};
+                            console.log(newLineup);
+                            if (JSON.stringify(currentLineUp) != JSON.stringify(newLineup)) {
+                                currentLineUp = newLineup;
+                                notifyObservers('lineup-update');
+                            }
                         }
                     }
-
-                    for (var i in score.awayTeam.players) {
-                        var pl = score.awayTeam.players[i];
-                        var p = f.getPlayerByNumber('away', pl.number);
-                        if (p) {
-                            p.ace = pl.ace;
-                            p.blocks = pl.blocks;
-                            p.attack = pl.attack;
-                        }
-                    }
-                    notifyObservers('score-update');
-                    if (score.homeTeam.lineup) {
-                        var newLineup = {homeTeam: score.homeTeam.lineup, awayTeam: score.awayTeam.lineup};
-                        console.log(newLineup);
-                        if (JSON.stringify(currentLineUp) != JSON.stringify(newLineup)) {
-                            currentLineUp = newLineup;
-                            notifyObservers('lineup-update');
-                        }
+                    catch (err) {
+                        // Hopefully a new iteration will fix this
                     }
                 }
 
