@@ -4,6 +4,11 @@
         $scope.showing = false;
         $scope.who = "";
 
+        $scope.homeTeam = GameService.getTeam('home');
+        $scope.awayTeam = GameService.getTeam('away');
+
+        $scope.gameType = GameService.getType();
+
         $scope.toggleTimeout = function (who) {
             $scope.who = who;
             if (CasparCGService.getCurrentOverlay() == 'timeout') {

@@ -612,6 +612,12 @@ angular.module('services', [])
             return deferred.promise;
         };
 
+        f.getType = function () {
+            if (game) {
+                return game.type;
+            }
+        }
+
         f.getTeamName = function (team) {
             if (!game) {
                 return;

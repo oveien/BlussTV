@@ -1,6 +1,6 @@
 <fieldset>
     <legend>Timeout</legend>
-    <button ng-click='toggleTimeout("home")' class="toggle-button" ng-class="(showing && who == 'home') ? 'showing' : ''" >Time out home team</button>
-    <button ng-click='toggleTimeout("away")' class="toggle-button" ng-class="(showing && who == 'away') ? 'showing' : ''" >Time out away team</button>
-    <button ng-click='toggleTimeout("technical")' class="toggle-button" ng-class="(showing && who == 'technical') ? 'showing' : ''" >Technical</button>
+    <button ng-click='toggleTimeout("home")' class="toggle-button" ng-class="(showing && who == 'home') ? 'showing' : ''" >Time out {{homeTeam.name}}</button>
+    <button ng-click='toggleTimeout("away")' class="toggle-button" ng-class="(showing && who == 'away') ? 'showing' : ''" >Time out {{awayTeam.name}}</button>
+    <button ng-if='gameType == "beach-volleyball"' ng-click='toggleTimeout("technical")' class="toggle-button" ng-class="(showing && who == 'technical') ? 'showing' : ''" >Technical</button>
 </fieldset>
