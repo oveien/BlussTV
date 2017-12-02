@@ -5,25 +5,27 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
+    <script src="/static/js/anime.min.js"></script>
 </head>
 <body>
 
 <div class="screen">
+    <div class="court-background-wrapper">
+        <div class="court-background">
+            <div class="court-players">
+                <div class="lineup-court">
 
-   <div class="court-background hidden-bottom slide">
-        <div class="court-players">
-            <div class="lineup-court">
-
-                <div class="lineup-players">
+                    <div class="lineup-players">
+                    </div>
                 </div>
             </div>
-        </div>
 
-       <div class="court-team-info">
-           <div class="court-team-logo"></div>
-           <div class="court-team-name"></div>
-       </div>
-   </div>
+            <div class="court-team-info">
+                <div class="court-team-logo"></div>
+                <div class="court-team-name"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
@@ -32,6 +34,10 @@
         data: {
             name: 'NTNUI',
             logo: '/graphics/Viking/logo.jpg',
+            jersey: {
+                player: 'red',
+                libero: 'black'
+            },
             players: [
                 {
                     name: 'Vegar Løkken',
@@ -128,15 +134,55 @@
             c.append(name);
 
             $('.lineup-players').append(c);
-
         }
 
-        $('.court-background').removeClass('hidden-bottom');
+        $('.court-background-wrapper').css({
+            width: 0,
+            height: 0,
+            left: 0,
+            transform: 'translateX(640px) translateY(360px)'
+        });
+
+        $('.court-background').css({
+            transform: 'translateX(-640px) translateY(-360px)',
+        });
+
+        anime({
+            targets: '.court-background-wrapper',
+            translateX: 0,
+            translateY: 0,
+            width: 1280,
+            height: 720,
+            easing: 'easeInOutCubic',
+        });
+
+        anime({
+            targets: '.court-background',
+            translateX: 0,
+            translateY: 0,
+            easing: 'easeInOutCubic',
+        });
+
+
+
     }
 
     function remove() {
-        // Animate away to the bottom:
-        $('.court-background').addClass('hidden-bottom');
+        anime({
+            targets: '.court-background-wrapper',
+            translateX: 640,
+            translateY: 360,
+            width: 0,
+            height: 0,
+            easing: 'easeInOutCubic',
+        });
+
+        anime({
+            targets: '.court-background',
+            translateX: -640,
+            translateY: -360,
+            easing: 'easeInOutCubic',
+        });
     }
 
     if (getUrlParameter('debug')) {

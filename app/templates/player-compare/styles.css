@@ -6,6 +6,7 @@
 }
 .dialog-heading {
     width: 1100px;
+    transform: translateX(-1100px);
 }
 
 .dialog-row-number {

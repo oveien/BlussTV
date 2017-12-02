@@ -20,9 +20,10 @@
     color: #FFDC00;
 }
 .player-name {
-    flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
+    width: 368px;
+    font-size: 0.9em;
 }
 
 .players {

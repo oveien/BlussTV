@@ -4,27 +4,23 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
+    <script src="/static/js/anime.min.js"></script>
 
 </head>
 <body>
 
 <div class="screen">
 
-<div id='dialog' class="dialog slide" style="left: 186px; width: 908px;">
 
-    <div class="timeout-dialog">
-        <div class="dialog-row">
-            Timeout:&nbsp;<span id="who"></span>
+    <div class="timeout-wrapper">
+        <div class="timeout-dialog">
+            <div class="dialog-row">
+                Timeout&nbsp;<span id="who"></span>
+            </div>
         </div>
-
-        <!--
-        <div class="timeout-info">
-
-        </div>
-        -->
     </div>
 
-</div>
+
 </div>
 
 
@@ -39,32 +35,7 @@
         var obj = JSON.parse(str);
 
         console.log(obj)
-        /*
-        $('.team-name').html(obj.data.homeTeam.name + ' - ' + obj.data.awayTeam.name);
 
-
-        var players = obj.data.players;
-
-        if (obj.data.logo) {
-            $('.team-logo').html ( $('<img>').attr('src', obj.data.logo));
-        }
-
-        var html = '';
-
-        html += "";
-
-        var ht = obj.data.homeTeam;
-        var at = obj.data.awayTeam;
-        if (ht.gameSets) {
-            for (var i = 0; i < ht.gameSets.length; i++) {
-                if (ht.gameSets[i] > 0 || at.gameSets[i] > 0) {
-                    html += 'Set ' + (i + 1) + ": " + ht.gameSets[i] + ' - ' + at.gameSets[i] + "<br>";
-                }
-            }
-        }
-
-        $('.timeout-info').html(html);
-        */
         if (obj.data.who == "technical") {
             $('#who').html('Technical')
         }
@@ -76,18 +47,49 @@
             $('#who').html(obj.data.awayTeam.name)
         }
 
-        $('#dialog').removeClass('hidden-bottom');
 
+        window.width = $('.timeout-wrapper').outerWidth ();
 
+        $('.timeout-wrapper').css({
+            width: 0,
+            left: (1280 - width) / 2,
+            transform: 'translateX(' + width/2 + 'px)'
+        })
+
+        $('.timeout-dialog').css({
+            transform: 'translateX(-' + width/2 + 'px)',
+            width: width
+        })
+
+        anime({
+            targets: '.timeout-wrapper',
+            translateX: 0,
+            width: width,
+            easing: 'easeInOutCubic'
+        });
+
+        anime({
+            targets: '.timeout-dialog',
+            translateX: 0,
+            easing: 'easeInOutCubic'
+        });
 
     }
 
     function remove(callback) {
-        // Animate away to the bottom:
-        $('#dialog').addClass('hidden-bottom');
-        if (callback) {
-            callback();
-        }
+        anime({
+            targets: '.timeout-wrapper',
+            translateX: width / 2,
+            width: 0,
+            easing: 'easeInOutCubic'
+        });
+
+        anime({
+            targets: '.timeout-dialog',
+            translateX: -(width/2),
+            easing: 'easeInOutCubic'
+        });
+
     }
 
 

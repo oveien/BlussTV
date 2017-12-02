@@ -1,13 +1,18 @@
-.timeout-dialog {
+.timeout-wrapper {
     position: absolute;
-    width: 500px;
-    left: 204px;
-    top: 630px;
+    top: 650px;
+    left: -2000px;
+    overflow: hidden;
+}
+
+.timeout-dialog {
+
 }
 
 .dialog-row {
-    width: 484px;
+    width: auto;
     font-size: 20px;
+    padding-right: 20px;
 }
 
 .timeout-info {

@@ -33,19 +33,43 @@ th, td {
     color: white;
     top: 10px;
     border-radius: 5px;
+    overflow: hidden;
+}
+
+.dialog-heading-container {
+    overflow-x: hidden;
+    width: 908px;
+    position: relative;
 }
 
 .dialog-heading {
     color: black;
     width: 908px;
+    transform: translateX(-908px);
     height: 96px;
     background: #ccc;
+    /*border: 2px solid #aaa;*/
     background: linear-gradient(rgba(240, 240, 240, 1), rgba(210, 210, 210, 1));
     font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
     text-transform: uppercase;
-
+    position: relative;
     margin-bottom: 10px;
+    overflow: hidden;
 }
+
+/*
+.dialog-heading-stripe {
+    position: absolute;
+    left: 500px;
+    top: -5px;
+    width: 30px;
+    height: 110%;
+    background: blue;
+    background: linear-gradient(#0074D9, #001f3f);
+    transform: rotate(14deg);
+}
+*/
 
 .dialog-row {
     width: 600px;
@@ -74,6 +98,10 @@ th, td {
 
 .dialog-center-row-content .dialog-row {
     text-align: center;
+}
+
+.dialog-row-container {
+    overflow: hidden;
 }
 
 .dialog-row-number-column {
@@ -119,6 +147,7 @@ th, td {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 
@@ -186,19 +215,11 @@ th, td {
     width: 72px;
     background: white;
     background: linear-gradient(#fff, #aaa);
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    justify-content: center;
     margin-right: 20px;
-
     font-size: 28px;
     font-weight: 400;
     color: #001f3f;
+    text-align: center;
 }
 
 .slide {
