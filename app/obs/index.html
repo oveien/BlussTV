@@ -43,7 +43,7 @@
             var elm = frame.get(0);
             console.log(message.data);
             if (message.action == 'play') {
-                frame.attr('src', '/templates/' + message.template);
+                frame.attr('src', '/templates/mizuno/' + message.template);
 
                 var onLoad = function () {
                     if (elm.contentWindow.play) {

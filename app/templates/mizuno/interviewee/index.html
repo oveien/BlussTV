@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/css/screen.css">
     <script src="/lib/jquery.min.js"></script>
@@ -9,9 +10,9 @@
 
 
 <div class="screen">
-    <div class="interviewee-container hidden-left slide">
-        <div class="interviewee-name"></div>
-        <div class="interviewee-role"></div>
+    <div class="interviewee-container">
+        <div class="generic-row interviewee-name"></div>
+        <div class="generic-row secondary-row interviewee-role"></div>
     </div>
 
 </div>
@@ -26,7 +27,6 @@
 
         $('.interviewee-name').text(data.name);
         $('.interviewee-role').text(data.role);
-
 
 
         $('.interviewee-container').removeClass('hidden-left');
