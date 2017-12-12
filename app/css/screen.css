@@ -19,214 +19,32 @@ th, td {
     left: 0;
     top: 0;
 
-
-    background-image: url(/graphics/testbg.jpg);
+/*   background-image: url(/graphics/testbg.jpg);
     background-color: red;
-
+    */
 
     background-repeat: no-repeat;
     background-size: cover;
 
 }
-.dialog {
-    position: absolute;
-    color: white;
-    top: 10px;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.dialog-heading-container {
-    overflow-x: hidden;
-    width: 908px;
-    position: relative;
-}
-
-.dialog-heading {
-    color: black;
-    width: 908px;
-    transform: translateX(-908px);
-    height: 96px;
-    background: #ccc;
-    /*border: 2px solid #aaa;*/
-    background: linear-gradient(rgba(240, 240, 240, 1), rgba(210, 210, 210, 1));
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    position: relative;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-
-/*
-.dialog-heading-stripe {
-    position: absolute;
-    left: 500px;
-    top: -5px;
-    width: 30px;
-    height: 110%;
-    background: blue;
-    background: linear-gradient(#0074D9, #001f3f);
-    transform: rotate(14deg);
-}
-*/
-
-.dialog-row {
-    width: 600px;
-    height: 40px;
-    background-color: blue;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    letter-spacing: 2px;
-    border-bottom: 1px solid #001f3f;
-    font-family: 'Source Sans Pro', sans-serif;
-
-      background: blue;
-      background: linear-gradient(#0074D9, #001f3f);
-      font-weight: 600;
-      font-size: 26px;
-      padding-left: 16px;
-      line-height: 40px;
-      color: white;
-      text-shadow: 1px 1px black;
-}
-
-.dialog-center-row-content .dialog-row {
-    text-align: center;
-}
-
-.dialog-row-container {
-    overflow: hidden;
-}
-
-.dialog-row-number-column {
-    width: 200px;
-}
-
-.dialog-row-role {
-    height: 100%;
-    width: 160px;
-    background: blue;
-    background: linear-gradient(#0074D9, #001f3f, #001f3f);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 40px;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.dialog-row-double-width-role {
-    width: 320px;
-}
-
-.dialog-row-spacer {
-    height: 100%;
-    width: 6px;
-    background: white;
-    background: linear-gradient(#ccc, #fff, #999);
-}
-
-.dialog-club-logo {
-    float: left;
-    margin-right: 50px;
-}
-
-.dialog-club-logo img {
-    height: 50px;
-}
-
-.dialog-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
 
 
-.fullscreen-background-image {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.fullscreen-background-image img {
-    width: 1280px;
-    height: 720px;
-}
-
-.hidden-bottom {
-    top: 720px !important;
-}
-
-.hidden-left {
-     left: -1280px !important;
- }
-
-.hidden-right {
-    left: 1280px !important;
-}
-
-.team {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    heighT: 100%;
-    align-items: center;
-}
-
-.team-logo {
-    margin-right: 20px;
-    margin-left: 20px;
-}
-
-.team-logo img {
-    max-height: 80px;
-}
-
-.team-name {
+.generic-row {
+    height: 55px;
+    font-family: 'Open Sans';
     font-size: 36px;
-    text-align: left;
+    color: #222b38;
+    text-indent: 32px;
+    background-color: white;
+    line-height: 55px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
-.teams-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-}
-
-.dialog-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-}
-
-.dialog-row-number {
-    height: 100%;
-    width: 72px;
-    background: white;
-    background: linear-gradient(#fff, #aaa);
-    margin-right: 20px;
-    font-size: 28px;
+.secondary-row {
+    background-color: #29aae7;
+    color: white;
+    font-size: 32px;
     font-weight: 400;
-    color: #001f3f;
-    text-align: center;
-}
-
-.slide {
-    -webkit-transition: all 0.7s ease-out;
-    -moz-transition: all 0.7s ease-out;
-    -ms-transition: all 0.7s ease-out;
-    -o-transition: all 0.7s ease-out;
-    transition: all 0.7s ease-out;
 }
 

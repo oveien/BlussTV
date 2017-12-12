@@ -7,23 +7,3 @@
     left: 100px;
     bottom: 50px;
 }
-
-.generic-row {
-    height: 55px;
-    font-family: 'Open Sans';
-    font-size: 36px;
-    color: #222b38;
-    text-indent: 32px;
-    background-color: white;
-    line-height: 55px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.secondary-row {
-    background-color: #29aae7;
-    color: white;
-    font-size: 32px;
-    font-weight: 400;
-}
-
