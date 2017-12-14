@@ -1,3 +1,5 @@
+const duration = 200;
+
 function play(str) {
     var data = JSON.parse(str).data;
 
@@ -27,23 +29,28 @@ function play(str) {
 
     const rows = statTypes.map(function(statType) {
         return `<div class="dialog-row-container">
-          <div class="generic-row team-number">${
+          <div class="generic-row team-number"><div class="text">${
               data.homeTeam[statType.key]
-          }</div>
-          <div class="generic-row secondary-row stat-description">${
-              statType.name
-          }</div>
-          <div class="generic-row team-number">${
+          }</div></div>
+          <div class="generic-row secondary-row stat-description">
+            <div class="text">${statType.name}</div></div>
+          <div class="generic-row team-number"><div class="text">${
               data.awayTeam[statType.key]
-          }</div>
+          }</div></div>
       </div>`;
     });
 
     const totalRow = `
       <div class="dialog-row-container total-row">
-          <div class="generic-row team-number">${data.homeTeam.total}</div>
-          <div class="generic-row secondary-row stat-description stat-purple">Totalt</div>
-          <div class="generic-row team-number">${data.awayTeam.total}</div>
+          <div class="generic-row team-number"><div class="text">${
+              data.homeTeam.total
+          }</div></div>
+          <div class="generic-row secondary-row stat-description stat-purple">
+            <div class="text">Totalt</div>
+          </div>
+          <div class="generic-row team-number">
+            <div class="text">${data.awayTeam.total}</div>
+          </div>
       </div>
     `;
 
@@ -51,10 +58,31 @@ function play(str) {
     const html = rows.join('') + totalRow;
     $('.dialog-body .wrapper').append(html);
     //defaultTeamCompareAnimate();
+
+    $('.dialog-heading-container').velocity(
+        { width: 780, opacity: 1 },
+        { duration: duration, delay: 0 },
+    );
+
+    $('.dialog-row-container').velocity(
+        { height: 55, opacity: 1 },
+        { duration: duration, delay: 200 },
+    );
+    $('.text').velocity({ opacity: 1 }, { delay: 400, duration: duration });
 }
 
 function remove(str) {
-    defaultTeamCompareAnimateClose();
+    console.log('calling remove');
+    $('.dialog-heading-container').velocity(
+        { width: 0, opacity: 0 },
+        { duration: duration, delay: 0 },
+    );
+
+    $('.dialog-row-container').velocity(
+        { height: 0, opacity: 0 },
+        { duration: duration },
+    );
+    $('.text').velocity({ opacity: 0 }, { duration: duration });
 }
 
 if (getUrlParameter('debug')) {
@@ -84,5 +112,6 @@ if (getUrlParameter('debug')) {
                 },
             }),
         );
-    }, 10);
+    }, 500);
+    setTimeout(remove, 5000);
 }
