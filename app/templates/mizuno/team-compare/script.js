@@ -10,7 +10,7 @@ function play(str) {
 
     var at = $('#awayTeam');
     at.find('.team-name').html(data.awayTeam.name);
-    at.find('.team-logo img').attr('src', data.awayTeam.logo);
+    document.getElementById('guest-team-logo').src = data.awayTeam.logo;
 
     $('#stats-table').html('');
 
@@ -35,45 +35,33 @@ function play(str) {
 
     var html = '';
     for (var i = 0; i < statTypes.length; i++) {
-        html += '<div class="dialog-row-container"><div class="dialog-row">';
-        html +=
-            '<div class="generic-row team-number">' +
-            data.homeTeam[statTypes[i].key] +
-            '</div>';
-        html +=
-            '<div class="generic-row secondary-row stat-description">' +
-            statTypes[i].name +
-            '</div>';
-        html +=
-            '<div class="generic-row team-number">' +
-            data.awayTeam[statTypes[i].key] +
-            '</div>';
-        html += '</div></div>';
+        html += `
+          <div class="dialog-row-container">
+              <div class="generic-row team-number">${
+                  data.homeTeam[statTypes[i].key]
+              }</div>
+              <div class="generic-row secondary-row stat-description">${
+                  statTypes[i].name
+              }</div>
+              <div class="generic-row team-number">${
+                  data.awayTeam[statTypes[i].key]
+              }</div>
+          </div>
+        `.replace(/  /g, ' ');
         console.log(html);
     }
 
-    html +=
-        '<div class=\'dialog-row-container\'><div class="dialog-row" style="margin-top: 10px;">';
-    html +=
-        '<div class="dialog-row-number-column">' +
-        data.homeTeam.total +
-        '</div>';
-    html +=
-        '<div class="dialog-row-role dialog-row-double-width-role">Totalt</div>';
-    html +=
-        '<div class="dialog-row-number-column">' +
-        data.awayTeam.total +
-        '</div>';
-    html += '</div></div>';
+    html += `
+      <div class="dialog-row-container total-row">
+          <div class="generic-row team-number">${data.homeTeam.total}</div>
+          <div class="generic-row secondary-row stat-description stat-purple">Totalt</div>
+          <div class="generic-row team-number">${data.awayTeam.total}</div>
+      </div>
+    `;
     console.log(html);
 
     $('.dialog-body .wrapper').append(html);
-
-    window.rowWidth = $('.dialog-row-container').width();
-
-    window.headingWidth = $('.dialog-heading').width();
-
-    defaultTeamCompareAnimate();
+    //defaultTeamCompareAnimate();
 }
 
 function remove(str) {
@@ -87,8 +75,8 @@ if (getUrlParameter('debug')) {
                 data: {
                     title: 'STATISTIKK 2. SETT',
                     homeTeam: {
-                        logo: '/graphics/logo/ntnui.svg',
-                        name: 'NTNUI',
+                        logo: '/graphics/logo/bktromso.svg',
+                        name: 'BK Tromsø',
                         blocks: 3,
                         attack: 4,
                         ace: 1,
@@ -96,8 +84,8 @@ if (getUrlParameter('debug')) {
                         total: 10,
                     },
                     awayTeam: {
-                        logo: '/graphics/lgoo/randaberg.svg',
-                        name: 'Randaberg',
+                        logo: '/graphics/logo/viking.svg',
+                        name: 'TIF Viking',
                         blocks: 4,
                         attack: 4,
                         ace: 1,
