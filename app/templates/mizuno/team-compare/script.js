@@ -1,18 +1,10 @@
 function play(str) {
-    var data = JSON.parse(str);
+    var data = JSON.parse(str).data;
 
-    var data = data.data;
-    console.log(data);
-    console.log(data.stats);
-    var ht = $('#homeTeam');
-    ht.find('.team-name').html(data.homeTeam.name);
+    document.getElementById('home-team-name').innerHTML = data.homeTeam.name;
     document.getElementById('home-team-logo').src = data.homeTeam.logo;
-
-    var at = $('#awayTeam');
-    at.find('.team-name').html(data.awayTeam.name);
+    document.getElementById('guest-team-name').innerHTML = data.awayTeam.name;
     document.getElementById('guest-team-logo').src = data.awayTeam.logo;
-
-    $('#stats-table').html('');
 
     var statTypes = [
         {
@@ -33,33 +25,30 @@ function play(str) {
         },
     ];
 
-    var html = '';
-    for (var i = 0; i < statTypes.length; i++) {
-        html += `
-          <div class="dialog-row-container">
-              <div class="generic-row team-number">${
-                  data.homeTeam[statTypes[i].key]
-              }</div>
-              <div class="generic-row secondary-row stat-description">${
-                  statTypes[i].name
-              }</div>
-              <div class="generic-row team-number">${
-                  data.awayTeam[statTypes[i].key]
-              }</div>
-          </div>
-        `.replace(/  /g, ' ');
-        console.log(html);
-    }
+    const rows = statTypes.map(function(statType) {
+        return `<div class="dialog-row-container">
+          <div class="generic-row team-number">${
+              data.homeTeam[statType.key]
+          }</div>
+          <div class="generic-row secondary-row stat-description">${
+              statType.name
+          }</div>
+          <div class="generic-row team-number">${
+              data.awayTeam[statType.key]
+          }</div>
+      </div>`;
+    });
 
-    html += `
+    const totalRow = `
       <div class="dialog-row-container total-row">
           <div class="generic-row team-number">${data.homeTeam.total}</div>
           <div class="generic-row secondary-row stat-description stat-purple">Totalt</div>
           <div class="generic-row team-number">${data.awayTeam.total}</div>
       </div>
     `;
-    console.log(html);
 
+    $('#stats-table').html('');
+    const html = rows.join('') + totalRow;
     $('.dialog-body .wrapper').append(html);
     //defaultTeamCompareAnimate();
 }
