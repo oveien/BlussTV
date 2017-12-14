@@ -1,82 +1,37 @@
 .scoreboard-container {
     top: 20px;
     left: 20px;
+    width: 400px;
+    position: absolute;
 }
 
-.sb-team-logo {
-    padding-right: 20px;
-    padding-left: 10px;
-    width: 20px;
-    height: 20px;
+.sb-row {
+    margin-bottom: 1px;
+}
+
+.generic-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo-container {
+    width: 55px;
+    height: 55px;
     float: left;
+    margin-right: 8px;
+    background-color: white;
 }
 
 .sb-team-name {
-    padding-right: 20px;
-    padding-left: 10px;
-    font-size: 22px;
-}
-
-.sb-team-name .jersey {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    margin-right: 20px;
-}
-
-.sb-team-name img {
-    width: 30px;
-    margin-right: 20px;
-}
-
-.sb-team-sets {
-    background-color: red;
-    border-radius: 2px;
-    font-size: 24px;
-    width: 20px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
+    text-indent: 16px;
+    flex: 1;
 }
 
 .sb-team-points {
-    margin-left: 10px;
-    font-size: 32px;
+    width: 48px;
+    height: 48px;
     text-align: right;
-    padding-right: 10px;
-    width: 40px;
-}
-
-table {
-    border-spacing:0 5px;
-}
-
-
-.sb-team-jersey {
-    background-position: left center;
-    width: 33px;
-    height: 33px;
-}
-
-.sb-previous-set {
-    color: #ddd;
-    text-align: right;
-    width: 0;
-    max-width: 0;
-    overflow: hidden;
-}
-
-.dialog-row {
-    width: auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    heighT: 100%;
-    align-items: center;
-    margin-bottom: 1px;
-
-    border-radius: 4px;
-
-    background-image: none;
-    background-color: rgba(0, 0, 0, 0.6);
+    margin-right: 10px;
+    line-height: 48px;
 }

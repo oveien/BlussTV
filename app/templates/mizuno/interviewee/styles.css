@@ -24,3 +24,7 @@
     background: url('/graphics/blue-bar-720-55.svg');
     background-size: contain;
 }
+
+.interviewee-name, .interviewee-role {
+    text-indent: 32px;
+}
