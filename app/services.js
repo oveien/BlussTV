@@ -65,7 +65,7 @@ angular.module('services', [])
 
 
             var url = $.cloudinary.url(teamName, {format: 'json', type: 'list'});
-            
+
 
             $.getJSON(url)
                 .done(function (data) {
@@ -398,7 +398,7 @@ angular.module('services', [])
                 return null;
             }
         }
-        
+
 
         // Dummy functions:
         f.createNewGame = function (options) {
@@ -750,7 +750,7 @@ angular.module('services', [])
             var deferred = $q.defer();
                 if ((tvWindow == null) || (tvWindow.closed)  )
                 {
-                    tvWindow = window.open(url,'TV','height=720,width=1280');
+                    tvWindow = window.open(url,'TV','height=1080,width=1920');
                     tvWindow.addEventListener('load', function () {
 
                         tvWindow.getOnWebSocketConnect( function () {
