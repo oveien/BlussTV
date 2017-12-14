@@ -8,20 +8,25 @@
 <body>
 
 <div class="screen">
-    <div class="dialog scoreboard-container">
+    <div class="scoreboard-container">
+        <div class="sb-row">
+            <div class="logo-container"></div>
 
-        <div class="dialog-row">
-            <div class='sb-team-name' id="homeTeamName"></div>
-            <div class='sb-team-sets' id="homeTeamSets"></div>
-            <div class='sb-team-points' id="homeTeamPoints"></div>
+            <div class="generic-row">
+                <div class='sb-team-name' id="homeTeamName"></div>
+                <div class='sb-team-sets number' id="homeTeamSets"></div>
+                <div class='sb-team-points' id="homeTeamPoints"></div>
+            </div>
         </div>
 
-        <div class="dialog-row">
-            <div class='sb-team-name' id="awayTeamName"></div>
-            <div class='sb-team-sets' id="awayTeamSets"></div>
-            <div class='sb-team-points' id="awayTeamPoints"></div>
+        <div class="sb-row">
+            <div class="logo-container"></div>
+            <div class="generic-row">
+                <div class='sb-team-name' id="awayTeamName"></div>
+                <div class='sb-team-sets number' id="awayTeamSets"></div>
+                <div class='sb-team-points' id="awayTeamPoints"></div>
+            </div>
         </div>
-
     </div>
 </div>
 
@@ -66,6 +71,7 @@
         }
 
         console.log(data.homeTeam)
+
         var htInfo = $('<div>').html(data.homeTeam.name).html();
         var atInfo = $('<div>').html(data.awayTeam.name).html();
 
@@ -138,6 +144,6 @@
         update(data);
     }, 2);
 */
-
+play (data);
 </script>
 </html>

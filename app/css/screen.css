@@ -19,9 +19,8 @@ th, td {
     left: 0;
     top: 0;
 
-/*   background-image: url(/graphics/testbg.jpg);
+    background-image: url(/graphics/testbg.jpg);
     background-color: red;
-    */
 
     background-repeat: no-repeat;
     background-size: cover;
@@ -34,11 +33,21 @@ th, td {
     font-family: 'Open Sans';
     font-size: 36px;
     color: #222b38;
-    text-indent: 32px;
     background-color: white;
     line-height: 55px;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+.generic-row .number {
+    width: 48px;
+    height: 48px;
+    color: white;
+    background-color: #222b38;
+    line-height: 48px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 .secondary-row {
@@ -48,3 +57,14 @@ th, td {
     font-weight: 400;
 }
 
+
+
+.row-logo-container {
+    width: 96px;
+    height: 96px;
+    position: relative;
+    padding: 7px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}

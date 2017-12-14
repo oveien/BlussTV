@@ -1,9 +1,75 @@
+.dialog {
+    position: absolute;
+    left: 100px;
+    top: 100px;
 
-
-.away-team .team-name {
-    text-align: right;
+    width: 780px;
 }
 
-.dialog-heading {
-    width: 800px;
+
+.dialog-heading-container {
+    height: 142px;
+
+    background-color: #222b38;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.dialog-top-row {
+    height: 96px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.dialog-top-row .dialog-heading-text {
+    flex: 1;
+}
+
+.dialog-bottom-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.team-name-spacer {
+    flex: 1;
+}
+
+.team-logo {
+    flex: 0;
+    flex-shrink: 0;
+    flex-basis: content;
+    width: 115px;
+    height: 96px;
+    background-color: red;
+}
+
+.team-logo img {
+    width: 100%;
+}
+
+.dialog-row-container {
+    height: 55px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.team-name {
+    width: 255px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.team-number {
+    display: inline-block;
+    width: 255px;
+    text-align: center;
+}
+
+.stat-description {
+    width: 270px;
+    display: inline-block;
+    text-transform: uppercase;
+    text-align: center;
 }

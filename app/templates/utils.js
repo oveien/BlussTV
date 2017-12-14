@@ -37,26 +37,31 @@ function defaultTeamCompareAnimate (callback) {
         'transform': 'translateX(-' + window.headingWidth/2 + 'px)',
     });
 
+    var topDuration = 500;
     anime({
         targets: '.dialog-heading-container',
         translateX: 0,
         width: window.headingWidth,
-        easing: 'easeInOutCubic'
+        easing: 'easeInOutCubic',
+        duration: topDuration
     });
 
     anime({
         targets: '.dialog-heading',
         translateX: 0,
-        easing: 'easeInOutCubic'
+        easing: 'easeInOutCubic',
+        duration: topDuration
     });
 
+    var duration = 10;
+    topDuration = 0;
     anime({
         targets: '.dialog-row-container',
         translateX: 0,
         width: rowWidth,
         easing: 'easeInOutCubic',
         delay: function(el, i, l) {
-            return 200 + (i * 100);
+            return topDuration + (i * duration);
         },
     });
 
@@ -65,7 +70,7 @@ function defaultTeamCompareAnimate (callback) {
         translateX: 0,
         easing: 'easeInOutCubic',
         delay: function(el, i, l) {
-            return 200 + (i * 100);
+            return topDuration + (i * duration);
         },
     });
 
