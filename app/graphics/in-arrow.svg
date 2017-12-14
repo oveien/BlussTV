@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="31px" viewBox="0 0 21 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="substitution" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-525.000000, -533.000000)">
+        <g id="spillerbytte-copy" transform="translate(43.000000, 426.000000)" fill="#7ED321">
+            <g id="langlo" transform="translate(118.000000, 95.000000)">
+                <g id="arrow-copy" transform="translate(364.000000, 13.000000)">
+                    <polygon id="Path-6" stroke="#7ED321" stroke-linejoin="round" points="0 10 10.0033172 0.00483967268 20.0716741 10.0142211"></polygon>
+                    <rect id="Rectangle-23" x="7" y="7" width="6" height="23" rx="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
