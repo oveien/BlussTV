@@ -6,13 +6,43 @@
 }
 
 .sb-row {
-    margin-bottom: 1px;
+    /*margin-bottom: 1px;*/
+}
+
+.border-row {
+    width: 100%;
+    height: 1px;
+    display: flex;
+    flex-direction: row;
+}
+
+.border-logo {
+    width: 55px;
+    height: 1px;
+    margin-right: 8px;
+    background: linear-gradient(
+        to right,
+        rgba(31, 154, 225, 1) 0%,
+        rgba(50, 183, 235, 1) 100%
+    );
+}
+
+.border-name {
+    flex-grow: 1;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        rgba(31, 154, 225, 1) 0%,
+        rgba(50, 183, 235, 1) 100%
+    );
 }
 
 .generic-row {
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-size: 32px;
+    font-weight: 400;
 }
 
 .logo-container {
@@ -20,7 +50,15 @@
     height: 55px;
     float: left;
     margin-right: 8px;
-    background-color: white;
+    background-color: #222b38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container img {
+    width: 36px;
+    height: 36px;
 }
 
 .sb-team-name {
@@ -28,10 +66,16 @@
     flex: 1;
 }
 
+.generic-row .number {
+    margin-right: 16px;
+    font-weight: 400;
+}
+
 .sb-team-points {
     width: 48px;
     height: 48px;
-    text-align: right;
-    margin-right: 10px;
     line-height: 48px;
+    text-align: center;
+    font-weight: 700;
+    margin-right: 8px;
 }
