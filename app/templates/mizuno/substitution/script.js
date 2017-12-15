@@ -14,7 +14,16 @@ function play(str) {
     $('.bottom-border').velocity({ opacity: 1 }, { duration: 300, delay: 300 });
 }
 
-function remove(str) {}
+function remove(str) {
+    $('.top-description').velocity(
+        { opacity: 0 },
+        { duration: 200, delay: 100 },
+    );
+    $('.sub-content').velocity({ height: 0 }, { duration: 200, delay: 100 });
+    $('.logo-container').velocity({ height: 0 }, { duration: 200, delay: 100 });
+    $('.fade-in').velocity({ opacity: 0 }, { duration: 100 });
+    $('.bottom-border').velocity({ opacity: 0 }, { duration: 100 });
+}
 
 if (getUrlParameter('debug')) {
     setTimeout(function() {
