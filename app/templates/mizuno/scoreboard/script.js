@@ -4,122 +4,92 @@ var data = JSON.stringify({
             name: 'BK Tromsø',
             logo: '/graphics/logo/bktromso.svg',
             sets: 2,
-            points: 24,
+            points: 20,
+            pointsSets: [25, 20, 19],
         },
         awayTeam: {
             name: 'Tif Viking',
             logo: '/graphics/logo/viking.svg',
             sets: 1,
-            points: 23,
+            points: 20,
+            pointsSets: [23, 25, 25],
         },
     },
 });
 
 function play(str) {
     update(str);
-    $('.dialog').fadeIn();
 }
 
-var oldObject = null;
+var oldData = null;
+var intervalId = null;
+var isShowing = true;
+
+function renderSets(sets) {
+    return sets.map(set => `<div class="sb-prev-set">${set}</div>`).join('');
+}
+
+function showPrevSets() {
+    clearInterval(intervalId);
+    intervalId = setTimeout(hidePrevSets, 8000);
+    console.log('showing prev sets');
+    isShowing = true;
+    $('.sb-prev-set').velocity({ width: 67 }, { duration: 300 });
+    $('.sb-prev-set').velocity({ opacity: 1 }, { duration: 300 });
+}
+
+function hidePrevSets() {
+    console.log('hiding prev sets');
+    $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
+    $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
+    isShowing = false;
+}
+
 function update(str) {
-    var obj = JSON.parse(str);
-
-    var data = obj.data;
-
-    // Same data, return:
-    if (JSON.stringify(data) === JSON.stringify(oldObject)) {
+    var data = JSON.parse(str).data;
+    if (JSON.stringify(data) === JSON.stringify(oldData) || !data) {
         return;
     }
+    oldData = data;
 
-    oldObject = data;
+    // We might want to show previous sets:
+    const rest = (data.homeTeam.points + data.awayTeam.points) % 10;
+    const hasOne = data.homeTeam.sets > 0 || data.awayTeam.sets > 0;
+    const shouldShowSet = hasOne && rest === 0;
 
-    if (!data) {
-        return;
-    }
-
-    console.log(data.homeTeam);
-
-    var htInfo = $('<div>')
-        .html(data.homeTeam.name)
-        .html();
-    var atInfo = $('<div>')
-        .html(data.awayTeam.name)
-        .html();
-
-    $('#homeTeamName').html('');
-    $('#awayTeamName').html('');
+    console.log(rest, hasOne, shouldShowSet);
 
     document.getElementById('homeTeamLogo').src = data.homeTeam.logo;
     document.getElementById('awayTeamLogo').src = data.awayTeam.logo;
 
-    $('#homeTeamName').append(data.homeTeam.name);
-    $('#awayTeamName').append(data.awayTeam.name);
+    document.getElementById('homeTeamName').innerHTML = data.homeTeam.name;
+    document.getElementById('awayTeamName').innerHTML = data.awayTeam.name;
 
-    $('#homeTeamSets').html(data.homeTeam.sets);
-    $('#awayTeamSets').html(data.awayTeam.sets);
+    document.getElementById('homeTeamSets').innerHTML = data.homeTeam.sets;
+    document.getElementById('awayTeamSets').innerHTML = data.awayTeam.sets;
 
-    $('#homeTeamPoints').html(data.homeTeam.points);
-    $('#awayTeamPoints').html(data.awayTeam.points);
+    document.getElementById('homeTeamPoints').innerHTML = data.homeTeam.points;
+    document.getElementById('awayTeamPoints').innerHTML = data.awayTeam.points;
 
-    // We might want to show previous sets:
-    if (
-        (data.homeTeam.sets > 0 || data.awayTeam.sets > 0) &&
-        (data.homeTeam.points + data.awayTeam.points) % 10 == 0
-    ) {
-        $('.sb-previous-set').remove();
-        for (var i = 0; i < data.homeTeam.sets + data.awayTeam.sets; i++) {
-            var elm = $('<div>')
-                .html(data.homeTeam.pointsSets[i])
-                .addClass('sb-previous-set');
-            elm.insertBefore($('#homeTeamPoints'));
+    const numSets = data.homeTeam.sets + data.awayTeam.sets;
 
-            elm = $('<div>')
-                .html(data.awayTeam.pointsSets[i])
-                .addClass('sb-previous-set');
-            elm.insertBefore($('#awayTeamPoints'));
-        }
-
-        $('.sb-previous-set').css(
-            'borderRight',
-            '1px solid rgba(150, 150, 150, 0.7)',
+    if (shouldShowSet) {
+        document.getElementById('homeTeamPrevSets').innerHTML = renderSets(
+            data.homeTeam.pointsSets.slice(0, numSets),
         );
-        $('.sb-previous-set').animate({
-            width: '40px',
-            maxWidth: '40px',
-            paddingLeft: '5px',
-            paddingRight: '5px',
-        });
 
-        setTimeout(function() {
-            $('.sb-previous-set').animate(
-                { width: '0', maxWidth: '0', padding: 0 },
-                function() {
-                    $(this).css('borderRight', 'none');
-                },
-            );
-        }, 10000);
+        document.getElementById('awayTeamPrevSets').innerHTML = renderSets(
+            data.awayTeam.pointsSets.slice(0, numSets),
+        );
     }
 
-    // Blæh, team names:
-    var tl1 = $('#homeTeamName').width();
-    var tl2 = $('#awayTeamName').width();
-
-    if (tl1 < tl2) {
-        $('#homeTeamName').css('width', tl2);
+    if (shouldShowSet) {
+        showPrevSets();
     } else {
-        $('#awayTeamName').css('width', tl1);
+        hidePrevSets();
     }
 }
 
-function remove() {
-    // Animate away to the bottom:
-    $('.dialog').fadeOut();
-}
+function remove() {}
 
-/*
-
-setTimeout(function () {
-    update(data);
-}, 2);
-*/
 play(data);

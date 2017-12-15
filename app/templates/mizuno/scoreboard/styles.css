@@ -1,12 +1,14 @@
 .scoreboard-container {
     top: 20px;
     left: 20px;
-    width: 400px;
     position: absolute;
 }
 
 .sb-row {
     /*margin-bottom: 1px;*/
+    min-width: 400px;
+    display: flex;
+    flex-direction: row;
 }
 
 .border-row {
@@ -18,7 +20,7 @@
 
 .border-logo {
     width: 55px;
-    height: 1px;
+    height: 100%;
     margin-right: 8px;
     background: linear-gradient(
         to right,
@@ -29,7 +31,7 @@
 
 .border-name {
     flex-grow: 1;
-    height: 1px;
+    height: 100%;
     background: linear-gradient(
         to right,
         rgba(31, 154, 225, 1) 0%,
@@ -46,9 +48,8 @@
 }
 
 .logo-container {
-    width: 55px;
-    height: 55px;
-    float: left;
+    min-width: 55px;
+    min-height: 55px;
     margin-right: 8px;
     background-color: #222b38;
     display: flex;
@@ -63,7 +64,7 @@
 
 .sb-team-name {
     text-indent: 16px;
-    flex: 1;
+    width: 250px;
 }
 
 .generic-row .number {
@@ -78,4 +79,27 @@
     text-align: center;
     font-weight: 700;
     margin-right: 8px;
+    margin-left: 8px;
+}
+
+.sb-team-prev-sets {
+    /*width: 203px;*/
+    background: url('/graphics/blue-bar-270-55.svg');
+    box-sizing: border-box;
+    /*border: 1px solid rgba(31, 154, 225, 1);*/
+    color: white;
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    font-size: 32px;
+}
+
+.sb-prev-set {
+    opacity: 0;
+    width: 0px;
+    text-align: center;
+}
+
+.sb-prev-set:last-child {
+    border-right: none;
 }
