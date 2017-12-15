@@ -18,6 +18,14 @@ var data = JSON.stringify({
 });
 
 function play(str) {
+    // fade in
+    $('.logo-container').velocity(
+        { height: 55, minHeight: 55, opacity: 1 },
+        { duration: 200 },
+    );
+    $('.generic-row').velocity({ height: 55, opacity: 1 }, { duration: 200 });
+    $('.text').velocity({ opacity: 1 }, { duration: 200, delay: 200 });
+
     update(str);
 }
 
@@ -32,14 +40,12 @@ function renderSets(sets) {
 function showPrevSets() {
     clearInterval(intervalId);
     intervalId = setTimeout(hidePrevSets, 8000);
-    console.log('showing prev sets');
     isShowing = true;
     $('.sb-prev-set').velocity({ width: 67 }, { duration: 300 });
     $('.sb-prev-set').velocity({ opacity: 1 }, { duration: 300 });
 }
 
 function hidePrevSets() {
-    console.log('hiding prev sets');
     $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
     $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
     isShowing = false;
@@ -52,12 +58,9 @@ function update(str) {
     }
     oldData = data;
 
-    // We might want to show previous sets:
     const rest = (data.homeTeam.points + data.awayTeam.points) % 10;
     const hasOne = data.homeTeam.sets > 0 || data.awayTeam.sets > 0;
     const shouldShowSet = hasOne && rest === 0;
-
-    console.log(rest, hasOne, shouldShowSet);
 
     document.getElementById('homeTeamLogo').src = data.homeTeam.logo;
     document.getElementById('awayTeamLogo').src = data.awayTeam.logo;
@@ -90,6 +93,16 @@ function update(str) {
     }
 }
 
-function remove() {}
+function remove() {
+    $('.text').velocity({ opacity: 0 }, { duration: 200 });
+    $('.logo-container').velocity(
+        { height: 0, minHeight: 0, opacity: 0 },
+        { delay: 200, duration: 200 },
+    );
+    $('.generic-row').velocity(
+        { height: 0, opacity: 0 },
+        { delay: 200, duration: 200 },
+    );
+}
 
-play(data);
+// play(data);
