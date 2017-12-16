@@ -4,27 +4,19 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/static/js/velocity.min.js"></script>
+    <script src="/templates/utils.js"></script>
+
 </head>
 <body>
   <div class="screen">
     <div id="squad-container">
         <div class="squad-header-container">
-          <div class="squad-header-logo">
-            <img id="squadLogo" src="/graphics/logo/viking.svg" />
+          <div class="squad-header-logo fade-in">
+            <img id="squadLogo" />
           </div>
-          <div class="squad-header-name" id="squadName">Tif Viking</div>
+          <div class="squad-header-name fade-in" id="squadName"></div>
         </div>
-        <div class="squad-content-container">
-          <div class="squad-player">
-            <div class="squad-player-number">1</div>
-            <div class="squad-player-name">Yngve Sundfjord</div>
-            <div class="squad-player-position">Kant</div>
-          </div>
-          <div class="squad-player">
-            <div class="squad-player-number">1</div>
-            <div class="squad-player-name">Yngve Sundfjord</div>
-            <div class="squad-player-position libero">Libero</div>
-          </div>
+        <div class="squad-content-container" id="squadContent">
         </div>
     </div>
   </div>

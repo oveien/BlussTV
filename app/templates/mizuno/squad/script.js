@@ -8,14 +8,14 @@ var data = JSON.stringify({
                 name: 'Rune Hamnes',
                 height: 191,
                 reach: '340',
-                position: 'M',
+                position: 'Midt',
                 id: 127,
             },
             {
                 number: 2,
                 name: 'Morten Lillehagen',
                 height: 203,
-                position: 'K',
+                position: 'Kant',
                 reach: '340',
                 id: 54,
             },
@@ -23,7 +23,7 @@ var data = JSON.stringify({
                 number: 3,
                 name: 'Simen Henriksveen',
                 height: 187,
-                position: 'L',
+                position: 'libero',
                 reach: '340',
                 id: 135,
             },
@@ -31,7 +31,7 @@ var data = JSON.stringify({
                 number: 4,
                 name: 'Espen Mokkelbost',
                 height: 180,
-                position: 'C',
+                position: 'Opplegger',
                 reach: '340',
                 id: 241,
             },
@@ -40,14 +40,14 @@ var data = JSON.stringify({
                 name: 'Vegar Løkken',
                 height: 191,
                 reach: '340',
-                position: 'M',
+                position: 'Midt',
                 id: 127,
             },
             {
                 number: 2,
                 name: 'Cato S',
                 height: 203,
-                position: 'K',
+                position: 'Kant',
                 reach: '340',
                 id: 54,
             },
@@ -55,7 +55,7 @@ var data = JSON.stringify({
                 number: 3,
                 name: 'Jon Vegar Berntsen',
                 height: 187,
-                position: 'L',
+                position: 'Libero',
                 reach: '340',
                 id: 135,
             },
@@ -63,7 +63,55 @@ var data = JSON.stringify({
                 number: 4,
                 name: 'Jånn',
                 height: 180,
-                position: 'C',
+                position: 'Kant',
+                reach: '340',
+                id: 241,
+            },
+            {
+                number: 1,
+                name: 'Vegar Løkken',
+                height: 191,
+                reach: '340',
+                position: 'Midt',
+                id: 127,
+            },
+            {
+                number: 1,
+                name: 'Vegar Løkken',
+                height: 191,
+                reach: '340',
+                position: 'Midt',
+                id: 127,
+            },
+            {
+                number: 1,
+                name: 'Vegar Løkken',
+                height: 191,
+                reach: '340',
+                position: 'Midt',
+                id: 127,
+            },
+            {
+                number: 2,
+                name: 'Cato S',
+                height: 203,
+                position: 'Kant',
+                reach: '340',
+                id: 54,
+            },
+            {
+                number: 3,
+                name: 'Jon Vegar Berntsen',
+                height: 187,
+                position: 'Libero',
+                reach: '340',
+                id: 135,
+            },
+            {
+                number: 4,
+                name: 'Jånn',
+                height: 180,
+                position: 'Kant',
                 reach: '340',
                 id: 241,
             },
@@ -71,147 +119,72 @@ var data = JSON.stringify({
     },
 });
 
+function isLibero(player) {
+    return player.position && player.position.toLowerCase() === 'libero';
+}
+
+function sortByNumber(a, b) {
+    if (isLibero(a)) {
+        return 1;
+    }
+
+    if (isLibero(b)) {
+        return -1;
+    }
+    return parseInt(a.number) - parseInt(b.number);
+}
+
 function play(str) {
-    console.log(str);
-    var obj = JSON.parse(str);
+    var data = JSON.parse(str).data;
 
-    $('.team-name').html(obj.data.name);
+    document.getElementById('squadName').innerHTML = data.name;
+    document.getElementById('squadLogo').src = data.logo;
 
-    var players = obj.data.players.sort(function(a, b) {
-        if (
-            a.position &&
-            a.position.toLowerCase() == 'libero' &&
-            b.position &&
-            b.position.toLowerCase() != 'libero'
-        ) {
-            return 1;
-        }
+    var players = data.players.sort(sortByNumber);
 
-        a.number = parseInt(a.number);
-        b.number = parseInt(b.number);
-        console.log(a.number);
-        if (a.number > b.number) {
-            return 1;
-        }
-        if (a.number == b.number) {
-            return 0;
-        }
+    const playersHtml = players.map(
+        player => `
+      <div class="squad-player">
+        <div class="squad-player-number fade-in">${player.number}</div>
+        <div class="squad-player-name fade-in">${player.name}</div>
+        <div class="squad-player-position ${
+            isLibero(player) ? 'libero' : ''
+        }"><div class="fade-in">${player.position}</div></div>
+      </div>
+    `,
+    );
 
-        if (a.number < b.number) {
-            return -1;
-        }
-    });
+    document.getElementById('squadContent').innerHTML = playersHtml.join('');
 
-    if (obj.data.logo) {
-        $('.team-logo').html($('<img>').attr('src', obj.data.logo));
-    }
+    $('.squad-header-container').velocity(
+        { width: '100%', opacity: 1 },
+        { duration: 300 },
+    );
+    $('.squad-player').velocity(
+        { height: 48, opacity: 1 },
+        { duration: 300, delay: 200 },
+    );
 
-    var html = '';
-    for (var i in players) {
-        var player = players[i];
-        var number = '';
-        if (!isNaN(player.number)) {
-            number = player.number;
-        }
-        html +=
-            '<div class="dialog-row" style="transform: translateX(-600px)">';
-        html += '<div class="dialog-row-number">' + number + '</div>';
-        html += '<div class="player-name">' + player.name + '</div>';
-        html += '<div class="dialog-row-role">' + player.position + '</div>';
-        html += '</div>';
-    }
-
-    $('.players').append(html);
-
-    var playersElement = $('.players');
-    var playerIndex = 0;
-
-    anime({
-        targets: '.dialog-heading',
-        translateX: 0,
-        easing: 'easeInOutCubic',
-    });
-
-    anime({
-        targets: '.dialog-row',
-        translateX: 0,
-        easing: 'easeInOutCubic',
-        delay: function(el, i, l) {
-            return i * 100;
-        },
-        complete: function() {
-            viewPlayerInfo();
-        },
-    });
-
-    var viewPlayerInfo = function() {
-        $('.dialog-row').removeClass('selected-player');
-
-        if (typeof players[playerIndex] == 'undefined') {
-            $('#player_image').attr('src', '');
-            return;
-        }
-
-        var player = players[playerIndex];
-
-        playersElement
-            .find('.dialog-row')
-            .eq(playerIndex)
-            .addClass('selected-player');
-
-        // Show the player image:
-        console.log('Show player image');
-        console.log(player.image);
-        //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
-
-        $('.player-image').css('backgroundImage', 'url(' + player.image + ')');
-        $('.player-image').attr('image', player.image);
-
-        playerIndex++;
-
-        if (
-            typeof players[playerIndex] != 'undefined' &&
-            players[playerIndex].image
-        ) {
-            // Wannabe preload:
-            var img = new Image();
-            img.src = players[playerIndex].image;
-        }
-        setTimeout(viewPlayerInfo, 2000);
-    };
+    $('.fade-in').velocity({ opacity: 1 }, { delay: 500, duration: 300 });
 }
 
 function remove(callback) {
-    // Animate away to the bottom:
-    anime({
-        targets: '.dialog-heading',
-        translateX: 908,
-        easing: 'easeInOutCubic',
-    });
+    $('.fade-in').velocity({ opacity: 0 }, { duration: 200 });
 
-    anime({
-        targets: '.player-image',
-        translateX: 308,
-        easing: 'easeInOutCubic',
-    });
-
-    anime({
-        targets: '.dialog-row',
-        translateX: 908,
-        easing: 'easeInOutCubic',
-        delay: function(el, i, l) {
-            return i * 100;
-        },
-        complete: function() {
-            if (callback) {
-                callback();
-            }
-        },
-    });
+    $('.squad-header-container').velocity(
+        { width: 0, opacity: 0 },
+        { duration: 200 },
+    );
+    $('.squad-player').velocity(
+        { height: 0, opacity: 0 },
+        { duration: 200, delay: 200 },
+    );
 }
 
 if (getUrlParameter('debug')) {
     setTimeout(function() {
         play(data);
     }, 2);
+
+    setTimeout(remove, 5000);
 }
