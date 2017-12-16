@@ -119,6 +119,22 @@ var data = JSON.stringify({
     },
 });
 
+function shortenName(fullName) {
+    const names = fullName.split(' ');
+    if (names.length < 3) {
+        return fullName;
+    }
+
+    const fixedNames = names.map((name, i) => {
+        if (i === 0 || i === names.length - 1) {
+            return name;
+        }
+        return name[0] + '.';
+    });
+
+    return fixedNames.join(' ');
+}
+
 function isLibero(player) {
     return player.position && player.position.toLowerCase() === 'libero';
 }
@@ -146,7 +162,7 @@ function play(str) {
         player => `
       <div class="squad-player">
         <div class="squad-player-number fade-in">${player.number}</div>
-        <div class="squad-player-name fade-in">${player.name}</div>
+        <div class="squad-player-name fade-in">${shortenName(player.name)}</div>
         <div class="squad-player-position ${
             isLibero(player) ? 'libero' : ''
         }"><div class="fade-in">${player.position}</div></div>
