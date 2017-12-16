@@ -3,255 +3,31 @@
     <link rel="stylesheet" href="/css/screen.css">
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
-    <script src="/templates/utils.js"></script>
-    <script src="/static/js/anime.min.js"></script>
-    <script>
-        function jalla() {
-            alert('hello');
-        }
-    </script>
+    <script src="/static/js/velocity.min.js"></script>
 </head>
 <body>
-
-<div class="screen">
-<div id='dialog' class="dialog slide" style="left: 140px; width: 908px;">
-    <div class="dialog-heading-container">
-        <div class="dialog-heading" style="transform: translateX(-908px);">
-            <div class="teams-container">
-                <div class="team">
-                    <div class="team-logo"></div>
-                    <div class="team-name"></div>
-                </div>
-            </div>
-            <div class="dialog-heading-stripe"></div>
+  <div class="screen">
+    <div id="squad-container">
+        <div class="squad-header-container">
+          <div class="squad-header-logo">
+            <img id="squadLogo" src="/graphics/logo/viking.svg" />
+          </div>
+          <div class="squad-header-name" id="squadName">Tif Viking</div>
+        </div>
+        <div class="squad-content-container">
+          <div class="squad-player">
+            <div class="squad-player-number">1</div>
+            <div class="squad-player-name">Yngve Sundfjord</div>
+            <div class="squad-player-position">Kant</div>
+          </div>
+          <div class="squad-player">
+            <div class="squad-player-number">1</div>
+            <div class="squad-player-name">Yngve Sundfjord</div>
+            <div class="squad-player-position libero">Libero</div>
+          </div>
         </div>
     </div>
-
-    <div class="dialog-body">
-        <div class="players"></div>
-        <div class="player-image"></div>
-    </div>
-
-</div>
-</div>
-
-
+  </div>
+  <script src="script.js"></script>
 </body>
-<script>
-
-    var data = JSON.stringify({
-        "data": {
-            "name": 'NTNUI',
-            "logo": "/graphics/NTNUI/logo.jpg",
-            players: [
-                {
-                    'number': 1,
-                    'name': 'Rune Hamnes',
-                    'height': 191,
-                    'reach': '340',
-                    'position': 'M',
-                    'id': 127
-                },
-                {
-                    'number': 2,
-                    'name': 'Morten Lillehagen',
-                    'height': 203,
-                    'position': 'K',
-                    'reach': '340',
-                    'id': 54
-                },
-                {
-                    'number': 3,
-                    'name': 'Simen Henriksveen',
-                    'height': 187,
-                    'position': 'L',
-                    'reach': '340',
-                    'id': 135
-                },
-                {
-                    'number': 4,
-                    'name': 'Espen Mokkelbost',
-                    'height': 180,
-                    'position': 'C',
-                    'reach': '340',
-                    'id': 241
-                },
-                {
-                    'number': 1,
-                    'name': 'Vegar Løkken',
-                    'height': 191,
-                    'reach': '340',
-                    'position': 'M',
-                    'id': 127
-                },
-                {
-                    'number': 2,
-                    'name': 'Cato S',
-                    'height': 203,
-                    'position': 'K',
-                    'reach': '340',
-                    'id': 54
-                },
-                {
-                    'number': 3,
-                    'name': 'Jon Vegar Berntsen',
-                    'height': 187,
-                    'position': 'L',
-                    'reach': '340',
-                    'id': 135
-                },
-                {
-                    'number': 4,
-                    'name': 'Jånn',
-                    'height': 180,
-                    'position': 'C',
-                    'reach': '340',
-                    'id': 241
-                }
-            ]
-        }});
-
-    function play(str) {
-
-        console.log(str);
-        var obj = JSON.parse(str);
-
-
-        $('.team-name').html(obj.data.name);
-
-
-
-        var players = obj.data.players.sort ( function (a, b) {
-            if (a.position && a.position.toLowerCase() == 'libero' && b.position && b.position.toLowerCase() != 'libero' ) {
-                return 1;
-            }
-
-            a.number = parseInt(a.number);
-            b.number = parseInt(b.number);
-            console.log(a.number);
-            if (a.number > b.number) {
-                return 1;
-            }
-            if (a.number == b.number) {
-                return 0;
-            }
-
-            if (a.number < b.number) {
-                return -1;
-            }
-        })
-
-        if (obj.data.logo) {
-            $('.team-logo').html ( $('<img>').attr('src', obj.data.logo));
-        }
-
-        var html = '';
-        for (var i in players) {
-            var player = players[i];
-            var number = '';
-            if (!isNaN(player.number)) {
-                number = player.number;
-            }
-            html += '<div class="dialog-row" style="transform: translateX(-600px)">';
-            html += '<div class="dialog-row-number">' + number + '</div>';
-            html += '<div class="player-name">' + player.name + '</div>';
-            html += '<div class="dialog-row-role">' + player.position + '</div>';
-            html += '</div>';
-
-        }
-
-        $('.players').append(html);
-
-
-        var playersElement = $('.players');
-        var playerIndex = 0;
-
-        anime({
-            targets: '.dialog-heading',
-            translateX: 0,
-            easing: 'easeInOutCubic'
-        });
-
-        anime({
-            targets: '.dialog-row',
-            translateX: 0,
-            easing: 'easeInOutCubic',
-            delay: function(el, i, l) {
-                return i * 100;
-            },
-            complete: function () {
-                viewPlayerInfo();
-            }
-        });
-
-
-        var viewPlayerInfo = function () {
-            $('.dialog-row').removeClass('selected-player');
-
-            if (typeof(players[playerIndex]) == 'undefined') {
-                $('#player_image').attr('src','');
-                return;
-            }
-
-            var player = players[playerIndex];
-
-
-            playersElement.find('.dialog-row').eq(playerIndex).addClass('selected-player');
-
-            // Show the player image:
-            console.log('Show player image');
-            console.log(player.image);
-            //$('#player_image').attr('src', 'http://poengliga.no/img_players/'+ player.id +'.jpg');
-
-            $('.player-image').css('backgroundImage', 'url(' + player.image +')');
-            $('.player-image').attr('image', player.image);
-
-            playerIndex++;
-
-            if (typeof(players[playerIndex]) != 'undefined' && players[playerIndex].image) {
-                // Wannabe preload:
-                var img = new Image();
-                img.src = players[playerIndex].image;
-            }
-            setTimeout(viewPlayerInfo, 2000);
-        };
-    }
-
-    function remove(callback) {
-        // Animate away to the bottom:
-        anime({
-            targets: '.dialog-heading',
-            translateX: 908,
-            easing: 'easeInOutCubic'
-        });
-
-        anime({
-            targets: '.player-image',
-            translateX: 308,
-            easing: 'easeInOutCubic'
-        });
-
-        anime({
-            targets: '.dialog-row',
-            translateX: 908,
-            easing: 'easeInOutCubic',
-            delay: function(el, i, l) {
-                return i * 100;
-            },
-            complete: function () {
-                if (callback) {
-                    callback();
-                }
-            }
-        });
-    }
-
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(data);
-        }, 2);
-    }
-
-</script>
 </html>

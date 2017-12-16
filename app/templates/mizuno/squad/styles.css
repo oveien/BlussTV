@@ -1,39 +1,87 @@
-.dialog-body {
-    align-items: flex-start;
+#squad-container {
+    width: 780px;
+    min-height: 100px;
+}
+
+/* Header Start */
+
+.squad-header-container {
+    height: 86px;
+    width: 100%;
+    background-color: white;
+    display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
-.dialog-row {
-    padding-left: 0;
+.squad-header-logo img {
+    height: 64px;
+    width: 64px;
+    margin-left: 16px;
 }
 
-.dialog-row.selected-player {
-    color: #FFDC00;
+.squad-header-name {
+    flex-grow: 1;
+    font-size: 48px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #222b38;
 }
 
-.dialog-row.selected-player .dialog-row-number {
-    background: #FFDC00;
-    background: linear-gradient(#FFDC00, #FFB54B);
+/* Header End */
+
+/* Content Start */
+
+.squad-content-container {
+    width: 100%;
 }
 
-.dialog-row.selected-player .dialog-row-role {
-    color: #FFDC00;
-}
-.player-name {
-    white-space: nowrap;
-    overflow: hidden;
-    width: 368px;
-    font-size: 0.9em;
-}
-
-.players {
-    margin-right: 10px;
+.squad-player {
+    width: 100%;
+    height: 48px;
+    background-color: white;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-.player-image {
-    width: 298px;
-    height: 400px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.squad-player-number {
+    height: 36px;
+    width: 36px;
+    background-color: #222b38;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 400;
+    color: white;
+    margin-left: 16px;
 }
+
+.squad-player-name {
+    text-indent: 16px;
+    font-size: 32px;
+    color: #222b38;
+    text-transform: uppercase;
+    flex-grow: 1;
+}
+
+.squad-player-position {
+    height: 100%;
+    width: 270px;
+    background-image: url('/graphics/blue-bar-270-48.svg');
+    color: white;
+    font-size: 32px;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 48px;
+    font-weight: 400;
+}
+
+.libero {
+    background-image: url('/graphics/pink-bar-270-48.svg');
+}
+
+/* Content End */
