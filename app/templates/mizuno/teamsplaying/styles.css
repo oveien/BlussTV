@@ -1,258 +1,67 @@
-.tp-centre-box {
-    background-color: #333;
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    left: 565px;
-    top: 720px;
-    border-radius: 10px;
-    animation: bottomelement 0.7s forwards;
-    animation-delay: 0.7s;
+.tp-container {
+  margin: auto;
+  margin-top: 860px;
+  width: 1080px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
 }
 
-.tp-team-container {
-    height: 130px;
-    width: 0;
-    top: 10px;
-    left: 0;
-    position: absolute;
-    overflow: hidden;
-    animation: teamcollapsehome 0.7s forwards;
-    animation-delay: 0s;
-
-}
-.tp-center-box-animation {
-    animation: centerelement 0.7s forwards;
-    animation-delay: 0s;
-}
-
-
-.tp-center-box-animation-collapse {
-    animation: bottomelement 0.7s forwards;
-    animation-delay: 0.7s;
-    top: 500px;
-}
-
-.tp-hometeam-container-expanded {
-    animation: teamexpandhome 0.7s forwards;
-    animation-delay: 0.7s;
-}
-
-.tp-hometeam-container-collapse {
-    animation: teamcollapsehome 0.7s forwards;
-    animation-delay: 0s;
-    width: 430px;
-    left: -430px;
-}
-
-@keyframes centerelement {
-    from {
-        top: 720px;
-    }
-    to {
-        top: 500px;
-
-    }
-}
-
-@keyframes bottomelement {
-    from {
-        top: 500px;
-    }
-    to {
-        top: 720px;
-    }
-}
-
-@keyframes teamexpandhome {
-    100% {
-        left: -430px;
-        width: 430px;
-    }
-}
-
-@keyframes teamcollapsehome {
-    100% {
-        left: 0px;
-        width: 0px;
-    }
-}
-
-
-.tp-awayteam-container.tp-team-container-expanded {
-    animation: teamexpandaway 0.7s forwards;
-    animation-delay: 0.7s;
-}
-
-.tp-awayteam-container.tp-awayteam-container-collapse {
-    animation: teamcollapseaway 0.7s forwards;
-    animation-delay: 0s;
-    width: 430px;
-    left: 150px;
-}
-
-
-@keyframes teamexpandaway {
-    100% {
-        left: 150px;
-        width: 430px;
-    }
-}
-
-
-@keyframes teamcollapseaway {
-    100% {
-        left: 150px;
-        width: 0px;
-    }
-}
-
-.tp-awayteam-container {
-    left: 150px;
+.team-container {
+  width: 420px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .team-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 130px;
-    width: 130px;
-    background-color: #333;
-    border-radius: 5px;
-    perspective: 1000px;
-    margin: 0;
-}
-
-.nvbf-logo {
-    width: 130px;
-    height: 130px;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
-
-.nvbf-logo img {
-    width: 130px;
-    height: 130px;
-}
-
-.tp-awayteam-container .team-logo {
-    left: auto;
-    right: 0px;
+  min-width: 100px;
+  min-height: 100px;
+  background: #222b38;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .team-logo img {
-    max-height: 110px;
-    max-width: 110px;
-
-    /*
-    transform: rotateY(40deg);
-    transform: scale(1.1);
-    transform-style: preserve-3d;
-*/
+  height: 72px;
+  width: 72px;
 }
 
 .team-name {
-    top: 5px;
-    color: white;
-    font-size: 48px;
-    height: 120px;
-    line-height: 120px;
-    text-indent: 20px;
-    background-color: #666;
-    position: absolute;
-    left: 130px;
-    width: 300px;
-    white-space: nowrap;
+  flex-grow: 1;
+  background-color: white;
+  height: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 36px;
+  line-height: 100px;
 }
 
-.tp-awayteam-container .team-name {
-    text-align: right;
-    width: 280px;
-    padding-right: 20px;
-    left: 0;
+.left {
+  margin-left: 8px;
 }
 
-
-/* Beach volleyball ------------------------------------------------------------------------------------------------ */
-.beach-volleyball .team-logo {
-    display: none;
+.description {
+  flex-grow: 1;
+  text-align: center;
+  line-height: 100px;
+  height: 100%;
+  text-transform: uppercase;
+  color: white;
+  font-size: 32px;
+  background: url('/graphics/blue-bar-420-55.svg');
+  background-size: cover;
+  background-position: center;
 }
 
-.beach-volleyball .team-name {
-    left: 0;
-    width: 500px;
+/* Animation */
 
-    font-size: 36px;
-
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-
+.fade-in {
+  opacity: 0;
 }
 
-.beach-volleyball .tp-awayteam-container .team-name {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    width: 480px;
-}
-
-@keyframes teamexpandhome-beach-volleyball {
-    100% {
-        left: -500px;
-        width: 500px;
-    }
-}
-
-@keyframes teamcollapsehome-beach-volleyball  {
-    100% {
-        left: 0px;
-        width: 0px;
-    }
-}
-
-
-.beach-volleyball .tp-hometeam-container-expanded {
-    animation: teamexpandhome-beach-volleyball 0.7s forwards;
-    animation-delay: 0.7s;
-}
-
-.beach-volleyball .tp-hometeam-container-collapse {
-    animation: teamcollapsehome-beach-volleyball 0.7s forwards;
-    animation-delay: 0s;
-    width: 500px;
-    left: -500px;
-}
-
-.beach-volleyball .tp-awayteam-container.tp-team-container-expanded {
-    animation: teamexpandaway-beach-volleyball 0.7s forwards;
-    animation-delay: 0.7s;
-}
-
-.beach-volleyball .tp-awayteam-container.tp-awayteam-container-collapse {
-    animation: teamcollapseaway-beach-volleyball 0.7s forwards;
-    animation-delay: 0s;
-    width: 500px;
-    left: 150px;
-}
-
-
-@keyframes teamexpandaway-beach-volleyball  {
-    100% {
-        left: 150px;
-        width: 500px;
-    }
-}
-
-
-@keyframes teamcollapseaway-beach-volleyball {
-    100% {
-        left: 150px;
-        width: 0px;
-    }
+.tp-container {
+  height: 0px;
+  opacity: 0;
 }
