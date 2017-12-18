@@ -63,9 +63,7 @@ function play(str) {
     { height: 110, opacity: 1 },
     { duration: 300 },
   );
-  $('.interviewee-logo-container').velocity({
-    height: 110,
-  });
+  $('.interviewee-logo-container').velocity({ height: 110 }, { duration: 300 });
 
   $('.fade-in').velocity({ opacity: 1 }, { duration: 300, delay: 300 });
 }
@@ -74,7 +72,7 @@ function remove(callback) {
   $('.fade-in').velocity({ opacity: 0 }, { duration: 300 });
   $('.interviewee-container').velocity(
     { height: 0, opacity: 0 },
-    { duration: 300, delay: 300 },
+    { duration: 300, delay: 200 },
   );
 }
 
@@ -86,6 +84,7 @@ if (getUrlParameter('debug')) {
           name: 'Øystein Veien',
           team: {
             name: 'Blussuvoll',
+            logo: '/graphics/logo/blussuvoll.svg',
           },
           number: 14,
           blocks: 0,
