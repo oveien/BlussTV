@@ -20,9 +20,21 @@ function play(str) {
   } else if (data.who == 'away') {
     fillTeam(data.awayTeam);
   }
+
+  $('.timeout-container').velocity(
+    { height: 55, opacity: 1 },
+    { duration: 300 },
+  );
+  $('.fade-in').velocity({ opacity: 1 }, { duration: 300, delay: 300 });
 }
 
-function remove(callback) {}
+function remove(callback) {
+  $('.fade-in').velocity({ opacity: 0 }, { duration: 300 });
+  $('.timeout-container').velocity(
+    { height: 0, opacity: 0 },
+    { duration: 300, delay: 300 },
+  );
+}
 
 if (getUrlParameter('debug')) {
   setTimeout(function() {

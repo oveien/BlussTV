@@ -37,7 +37,7 @@
 }
 
 .timeout-text {
-  width: 420px;
+  width: 400px;
   background: url('/graphics/blue-bar-420-55.svg');
   height: 100%;
   font-size: 32px;
@@ -45,4 +45,14 @@
   text-transform: uppercase;
   line-height: 55px;
   text-align: center;
+  background-size: cover;
+}
+
+.fade-in {
+  opacity: 0;
+}
+
+.timeout-container {
+  height: 0px;
+  opacity: 0;
 }
