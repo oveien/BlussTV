@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="270px" height="48px" viewBox="0 0 270 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>bottom-bg/blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="97.399155%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#E214AD" offset="0%"></stop>
+            <stop stop-color="#A7107F" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="270" height="48"></rect>
+    </defs>
+    <g id="RosterRow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-509.000000, 0.000000)">
+        <g id="bottom-bg/pink" transform="translate(509.000000, 0.000000)">
+            <g id="bottom-bg">
+                <g>
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <rect stroke="#A70F7F" stroke-width="1" x="0.5" y="0.5" width="269" height="47"></rect>
+                </g>
+                <path d="M0,0 C3.32865877,1.06081617e-13 92.9953254,0.309404967 269,0.928214902 L269,9.6 C200.598354,4.68320602 110.931688,1.48320602 0,0 Z" id="shadow" fill="#A70F7F"></path>
+            </g>
+        </g>
+    </g>
+</svg>

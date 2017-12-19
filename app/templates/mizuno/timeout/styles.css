@@ -1,35 +1,58 @@
-.timeout-wrapper {
-    position: absolute;
-    top: 650px;
-    left: -2000px;
-    overflow: hidden;
+.timeout-container {
+  height: 55px;
+  width: 720px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 900px;
 }
 
-.timeout-dialog {
-
+.timeout-logo-and-name {
+  flex-grow: 1;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 36px;
+  text-transform: uppercase;
 }
 
-.dialog-row {
-    width: auto;
-    font-size: 20px;
-    padding-right: 20px;
+.timeout-logo {
+  height: 32px;
+  width: 32px;
+  margin-left: 16px;
 }
 
-.timeout-info {
-    color: white;
-    background-color: #0074d9;
-    padding: 10px;
-    height: 90px;
-    font-size: 18px;
-
+#teamLogo {
+  height: 32px;
+  width: 32px;
 }
 
-
-.team-name {
-    text-align: center;
-    line-height: 96px;
+#teamName {
+  text-indent: 16px;
+  line-height: 32px;
 }
 
-.screen {
-   /* background-color: red; */
+.timeout-text {
+  width: 400px;
+  background: url('/graphics/blue-bar-420-55.svg');
+  height: 100%;
+  font-size: 32px;
+  color: white;
+  text-transform: uppercase;
+  line-height: 55px;
+  text-align: center;
+  background-size: cover;
+}
+
+.fade-in {
+  opacity: 0;
+}
+
+.timeout-container {
+  height: 0px;
+  opacity: 0;
 }

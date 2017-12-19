@@ -4,97 +4,27 @@
     <link rel="stylesheet" href="/css/screen.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
+    <script src="/static/js/velocity.min.js"></script>
 </head>
 <body>
 
-
 <div class="screen">
     <div class="interviewee-container">
-        <div class="row-logo-container">
-            <div class="interviewee-logo"></div>
+        <div class="interviewee-logo-container">
+            <img class="interviewee-logo fade-in" id="teamLogo" />
         </div>
         <div class="interviewee-info-container">
         <div class="generic-row">
-            <div class="number">12</div>
-            <div class="interviewee-name"></div>
+            <div class="player-number number fade-in" id="playerNumber"></div>
+            <div class="interviewee-name fade-in" id="name"></div>
         </div>
-        <div class="generic-row secondary-row interviewee-role"></div>
+        <div class="generic-row secondary-row interviewee-role">
+          <div id="role" class="fade-in"></div>
+        </div>
         </div>
     </div>
 </div>
 
-
 </body>
-<script>
-    function play(str) {
-        var data = JSON.parse(str);
-
-        var data = data.data;
-        console.log(data);
-
-
-        $('.interviewee-name').text(data.name);
-        $('.interviewee-role').text(data.team.name);
-
-
-        if (data.team.logo) {
-            $('.interviewee-logo').css('background-src', 'url(' + data.team.logo + ')');
-        }
-
-
-
-        if (parseInt(data.birthyear)) {
-            $('#interviewee-age').html('Fødselsår: ' + parseInt(data.birthyear));
-        }
-        if (data.height) {
-            $('#interviewee-height').html('Høyde: ' + data.height);
-        }
-        if (data.reach) {
-            $('#interviewee-reach').html('Rekkevidde: ' + data.reach);
-        }
-
-        if (typeof(data.blocks) != 'undefined') {
-            $('#interviewee-stats-blocks').html('Blokk: ' + data.blocks);
-        }
-
-        if (typeof(data.attack) != 'undefined') {
-            $('#interviewee-stats-attack').html('Angrep: ' + data.attack);
-        }
-
-        if (typeof(data.ace) != 'undefined') {
-            $('#interviewee-stats-ace').html('Serve-ess: ' + data.ace);
-        }
-
-        if (typeof(data.ace) != 'undefined') {
-            $('#interviewee-stats-total').html('Totalt: ' + (parseInt(data.ace) + parseInt(data.attack) + parseInt(data.blocks)));
-        }
-
-        $('.interviewee-container').removeClass('hidden-left');
-
-    }
-
-    function remove(str) {
-        $('.interviewee-container').addClass('hidden-left');
-    }
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(JSON.stringify({
-                data: {
-                    "name": 'Øystein Veien',
-                    "team": {
-                        name: 'Blussuvoll'
-                    },
-                      blocks: 0,
-                      attack: 0,
-                      ace: 0,
-                      total: 0,
-                    "birthyear": 1983,
-                    "image": '../beach-team/player1.png'
-                }
-            }));
-        }, 50);
-    }
-
-</script>
+<script src="script.js"></script>
 </html>

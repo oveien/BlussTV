@@ -1,9 +1,10 @@
 <html>
 <head>
+    <script src="/lib/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/css/screen.css">
-    <script src="/lib/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <script src="/templates/utils.js"></script>
 </head>
 <body>
@@ -11,42 +12,17 @@
 
 <div class="screen">
     <div class="interviewee-container">
-        <div class="generic-row interviewee-name"></div>
-        <div class="generic-row secondary-row interviewee-role"></div>
+        <div class="generic-row interviewee-name">
+          <div class="text" id="name"></div>
+        </div>
+        <div class="generic-row secondary-row interviewee-role">
+          <div class="text" id="role"></div>
+        </div>
     </div>
 
 </div>
 
 
 </body>
-<script>
-    function play(str) {
-        var data = JSON.parse(str);
-
-        var data = data.data;
-
-        $('.interviewee-name').text(data.name);
-        $('.interviewee-role').text(data.role);
-
-
-        $('.interviewee-container').removeClass('hidden-left');
-
-    }
-
-    function remove(str) {
-        $('.interviewee-container').addClass('hidden-left');
-    }
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(JSON.stringify({
-                data: {
-                    "name": 'Øystein Veien',
-                    "role": 'Trener Blussuvoll'
-                }
-            }));
-        }, 50);
-    }
-
-</script>
+<script src="script.js"></script>
 </html>

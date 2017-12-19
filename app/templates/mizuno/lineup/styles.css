@@ -1,101 +1,121 @@
-.court-background-wrapper {
-    width: 0;
-    height: 0;
-    position: absolute;
-    left: -2000px;
-    top: 0;
-    overflow: hidden;
-}
-
 .court-background {
-    background-image: url(img/court.png);
-    width: 1280px;
-    height: 720px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background-position: center center;
-
+  background-image: url('/graphics/court-with-net.svg');
+  background-size: cover;
+  width: 1400px;
+  height: 600px;
+  margin: auto;
+  margin-top: 1100px;
+  background-position: center center;
+  position: relative;
 }
-
-.court-players {
-    position: absolute;
-    top: 200px;
-    left: 420px;
-}
-
-.lineup-player {
-    position: absolute;
-    width: 160px;
-    height: 99px;
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-.lineup-player-number {
-    text-align: center;
-    margin-bottom: 10px;
-    line-height: 42px;
-    text-align: center;
-    font-size: 42px;
-/* Color inherit from jersey
-    color: white;*/
-    margin-top: 10px;
-    margin-bottom: 45px;
-}
-
-.lineup-player-name {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-
-.lineup-player-fr {
-    top: 20px;
-}
-
-.lineup-player-br {
-    top: 170px;
-}
-
-.lineup-player-1 {
-    left: 0px;
-}
-
-.lineup-player-2 {
-    left: 166px;
-}
-
-.lineup-player-3 {
-    left: 332px;
-}
-
-
-.lineup-player-libero {
-    top: 300px;
-    left: 550px;
-}
-
 
 .court-team-info {
-    position: absolute;
-    left: 350px;
-    top: 530px;
+  position: absolute;
+  height: 64px;
+  width: 300px;
+  left: 150px;
+  top: 490px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.court-team-info div {
-    float: left;
+#teamLogo {
+  height: 46px;
+  width: 46px;
+  margin-left: 16px;
 }
 
-.court-team-info img {
-    height: 100px;
-    margin-right: 20px;
+#teamName {
+  text-transform: uppercase;
+  font-size: 36px;
+  flex: 1;
+  text-align: center;
 }
 
-.court-team-info .court-team-name {
-    font-size: 48px;
-    height: 100px;
-    line-height: 100px;
+.player {
+  width: 128px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player .player-number {
+  height: 46px;
+  width: 46px;
+  border-radius: 50%;
+  background-color: #222b38;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.player .player-name {
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
+  font-size: 20px;
+  color: #222b38;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#player-1 {
+  position: absolute;
+  top: 300px;
+  left: 870px;
+}
+
+#player-6 {
+  position: absolute;
+  top: 300px;
+  left: 630px;
+}
+
+#player-5 {
+  position: absolute;
+  top: 300px;
+  left: 410px;
+}
+
+#player-2 {
+  position: absolute;
+  top: 185px;
+  left: 800px;
+}
+
+#player-3 {
+  position: absolute;
+  top: 185px;
+  left: 630px;
+}
+
+#player-4 {
+  position: absolute;
+  top: 185px;
+  left: 460px;
+}
+
+#player-7 {
+  position: absolute;
+  top: 480px;
+  left: 900px;
+}
+
+#player-7 .player-name {
+  color: white;
+}
+
+#player-7 .player-number {
+  background: linear-gradient(
+    to right,
+    rgba(226, 20, 175, 1) 0%,
+    rgba(167, 16, 127, 1) 100%
+  );
 }

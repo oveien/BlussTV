@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="420px" height="55px" viewBox="0 0 418 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>color-bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="101.257813%" y1="49.7500002%" x2="0.25781251%" y2="49.7500002%" id="linearGradient-1">
+            <stop stop-color="#31B9EB" offset="0%"></stop>
+            <stop stop-color="#1F9AE1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="420" height="55"></rect>
+    </defs>
+    <g id="overlays" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-396.000000, -753.000000)">
+        <g id="randaberg-timeout-blue" transform="translate(95.000000, 753.000000)">
+            <g id="color-bar" transform="translate(301.000000, 0.000000)">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <g id="blue-bg">
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <rect stroke="#27A7E6" stroke-width="1" x="0.5" y="0.5" width="419" height="54"></rect>
+                </g>
+                <path d="M-287.368421,-0.824561404 C-281.0101,-0.824561404 -40.3491037,-0.448910697 434.614567,0.302390717 L434.614567,27.8249395 C415.69682,13.5519926 175.035824,4.00215899 -287.368421,-0.824561404 Z" id="Path-5" fill="#27A7E6" mask="url(#mask-3)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

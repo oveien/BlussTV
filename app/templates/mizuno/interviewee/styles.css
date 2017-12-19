@@ -1,8 +1,28 @@
 .interviewee-container {
     width: 720px;
+    opacity: 0;
+}
+
+.text {
+    opacity: 0;
+}
+
+.interviewee-container {
     position: absolute;
     left: 100px;
-    bottom: 50px;
+    top: 900px;
+    height: 0px;
+}
+
+.generic-row {
+    height: 0px;
+    width: 0px;
+}
+
+.secondary-row {
+    background-color: red;
+    background: url('/graphics/blue-bar-720-55.svg');
+    background-size: contain;
 }
 
 .interviewee-name, .interviewee-role {

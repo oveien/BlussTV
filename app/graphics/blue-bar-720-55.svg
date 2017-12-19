@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="720px" height="55px" viewBox="0 0 720 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>color-bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="101.257813%" y1="49.7500002%" x2="0.25781251%" y2="49.7500002%" id="linearGradient-1">
+            <stop stop-color="#31B9EB" offset="0%"></stop>
+            <stop stop-color="#1F9AE1" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="720" height="55"></rect>
+    </defs>
+    <g id="overlays" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-95.000000, -473.000000)">
+        <g id="person-presentation" transform="translate(95.000000, 416.000000)">
+            <g id="color-bar" transform="translate(0.000000, 57.000000)">
+                <mask id="mask-3" fill="white">
+                    <use xlink:href="#path-2"></use>
+                </mask>
+                <g id="Rectangle-13">
+                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <rect stroke="#27A7E6" stroke-width="1" x="0.5" y="0.5" width="719" height="54"></rect>
+                </g>
+                <path d="M0,0 C6.33684479,0 246.184958,0.375650707 719.544341,1.12695212 L719.544341,28.6495009 C700.690492,14.376554 460.842379,4.82672039 0,0 Z" id="Path-5" fill="#27A7E6" mask="url(#mask-3)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

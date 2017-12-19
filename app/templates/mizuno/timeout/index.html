@@ -4,100 +4,28 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.js"></script>
     <script src="/templates/utils.js"></script>
-    <script src="/static/js/anime.min.js"></script>
+    <script src="/static/js/velocity.min.js"></script>
 
 </head>
 <body>
 
 <div class="screen">
-
-
-    <div class="timeout-wrapper">
-        <div class="timeout-dialog">
-            <div class="dialog-row">
-                Timeout&nbsp;<span id="who"></span>
-            </div>
+<div class="timeout-container">
+    <div class="timeout-logo-and-name">
+        <div class="timeout-logo">
+          <img id="teamLogo" class="fade-in" />
+        </div>
+        <div class="timeout-name">
+          <div id="teamName" class="fade-in"></div>
         </div>
     </div>
-
-
+    <div class="timeout-text">
+      <div class="fade-in">Time Out</div>
+    </div>
+</div>
 </div>
 
 
 </body>
-<script>
-
-    var data = '{"data":{"homeTeam":{"name":"Veien / Hamnes"},"awayTeam":{"name":"Løkken / Skogen"},"gameType":"beach-volleyball","who":"home"}}';
-
-    function play(str) {
-
-        console.log(str);
-        var obj = JSON.parse(str);
-
-        console.log(obj)
-
-        if (obj.data.who == "technical") {
-            $('#who').html('Technical')
-        }
-        else if (obj.data.who == "home") {
-
-            $('#who').html(obj.data.homeTeam.name)
-        }
-        else if (obj.data.who == "away") {
-            $('#who').html(obj.data.awayTeam.name)
-        }
-
-
-        window.width = $('.timeout-wrapper').outerWidth ();
-
-        $('.timeout-wrapper').css({
-            width: 0,
-            left: (1280 - width) / 2,
-            transform: 'translateX(' + width/2 + 'px)'
-        })
-
-        $('.timeout-dialog').css({
-            transform: 'translateX(-' + width/2 + 'px)',
-            width: width
-        })
-
-        anime({
-            targets: '.timeout-wrapper',
-            translateX: 0,
-            width: width,
-            easing: 'easeInOutCubic'
-        });
-
-        anime({
-            targets: '.timeout-dialog',
-            translateX: 0,
-            easing: 'easeInOutCubic'
-        });
-
-    }
-
-    function remove(callback) {
-        anime({
-            targets: '.timeout-wrapper',
-            translateX: width / 2,
-            width: 0,
-            easing: 'easeInOutCubic'
-        });
-
-        anime({
-            targets: '.timeout-dialog',
-            translateX: -(width/2),
-            easing: 'easeInOutCubic'
-        });
-
-    }
-
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(data);
-        }, 2);
-    }
-
-</script>
+<script src="script.js"></script>
 </html>

@@ -4,95 +4,38 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
+    <script src="/static/js/velocity.min.js"></script>
 </head>
 <body>
 
 
 <div class="screen">
-    <div class="tp-centre-box">
-        <div id='homeTeam' class="tp-team-container tp-hometeam-container">
-            <div class="team-logo"></div>
-            <div class="team-name">NTNUI</div>
+    <div class="tp-container">
+      <div class="team-container">
+        <div class="team-logo fade-in">
+          <img id="homeTeamLogo" />
         </div>
-        <div id='awayTeam' class="tp-team-container tp-awayteam-container">
-            <div class="team-name">Viking</div>
-            <div class="team-logo"></div>
+        <div class="team-name left">
+          <div id="homeTeamName" class="fade-in"></div>
         </div>
-        <div class="nvbf-logo"><img src="/graphics/logo/nvbf.svg"></div>
+      </div>
+
+      <div class="description">
+        <div class="fade-in">Cupfinalen</div>
+      </div>
+
+      <div class="team-container">
+        <div class="team-name">
+          <div id="awayTeamName" class="fade-in"></div>
+        </div>
+        <div class="team-logo left fade-in">
+          <img id="awayTeamLogo" />
+        </div>
+      </div>
     </div>
-    <!--
-    <div id='dialog' class="dialog slide" style="left: 350px;">
-        <div class="dialog-heading">Dragvoll idrettssenter</div>
-        <div class="dialog-body">
-            <div class="teams-container">
-                <div id='homeTeam' class="team">
-                    <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
-                    <div class="team-name">NTNUI</div>
-                </div>
-                <div class="team-separator">vs</div>
-                <div id='awayTeam' class="team">
-                    <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
-                    <div class="team-name">Viking</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
 </div>
 
 
 </body>
-<script>
-    function play(str) {
-        var data = JSON.parse(str);
-
-        var data = data.data;
-
-
-        var ht = $('#homeTeam');
-        ht.find('.team-name').html(data.homeTeam.name);
-        if (data.homeTeam.logo) {
-            ht.find('.team-logo').append($('<img>').attr('src', data.homeTeam.logo));
-        }
-
-        var at = $('#awayTeam');
-        at.find('.team-name').html(data.awayTeam.name);
-        at.find('.team-logo img').attr('src', data.awayTeam.logo);
-        if (data.awayTeam.logo) {
-            at.find('.team-logo').append($('<img>').attr('src', data.awayTeam.logo));
-        }
-
-        $('.tp-hometeam-container').addClass('tp-hometeam-container-expanded');
-        $('.tp-awayteam-container').addClass('tp-team-container-expanded');
-        $('.tp-centre-box').addClass('tp-center-box-animation');
-
-        if (data.gameType && data.gameType == 'beach-volleyball') {
-
-            $('.screen').addClass('beach-volleyball');
-        }
-
-
-    }
-
-    function remove(str) {
-        //$('.tp-hometeam-container').removeClass('tp-hometeam-container-expanded');
-        //$('.tp-awayteam-container').removeClass('tp-team-container-expanded');
-        $('.tp-awayteam-container').addClass('tp-awayteam-container-collapse');
-        $('.tp-hometeam-container').addClass('tp-hometeam-container-collapse');
-        $('.tp-centre-box').addClass('tp-center-box-animation-collapse');
-    }
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(JSON.stringify({
-                data: {
-                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
-                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
-                    "gameType": 'beach-volleyball'
-                }
-            }));
-        }, 10);
-    }
-
-</script>
+<script src="script.js"></script>
 </html>

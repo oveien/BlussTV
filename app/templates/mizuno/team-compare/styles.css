@@ -1,34 +1,38 @@
 .dialog {
-    position: absolute;
-    left: 100px;
-    top: 100px;
-
+    margin: auto;
     width: 780px;
 }
 
-
 .dialog-heading-container {
+    width: 0px;
     height: 142px;
-
+    margin-top: 200px;
     background-color: #222b38;
     color: white;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .dialog-top-row {
-    height: 96px;
+    height: 86px;
     overflow: hidden;
     display: flex;
     flex-direction: row;
+    font-size: 36px;
+    align-items: center;
+    text-transform: uppercase;
+    justify-content: space-around;
 }
 
 .dialog-top-row .dialog-heading-text {
-    flex: 1;
+    text-align: center;
 }
 
 .dialog-bottom-row {
+    height: 55px;
+    align-items: center;
     display: flex;
     flex-direction: row;
+    font-size: 32px;
 }
 
 .team-name-spacer {
@@ -36,12 +40,8 @@
 }
 
 .team-logo {
-    flex: 0;
-    flex-shrink: 0;
-    flex-basis: content;
-    width: 115px;
-    height: 96px;
-    background-color: red;
+    width: 64px;
+    height: 64px;
 }
 
 .team-logo img {
@@ -49,10 +49,22 @@
 }
 
 .dialog-row-container {
-    height: 55px;
-    margin-bottom: 4px;
+    height: 0px;
+    opacity: 0;
+    border-bottom: 2px solid #222b38;
     white-space: nowrap;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+.dialog-row-container:nth-last-child(2),
+.dialog-row-container:last-child {
+    border-bottom: none;
+}
+
+.total-row {
+    margin-top: 6px;
 }
 
 .team-name {
@@ -68,8 +80,18 @@
 }
 
 .stat-description {
+    background-image: url('/graphics/blue-bar-270-55.svg');
     width: 270px;
     display: inline-block;
     text-transform: uppercase;
     text-align: center;
+}
+
+.stat-purple {
+    background-image: url('/graphics/pink-bar-270-48.svg');
+    background-size: cover;
+}
+
+.text {
+    opacity: 0;
 }

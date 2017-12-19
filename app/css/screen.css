@@ -4,10 +4,11 @@ body {
     overflow: hidden;
     padding: 0;
     margin: 0;
-    font-family: Calibri,Arial;
+    font-family: Calibri, Arial;
 }
 
-th, td {
+th,
+td {
     color: white;
 }
 
@@ -19,14 +20,12 @@ th, td {
     left: 0;
     top: 0;
 
-    background-image: url(/graphics/testbg.jpg);
-    background-color: red;
+    /*background-image: url(/graphics/testbg.jpg);
+    background-color: red;*/
 
     background-repeat: no-repeat;
     background-size: cover;
-
 }
-
 
 .generic-row {
     height: 55px;
@@ -56,8 +55,6 @@ th, td {
     font-size: 32px;
     font-weight: 400;
 }
-
-
 
 .row-logo-container {
     width: 96px;
