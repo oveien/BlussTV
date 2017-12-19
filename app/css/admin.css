@@ -61,6 +61,12 @@ button.showing {
     color: white;
 }
 
+.option-active {
+    font-weight: bold;
+    background-color: white;
+    color: black;
+}
+
 .team-logo {
     height: 50px;
 }

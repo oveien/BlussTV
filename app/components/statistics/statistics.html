@@ -2,6 +2,10 @@
     <fieldset>
         <legend>Statistics team compare</legend>
 
+        <div>
+            <button ng-repeat="i in [] | range:gameCurrentSet" ng-click="updateStats('set', i+1)" ng-class="{'option-active': currentStat == 'set' && currentStatSet == i+1}">Set {{i+1}}</button>
+            <button ng-click="updateStats('total')" ng-class="{'option-active': currentStat == 'total'}">Total</button>
+        </div>
 
         <table width="300">
             <thead>
@@ -44,6 +48,12 @@
 <div class="col-xs-12  col-md-8">
     <fieldset>
         <legend>Statistics player compare</legend>
+
+        <div>
+            <button ng-repeat="i in [] | range:gameCurrentSet" ng-click="updateStats('set', i+1)" ng-class="{'option-active': currentStat == 'set' && currentStatSet == i+1}">Set {{i+1}}</button>
+            <button ng-click="updateStats('total')" ng-class="{'option-active': currentStat == 'total'}">Total</button>
+        </div>
+
 
         <table width="300">
             <thead>

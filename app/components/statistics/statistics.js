@@ -8,6 +8,15 @@
         $scope.homeTeam = {};
         $scope.awayTeam = {};
 
+        $scope.currentStat = 'set';
+        $scope.currentStatSet = 1;
+
+        $scope.gameCurrentSet = 1;
+
+        var homeTeam = null;
+        var awayTeam = null;
+
+
         $scope.toggleCompareTeams = function () {
             if (CasparCGService.getCurrentOverlay() == 'team-compare') {
                 CasparCGService.removeOverlay();
@@ -19,8 +28,6 @@
                 var ht = $scope.homeTeam;
                 var at = $scope.awayTeam;
 
-
-                console.log(ht);
                 var data = {
                     homeTeam: {
                         logo: ht.logo,
@@ -39,7 +46,9 @@
                         ace: at.ace || 0,
                         opponentErrors: at.opponentErrors || 0,
                         total: (at.blocks || 0 ) + (at.attack || 0) + (at.ace || 0) + (at.opponentErrors || 0)
-                    }
+                    },
+                    type: $scope.currentStat,
+                    set: $scope.currentStatSet
                 }
 
                 var stats = GameService.getCurrentScore();
@@ -68,67 +77,95 @@
                     awayTeam: {
                         logo: $scope.awayTeam.logo,
                         name: $scope.awayTeam.name
-                    }
+                    },
+                    type: $scope.currentStat,
+                    set: $scope.currentStatSet
                 }
 
                 CasparCGService.runOverlay('player-compare', stats);
             }
         }
 
+        $scope.updateStats = function (what, set) {
+            $scope.currentStat = what;
+            $scope.currentStatSet = set;
 
-        GameService.registerObserverCallback('score-update', function (score) {
+            var hs, as = null;
+            if (what == 'total') {
+                hs = homeTeam.statistics.total;
+                as = awayTeam.statistics.total;
+            }
+            else {
+                hs = homeTeam.statistics.sets[set-1];
+                as = awayTeam.statistics.sets[set-1];
+            }
+
+            console.log(as.players);
+
+            $scope.homeTeam.ace = hs.ace;
+            $scope.homeTeam.attack = hs.attack;
+            $scope.homeTeam.blocks = hs.blocks;
+            $scope.homeTeam.opponentErrors = hs.opponentErrors;
+            $scope.homeTeam.name = homeTeam.name;
+            $scope.homeTeam.logo = homeTeam.logo;
+            $scope.awayTeam.ace = as.ace;
+            $scope.awayTeam.attack = as.attack;
+            $scope.awayTeam.blocks = as.blocks;
+            $scope.awayTeam.opponentErrors = as.opponentErrors;
+            $scope.awayTeam.name = awayTeam.name;
+            $scope.awayTeam.logo = awayTeam.logo;
+
+
+            $scope.homeTeam.players = hs.players;
+            $scope.awayTeam.players = as.players;
+
+            bestPlayersChanged = true;
+        }
+
+        var bestPlayersChanged = false;
+        var bestPlayers = null;
+
+
+        GameService.registerObserverCallback('score-update', function () {
             console.log('Woho, got score update!');
 
             if (!$scope.manualTeamPoints) {
-                var score = GameService.getCurrentScore();
+                console.log('yey');
 
+                var score = GameService.getCurrentScore();
                 var ht = GameService.getTeam('home');
                 var at = GameService.getTeam('away');
                 $scope.homeTeam.name = ht.name;
                 $scope.awayTeam.name = at.name;
+                console.log('yey');
 
-                if (!$scope.manualTeamPoints) {
-                    $scope.homeTeam.ace = score.homeTeam.ace;
-                    $scope.homeTeam.attack = score.homeTeam.attack;
-                    $scope.homeTeam.blocks = score.homeTeam.blocks;
-                    $scope.homeTeam.opponentErrors = score.homeTeam.opponentErrors;
-                    $scope.homeTeam.name = score.homeTeam.name;
-                    $scope.homeTeam.logo = ht.logo;
-                    $scope.awayTeam.ace = score.awayTeam.ace;
-                    $scope.awayTeam.attack = score.awayTeam.attack;
-                    $scope.awayTeam.blocks = score.awayTeam.blocks;
-                    $scope.awayTeam.opponentErrors = score.awayTeam.opponentErrors;
-                    $scope.awayTeam.name = score.awayTeam.name;
-                    $scope.awayTeam.logo = at.logo;
+                console.log(score);
+                homeTeam = score.homeTeam
+                awayTeam = score.awayTeam;
 
-                    console.log('Yello');
-                    console.log($scope.awayTeam);
-                }
+                $scope.gameCurrentSet = score.currentSet;
 
-                if (!$scope.manualPlayerPoints) {
-                    $scope.homeTeam.players = score.homeTeam.players;
-                    $scope.awayTeam.players = score.awayTeam.players;
-                    bestPlayersChanged = true;
-                }
+                $scope.updateStats ($scope.currentStat, $scope.currentStatSet);
+                console.log('yey 15');
 
                 //updateScoreboard();
             }
         });
 
-        var bestPlayersChanged = false;
-
-        var bestPlayers = null;
-
 
         $scope.getBestPlayers = function () {
+
+            console.log('Get best players');
+
             if (!$scope.homeTeam.players) {
+                console.log('players not set')
                 return [];
             }
 
             if (!bestPlayersChanged) {
+                console.log('players not changed');
                 return bestPlayers
             }
-
 
             // We need to clone the array to avoid loop hell:
             var sortedA = $scope.homeTeam.players.sort ( function (a, b) {

@@ -8,6 +8,12 @@ function play(str) {
     document.getElementById('guest-team-name').innerHTML = data.awayTeam.name;
     document.getElementById('guest-team-logo').src = data.awayTeam.logo;
 
+    var headLine = 'Totalstatistikk';
+    if (data.type == 'set') {
+        headLine = 'Statistikk ' + data.set + '. sett';
+    }
+    document.getElementById('dialog-heading').innerHTML = headLine;
+
     var statTypes = [
         {
             name: 'Blokk',
@@ -90,7 +96,8 @@ if (getUrlParameter('debug')) {
         play(
             JSON.stringify({
                 data: {
-                    title: 'STATISTIKK 2. SETT',
+                    type: 'set',
+                    set: '2',
                     homeTeam: {
                         logo: '/graphics/logo/bktromso.svg',
                         name: 'BK Tromsø',
@@ -98,7 +105,7 @@ if (getUrlParameter('debug')) {
                         attack: 4,
                         ace: 1,
                         opponentErrors: 3,
-                        total: 10,
+                        total: 10
                     },
                     awayTeam: {
                         logo: '/graphics/logo/viking.svg',
@@ -107,7 +114,7 @@ if (getUrlParameter('debug')) {
                         attack: 4,
                         ace: 1,
                         opponentErrors: 3,
-                        total: 10,
+                        total: 10
                     },
                 },
             }),
