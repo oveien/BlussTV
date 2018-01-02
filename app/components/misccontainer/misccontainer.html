@@ -1,16 +1,53 @@
 <fieldset>
     <legend>Interviewee text</legend>
 
-    <table>
-        <tr>
-            <td>Person name</td>
-            <td><input type="text" ng-model="intervieweeName"></td>
-        </tr>
-        <tr>
-            <td>Person role</td>
-            <td><input type="text" ng-model="intervieweeRole"></td>
-        </tr>
-    </table>
+    <div style="display: flex; flex-direction: row">
+        <div style="margin-right: 40px;">
+            <table>
+                <tr>
+                    <td>Person name</td>
+                    <td><input type="text" ng-model="interviewee[0].name"></td>
+                </tr>
+                <tr>
+                    <td>Person role</td>
+                    <td><input type="text" ng-model="interviewee[0].role"></td>
+                </tr>
+                <tr>
+                    <td>Logo</td>
+                    <td>
+                        <select
+                                ng-options="option.name for option in logoOptions"
+                                ng-model="interviewee[0].logo"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div ng-if="showTwoPersons">
+            <table>
+                <tr>
+                    <td>Person name 2</td>
+                    <td><input type="text" ng-model="interviewee[1].name"></td>
+                </tr>
+                <tr>
+                    <td>Person role</td>
+                    <td><input type="text" ng-model="interviewee[1].role"></td>
+                </tr>
+                <tr>
+                    <td>Logo</td>
+                    <td>
+                        <select
+                                ng-options="option.name for option in logoOptions"
+                                ng-model="interviewee[1].logo"></select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    {{showTwoPersons}}
+    <div>
+        <input type="checkbox" ng-model="showTwoPersons" id="showtwopersons"><label for="showtwopersons">Show two persons</label>
+    </div>
 
     <button class="toggle-button" ng-click="toggleShowing('interviewee')" ng-class="showing == 'interviewee' ? 'showing' : ''">Show interviewee info</button>
 </fieldset>

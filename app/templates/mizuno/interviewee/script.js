@@ -1,13 +1,38 @@
 function play(str) {
     var data = JSON.parse(str).data;
 
-    document.getElementById('name').innerHTML = data.name;
-    document.getElementById('role').innerHTML = data.role;
+    document.getElementById('name').innerHTML = data.name1;
+    document.getElementById('role').innerHTML = data.role1;
+
+    console.log(data);
+
+    if (data.logo1) {
+        document.getElementById('teamLogo').src = data.logo1;
+    }
+    else {
+        $('.interviewee-logo-container').hide();
+    }
+
+    var rowWidth = 720;
+    if (typeof (data.name2) != 'undefined') {
+        rowWidth = 650;
+        document.getElementById('name2').innerHTML = data.name2;
+        document.getElementById('role2').innerHTML = data.role2;
+        if (data.logo2) {
+            document.getElementById('teamLogo2').src = data.logo2;
+        }
+        else {
+            $('.interviewee-logo-container2').hide();
+        }
+    }
+    else {
+        $('.interviewee-container2').hide();
+    }
 
     const duration = 300;
 
     $('.generic-row').velocity(
-        { height: 55, width: 720 },
+        { height: 55, width: rowWidth },
         { duration: duration },
     );
     $('.interviewee-container').velocity(
@@ -15,6 +40,8 @@ function play(str) {
         { duration: duration },
     );
     $('.text').velocity({ opacity: 1 }, { delay: 250 });
+    
+    
 }
 
 function remove(str) {

@@ -1,17 +1,20 @@
 .interviewee-container {
-    width: 720px;
-    opacity: 0;
+    width: 200px;
+    margin: auto;
+    flex-direction: row;
+    display: flex;
+    position: absolute;
+    left: 100px;
+    top: 900px;
+    height: 0px;
 }
 
 .text {
     opacity: 0;
 }
 
-.interviewee-container {
-    position: absolute;
-    left: 100px;
-    top: 900px;
-    height: 0px;
+.interviewee-container2 {
+    left: 970px;
 }
 
 .generic-row {
@@ -28,3 +31,35 @@
 .interviewee-name, .interviewee-role {
     text-indent: 32px;
 }
+
+.interviewee-logo-container {
+    width: 110px;
+    min-width: 110px;
+    min-height: 110px;
+    height: 110px;
+    background-color: #222b38;
+    margin-right: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.interviewee-logo {
+    height: 84px;
+    width: 84px;
+}
+
+.generic-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*justify-content: center;*/
+}
+
+/* Animations */
+
+.interviewee-container {
+    height: 0px;
+    opacity: 0;
+}
+
