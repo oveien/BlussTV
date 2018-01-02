@@ -3,6 +3,8 @@
     var app = angular.module('blussTV');
     app.controller('lineupController', ['$scope', 'GameService', 'CasparCGService', function ($scope, GameService, CasparCGService) {
 
+        $scope.manualLineup = false;
+        
         $scope.homeTeamLineup = [
             {number: '', pos: 'I'},
             {number: '', pos: 'II'},
@@ -127,6 +129,11 @@
         GameService.registerObserverCallback(['lineup-update'], function (type, data) {
             var lineUps = GameService.getCurrentLineup();
             console.log(lineUps);
+
+            // No updates if manual:
+            if ($scope.manualLineup) {} {
+                return;
+            }
 
             for (var i = 0; i<lineUps.homeTeam.length; i++) {
                 $scope.homeTeamLineup[i].number = lineUps.homeTeam[i];
