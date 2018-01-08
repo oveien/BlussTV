@@ -159,7 +159,7 @@ function play(str) {
     var players = data.players.sort(sortByNumber);
 
     const playersHtml = players.map(
-        player => `
+        (player) => `
       <div class="squad-player">
         <div class="squad-player-number fade-in">${player.number}</div>
         <div class="squad-player-name fade-in">${shortenName(player.name)}</div>
@@ -167,18 +167,18 @@ function play(str) {
             isLibero(player) ? 'libero' : ''
         }"><div class="fade-in">${player.position}</div></div>
       </div>
-    `,
+    `
     );
 
     document.getElementById('squadContent').innerHTML = playersHtml.join('');
 
     $('.squad-header-container').velocity(
         { width: '100%', opacity: 1 },
-        { duration: 300 },
+        { duration: 300 }
     );
     $('.squad-player').velocity(
         { height: 48, opacity: 1 },
-        { duration: 300, delay: 200 },
+        { duration: 300, delay: 200 }
     );
 
     $('.fade-in').velocity({ opacity: 1 }, { delay: 500, duration: 300 });
@@ -189,11 +189,11 @@ function remove(callback) {
 
     $('.squad-header-container').velocity(
         { width: 0, opacity: 0 },
-        { duration: 200 },
+        { duration: 200 }
     );
     $('.squad-player').velocity(
         { height: 0, opacity: 0 },
-        { duration: 200, delay: 200 },
+        { duration: 200, delay: 200 }
     );
 }
 
