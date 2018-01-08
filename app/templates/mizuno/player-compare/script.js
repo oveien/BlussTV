@@ -1,15 +1,40 @@
+function shortenName(fullName) {
+    const names = fullName.split(' ');
+    if (names.length < 3) {
+        return fullName;
+    }
+
+    const fixedNames = names.map(function(name, i) {
+        if (i === 0 || i === names.length - 1) {
+            return name;
+        }
+        return name[0] + '.';
+    });
+
+    return fixedNames.join(' ');
+}
+
+function shortenNameExtra(name) {
+    const nameParts = name.trim().split(' ');
+    if (nameParts.length === 1) {
+        return name;
+    }
+
+    return `${nameParts[0][0]}. ${nameParts[nameParts.length - 1]}`;
+}
+
 function createStatRow(player) {
     return `
     <div class="stat-row">
       <div class="stat-row-container-left">
-        <div class="stat-row-number">${player.number}</div>
-        <div class="stat-row-name">${player.name}</div>
+        <div class="stat-row-number fade-in">${player.number}</div>
+        <div class="stat-row-name fade-in">${shortenName(player.name)}</div>
       </div>
       <div class="stat-row-container-right">
-        <div class="stat-row-stat">${player.blocks}</div>
-        <div class="stat-row-stat">${player.attack}</div>
-        <div class="stat-row-stat">${player.ace}</div>
-        <div class="stat-row-stat text-bold">${player.total}</div>
+        <div class="stat-row-stat fade-in">${player.blocks}</div>
+        <div class="stat-row-stat fade-in">${player.attack}</div>
+        <div class="stat-row-stat fade-in">${player.ace}</div>
+        <div class="stat-row-stat text-bold fade-in">${player.total}</div>
       </div>
     </div>
     `;
@@ -22,7 +47,10 @@ function play(str) {
 
     const homeTeamStats = data.stats
         .filter(function(stat) {
-            return Object.keys(stat).includes('homeTeam');
+            return (
+                Object.keys(stat).includes('homeTeam') &&
+                stat.homeTeam.name !== ''
+            );
         })
         .map(function(stat) {
             return stat.homeTeam;
@@ -30,13 +58,17 @@ function play(str) {
 
     const guestTeamStats = data.stats
         .filter(function(stat) {
-            return Object.keys(stat).includes('awayTeam');
+            return (
+                Object.keys(stat).includes('awayTeam') &&
+                stat.awayTeam.name !== ''
+            );
         })
         .map(function(stat) {
             return stat.awayTeam;
         });
 
     console.log('homeTeamStats:', homeTeamStats);
+
     console.log('guestTeamStats:', guestTeamStats);
 
     document.getElementById('homeTeamSetName').innerHTML = 'Set 3 Statistics';
@@ -53,23 +85,37 @@ function play(str) {
         .map(createStatRow)
         .join('');
 
-    // add set Number for both home team and guest team
+    $('.team-header-container').velocity(
+        { opacity: 1, width: '100%' },
+        { duration: 300 }
+    );
+    $('.stat-row').velocity(
+        { opacity: 1, height: 48 },
+        { duration: 300, delay: 0 }
+    );
+    $('.team-sub-header').velocity(
+        { opacity: 1, height: 32 },
+        { duration: 300, delay: 0 }
+    );
 
-    // add home team name
-
-    // add home team logo
-
-    // add guest team name
-
-    // add guest team logo
-
-    // add home team players
-
-    // add guest team players
+    $('.fade-in').velocity({ opacity: 1 }, { duration: 300, delay: 300 });
 }
 
 function remove(str) {
-    defaultTeamCompareAnimateClose();
+    $('.fade-in').velocity({ opacity: 0 }, { duration: 300, delay: 0 });
+
+    $('.team-header-container').velocity(
+        { opacity: 0, width: 0 },
+        { duration: 300, delay: 300 }
+    );
+    $('.stat-row').velocity(
+        { opacity: 0, height: 0 },
+        { duration: 300, delay: 300 }
+    );
+    $('.team-sub-header').velocity(
+        { opacity: 0, height: 0 },
+        { duration: 300, delay: 300 }
+    );
 }
 
 if (getUrlParameter('debug')) {
