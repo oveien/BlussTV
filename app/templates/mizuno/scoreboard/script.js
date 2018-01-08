@@ -21,7 +21,7 @@ function play(str) {
     // fade in
     $('.logo-container').velocity(
         { height: 55, minHeight: 55, opacity: 1 },
-        { duration: 200 },
+        { duration: 200 }
     );
     $('.generic-row').velocity({ height: 55, opacity: 1 }, { duration: 200 });
     $('.text').velocity({ opacity: 1 }, { duration: 200, delay: 200 });
@@ -34,7 +34,7 @@ var intervalId = null;
 var isShowing = true;
 
 function renderSets(sets) {
-    return sets.map(set => `<div class="sb-prev-set">${set}</div>`).join('');
+    return sets.map((set) => `<div class="sb-prev-set">${set}</div>`).join('');
 }
 
 function showPrevSets() {
@@ -78,11 +78,11 @@ function update(str) {
 
     if (shouldShowSet) {
         document.getElementById('homeTeamPrevSets').innerHTML = renderSets(
-            data.homeTeam.pointsSets.slice(0, numSets),
+            data.homeTeam.pointsSets.slice(0, numSets)
         );
 
         document.getElementById('awayTeamPrevSets').innerHTML = renderSets(
-            data.awayTeam.pointsSets.slice(0, numSets),
+            data.awayTeam.pointsSets.slice(0, numSets)
         );
     }
 
@@ -97,11 +97,11 @@ function remove() {
     $('.text').velocity({ opacity: 0 }, { duration: 200 });
     $('.logo-container').velocity(
         { height: 0, minHeight: 0, opacity: 0 },
-        { delay: 200, duration: 200 },
+        { delay: 200, duration: 200 }
     );
     $('.generic-row').velocity(
         { height: 0, opacity: 0 },
-        { delay: 200, duration: 200 },
+        { delay: 200, duration: 200 }
     );
 }
 
