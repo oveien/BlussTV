@@ -4,7 +4,7 @@ function shortenName(fullName) {
         return fullName;
     }
 
-    const fixedNames = names.map((name, i) => {
+    const fixedNames = names.map(function(name, i) {
         if (i === 0 || i === names.length - 1) {
             return name;
         }

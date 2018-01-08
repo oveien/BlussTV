@@ -34,7 +34,11 @@ var intervalId = null;
 var isShowing = true;
 
 function renderSets(sets) {
-    return sets.map((set) => `<div class="sb-prev-set">${set}</div>`).join('');
+    return sets
+        .map(function(set) {
+            return `<div class="sb-prev-set">${set}</div>`;
+        })
+        .join('');
 }
 
 function showPrevSets() {

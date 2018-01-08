@@ -125,7 +125,7 @@ function shortenName(fullName) {
         return fullName;
     }
 
-    const fixedNames = names.map((name, i) => {
+    const fixedNames = names.map(function(name, i) {
         if (i === 0 || i === names.length - 1) {
             return name;
         }
@@ -158,8 +158,8 @@ function play(str) {
 
     var players = data.players.sort(sortByNumber);
 
-    const playersHtml = players.map(
-        (player) => `
+    const playersHtml = players.map(function(player) {
+        return `
       <div class="squad-player">
         <div class="squad-player-number fade-in">${player.number}</div>
         <div class="squad-player-name fade-in">${shortenName(player.name)}</div>
@@ -167,8 +167,8 @@ function play(str) {
             isLibero(player) ? 'libero' : ''
         }"><div class="fade-in">${player.position}</div></div>
       </div>
-    `
-    );
+    `;
+    });
 
     document.getElementById('squadContent').innerHTML = playersHtml.join('');
 
