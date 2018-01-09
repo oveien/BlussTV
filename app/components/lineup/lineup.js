@@ -126,15 +126,10 @@
             }
         });
 
-        GameService.registerObserverCallback(['lineup-update'], function (type, data) {
+
+        var updateLinup = function () {
+
             var lineUps = GameService.getCurrentLineup();
-            console.log(lineUps);
-
-            // No updates if manual:
-            if ($scope.manualLineup) {} {
-                return;
-            }
-
             for (var i = 0; i<lineUps.homeTeam.length; i++) {
                 $scope.homeTeamLineup[i].number = lineUps.homeTeam[i];
             }
@@ -143,11 +138,24 @@
                 $scope.awayTeamLineup[i].number = lineUps.awayTeam[i];
             }
 
+        }
+
+        GameService.registerObserverCallback(['lineup-update'], function (type, data) {
+
+            // No updates if manual:
+            if ($scope.manualLineup) {
+                return;
+            }
+
+            updateLinup();
+
         });
 
         $scope.getGameType = function () {
             return GameService.getGameType();
         }
+
+        updateLinup();
 
     }]);
 })(window.angular);
