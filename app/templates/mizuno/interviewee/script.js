@@ -8,24 +8,21 @@ function play(str) {
 
     if (data.logo1) {
         document.getElementById('teamLogo').src = data.logo1;
-    }
-    else {
+    } else {
         $('.interviewee-logo-container').hide();
     }
 
     var rowWidth = 720;
-    if (typeof (data.name2) != 'undefined') {
+    if (typeof data.name2 != 'undefined') {
         rowWidth = 650;
         document.getElementById('name2').innerHTML = data.name2;
         document.getElementById('role2').innerHTML = data.role2;
         if (data.logo2) {
             document.getElementById('teamLogo2').src = data.logo2;
-        }
-        else {
+        } else {
             $('.interviewee-logo-container2').hide();
         }
-    }
-    else {
+    } else {
         $('.interviewee-container2').hide();
     }
 
@@ -33,15 +30,13 @@ function play(str) {
 
     $('.generic-row').velocity(
         { height: 55, width: rowWidth },
-        { duration: duration },
+        { duration: duration }
     );
     $('.interviewee-container').velocity(
         { opacity: 1, height: 110 },
-        { duration: duration },
+        { duration: duration }
     );
     $('.text').velocity({ opacity: 1 }, { delay: 250 });
-    
-    
 }
 
 function remove(str) {
@@ -58,7 +53,7 @@ if (getUrlParameter('debug')) {
                     name: 'Øystein Veien',
                     role: 'Trener Blussuvoll',
                 },
-            }),
+            })
         );
     }, 50);
     setTimeout(remove, 2000);

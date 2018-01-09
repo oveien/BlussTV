@@ -4,162 +4,52 @@
     <link rel="stylesheet" href="styles.css">
     <script src="/lib/jquery.min.js"></script>
     <script src="/templates/utils.js"></script>
-    <script src="/static/js/anime.min.js"></script>
+    <script src="/static/js/velocity.min.js"></script>
 </head>
 <body>
 
 
 <div class="screen">
     <div id='dialog' class="dialog">
-        <div class="dialog-heading-container">
-            <div class="dialog-heading">
-                <div class="teams-container">
-                    <div id='homeTeam' class="team">
-                        <div class="team-logo"><img src="/graphics/NTNUI/logo.jpg"></div>
-                        <div class="team-name">NTNUI</div>
-                    </div>
-
-                    <div id='awayTeam' class="team away-team">
-                        <div class="team-name">Viking</div>
-                        <div class="team-logo"><img src="/graphics/Viking/logo.jpg"></div>
-                    </div>
-                </div>
+        <div class="team-container">
+          <div class="team-header-container">
+            <div class="team-header-left">
+              <img id="homeTeamLogo" class="team-logo fade-in" />
+              <div id="homeTeamName" class="team-name fade-in"></div>
             </div>
+
+            <div class="team-header-right fade-in" id="homeTeamSetName"></div>
+          </div>
+          <div class="team-sub-header">
+            <div class="sub-header-text fade-in">Blokk</div>
+            <div class="sub-header-text fade-in">Angrep</div>
+            <div class="sub-header-text fade-in">Ace</div>
+            <div class="sub-header-text text-bold fade-in">Total</div>
+          </div>
+          <div class="rows-container" id="homeTeamRows"></div>
         </div>
-        <div class="dialog-body">
-            <div class="wrapper"></div>
+
+        <div class="team-container">
+          <div class="team-header-container">
+            <div class="team-header-left">
+              <img id="guestTeamLogo" class="team-logo fade-in" />
+              <div id="guestTeamName" class="team-name fade-in"></div>
+            </div>
+
+            <div class="team-header-right fade-in" id="guestTeamSetName"></div>
+          </div>
+          <div class="team-sub-header">
+            <div class="sub-header-text fade-in">Blokk</div>
+            <div class="sub-header-text fade-in">Angrep</div>
+            <div class="sub-header-text fade-in">Ace</div>
+            <div class="sub-header-text text-bold fade-in">Total</div>
+          </div>
+          <div class="rows-container" id="guestTeamRows"></div>
         </div>
     </div>
 </div>
 
 
 </body>
-<script>
-    function play(str) {
-        var data = JSON.parse(str);
-
-        var data = data.data;
-
-        $('#stats-table tbody').html('');
-        console.log(data.stats)
-        var ht = $('#homeTeam');
-        ht.find('.team-name').html(data.homeTeam.name);
-        ht.find('.team-logo img').attr('src', data.homeTeam.logo);
-
-        var at = $('#awayTeam');
-        at.find('.team-name').html(data.awayTeam.name);
-        at.find('.team-logo img').attr('src', data.awayTeam.logo);
-
-        var html = '<div class="dialog-row-container"><div class="dialog-row dialog-row-heading">';
-        html += '<div class="dialog-row-role dialog-row-points">S</div>';
-        html += '<div class="dialog-row-role dialog-row-points">B</div>';
-        html += '<div class="dialog-row-role dialog-row-points">A</div>';
-        html += '<div class="player-name"></div>';
-        html += '<div class="dialog-row-role">T</div>';
-        html += '<div  class="dialog-row-number">#</div>';
-        html += '<div class="dialog-row-role">T</div>';
-        html += '<div class="player-name nd-half"></div>';
-        html += '<div class="dialog-row-role dialog-row-points">A</div>';
-        html += '<div class="dialog-row-role dialog-row-points">B</div>';
-        html += '<div class="dialog-row-role dialog-row-points">S</div>';
-        html += '</div></div>';
-        $('.dialog-body .wrapper').append(html);
-
-        for (var i in data.stats) {
-            console.log(data.stats[i]);
-            var html = '<div class=\'dialog-row-container\'><div class="dialog-row">';
-
-
-            /*
-            html += '<div>' + data.stats[i].homeTeam.ace + "</div>";
-            html += '<div>' + data.stats[i].homeTeam.blocks + "</div>";
-            html += '<div>' + data.stats[i].homeTeam.attack + "</div>";
-            */
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.ace + "</div>";
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.blocks + "</div>";
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].homeTeam.attack + "</div>";
-
-            html += '<div class="player-name">' + data.stats[i].homeTeam.name + "</div>";
-            html += '<div class="dialog-row-role">' + data.stats[i].homeTeam.total + "</div>";
-            html += '<div  class="dialog-row-number">' + (parseInt(i)+1) + "</div>";
-
-            html += '<div  class="dialog-row-role">' + data.stats[i].awayTeam.total + "</div>";
-            html += '<div  class="player-name nd-half">' + data.stats[i].awayTeam.name + "</div>";
-
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.attack + "</div>";
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.blocks + "</div>";
-            html += '<div class="dialog-row-role dialog-row-points">' + data.stats[i].awayTeam.ace + "</div>";
-            /*
-            html += '<div>' + data.stats[i].awayTeam.attack + "</div>";
-            html += '<div>' + data.stats[i].awayTeam.blocks + "</div>";
-            html += '<div>' + data.stats[i].awayTeam.ace + "</div>";
-            */
-
-            html += '</div></div>';
-            console.log(html);
-            $('.dialog-body .wrapper').append(html);
-        }
-
-        window.headingWidth = 1100;
-        $('.dialog-body').css('width', window.headingWidth);
-        window.rowWidth = window.headingWidth;
-        defaultTeamCompareAnimate();
-        return;
-    }
-
-    function remove(str) {
-        defaultTeamCompareAnimateClose();
-    }
-
-    if (getUrlParameter('debug')) {
-        setTimeout(function () {
-            play(JSON.stringify({
-                data: {
-                    "homeTeam": {"logo": "/graphics/NTNUI/logo.jpg", "name": "NTNUI"},
-                    "awayTeam": {"logo": "/graphics/Randaberg/logo.jpg", "name": "Randaberg"},
-                    'stats': [
-                        {
-                            homeTeam: {
-                                name: 'Sigurd Festøy',
-                                number: 1,
-                                total: 20,
-                                blocks: 1,
-                                ace: 0,
-                                attack: 2
-                            },
-                            awayTeam: {
-                                name: 'Jalla Balla',
-                                number: 1,
-                                total: 20,
-                                blocks: 1,
-                                ace: 0,
-                                attack: 2
-                            }
-                        },
-                        {
-                            homeTeam: {
-                                name: 'Øystein Veien',
-                                number: 1,
-                                total: 20,
-                                blocks: 1,
-                                ace: 0,
-                                attack: 2
-                            },
-                            awayTeam: {
-                                name: 'Sindre Svendby',
-                                number: 1,
-                                total: 20,
-                                blocks: 1,
-                                ace: 0,
-                                attack: 2
-                            }
-                        }
-
-                    ]
-                }
-            }));
-        }, 10);
-    }
-
-</script>
+<script src="script.js"></script>
 </html>

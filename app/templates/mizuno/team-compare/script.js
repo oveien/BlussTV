@@ -67,12 +67,12 @@ function play(str) {
 
     $('.dialog-heading-container').velocity(
         { width: 780, opacity: 1 },
-        { duration: duration, delay: 0 },
+        { duration: duration, delay: 0 }
     );
 
     $('.dialog-row-container').velocity(
         { height: 55, opacity: 1 },
-        { duration: duration, delay: 200 },
+        { duration: duration, delay: 200 }
     );
     $('.text').velocity({ opacity: 1 }, { delay: 400, duration: duration });
 }
@@ -81,12 +81,12 @@ function remove(str) {
     console.log('calling remove');
     $('.dialog-heading-container').velocity(
         { width: 0, opacity: 0 },
-        { duration: duration, delay: 0 },
+        { duration: duration, delay: 0 }
     );
 
     $('.dialog-row-container').velocity(
         { height: 0, opacity: 0 },
-        { duration: duration },
+        { duration: duration }
     );
     $('.text').velocity({ opacity: 0 }, { duration: duration });
 }
@@ -105,7 +105,7 @@ if (getUrlParameter('debug')) {
                         attack: 4,
                         ace: 1,
                         opponentErrors: 3,
-                        total: 10
+                        total: 10,
                     },
                     awayTeam: {
                         logo: '/graphics/logo/viking.svg',
@@ -114,10 +114,10 @@ if (getUrlParameter('debug')) {
                         attack: 4,
                         ace: 1,
                         opponentErrors: 3,
-                        total: 10
+                        total: 10,
                     },
                 },
-            }),
+            })
         );
     }, 500);
     setTimeout(remove, 5000);
