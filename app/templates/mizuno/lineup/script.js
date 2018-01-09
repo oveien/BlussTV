@@ -65,6 +65,11 @@ function play(str) {
 
     data.players.forEach(renderPlayer);
 
+    // Hide libero:
+    if (data.players[6] && !data.players[6].name) {
+        $('#player-7').addClass('hidden');
+    }
+
     $('.court-background').velocity({ marginTop: 200 }, { duration: 300 });
 }
 
