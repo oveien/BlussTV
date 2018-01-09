@@ -20,8 +20,8 @@ td {
     left: 0;
     top: 0;
 
-    /*background-image: url(/graphics/testbg.jpg);
-    background-color: red;*/
+    background-image: url(/graphics/testbg.jpg);
+    background-color: red;
 
     background-repeat: no-repeat;
     background-size: cover;
@@ -64,4 +64,8 @@ td {
     background-repeat: no-repeat;
     background-size: cover;
     overflow: hidden;
+}
+
+.hidden {
+    display: none;
 }

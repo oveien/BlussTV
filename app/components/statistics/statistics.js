@@ -150,6 +150,9 @@
                     homeTeam = score.homeTeam;
                     awayTeam = score.awayTeam;
 
+                    homeTeam.name = ht.name;
+                    awayTeam.name = at.name;
+
                     $scope.gameCurrentSet = score.currentSet;
 
                     $scope.updateStats(
