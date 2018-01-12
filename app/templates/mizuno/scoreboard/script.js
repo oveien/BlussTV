@@ -1,3 +1,6 @@
+// extra feature for cup final
+var SHOULD_HIDE = false;
+
 var data = JSON.stringify({
     data: {
         homeTeam: {
@@ -50,9 +53,11 @@ function showPrevSets() {
 }
 
 function hidePrevSets() {
-    $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
-    $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
-    isShowing = false;
+    if (SHOULD_HIDE) {
+        $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
+        $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
+        isShowing = false;
+    }
 }
 
 function update(str) {
@@ -109,4 +114,8 @@ function remove() {
     );
 }
 
-// play(data);
+if (getUrlParameter('debug')) {
+    setTimeout(function() {
+        play(data);
+    }, 2);
+}
