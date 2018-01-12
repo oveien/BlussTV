@@ -4,14 +4,13 @@ body {
     overflow: hidden;
     padding: 0;
     margin: 0;
-    font-family: Calibri, Arial;
+    font-family: 'Open Sans', Calibri, Arial;
 }
 
 th,
 td {
     color: white;
 }
-
 .screen {
     width: 1920px;
     height: 1080px;
