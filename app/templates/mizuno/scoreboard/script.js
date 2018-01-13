@@ -69,7 +69,7 @@ function update(str) {
 
     const rest = (data.homeTeam.points + data.awayTeam.points) % 10;
     const hasOne = data.homeTeam.sets > 0 || data.awayTeam.sets > 0;
-    const shouldShowSet = hasOne && rest === 0;
+    const shouldShowSet = (hasOne && rest === 0) || SHOULD_HIDE === false;
 
     document.getElementById('homeTeamLogo').src = data.homeTeam.logo;
     document.getElementById('awayTeamLogo').src = data.awayTeam.logo;
