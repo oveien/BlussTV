@@ -71,14 +71,19 @@ function play(str) {
 
     console.log('guestTeamStats:', guestTeamStats);
 
-    document.getElementById('homeTeamSetName').innerHTML = 'Set 3 Statistics';
+    var headLine = 'Totalstatistikk';
+    if (data.type == 'set') {
+        headLine = 'Statistikk ' + data.set + '. sett';
+    }
+
+    document.getElementById('homeTeamSetName').innerHTML = headLine;
     document.getElementById('homeTeamLogo').src = data.homeTeam.logo;
     document.getElementById('homeTeamName').innerHTML = data.homeTeam.name;
     document.getElementById('homeTeamRows').innerHTML = homeTeamStats
         .map(createStatRow)
         .join('');
 
-    document.getElementById('guestTeamSetName').innerHTML = 'Set 3 Statistics';
+    document.getElementById('guestTeamSetName').innerHTML = headLine;
     document.getElementById('guestTeamLogo').src = data.awayTeam.logo;
     document.getElementById('guestTeamName').innerHTML = data.awayTeam.name;
     document.getElementById('guestTeamRows').innerHTML = guestTeamStats
