@@ -77,6 +77,8 @@
     color: #222b38;
     text-transform: uppercase;
     flex-grow: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .squad-player-position {

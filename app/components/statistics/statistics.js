@@ -117,9 +117,22 @@
                 $scope.homeTeam.opponentErrors = hs.opponentErrors;
                 $scope.homeTeam.name = homeTeam.name;
                 $scope.homeTeam.logo = homeTeam.logo;
+                $scope.homeTeam.total =
+                    (hs.blocks || 0) +
+                    (hs.attack || 0) +
+                    (hs.ace || 0) +
+                    (hs.opponentErrors || 0);
+
                 $scope.awayTeam.ace = as.ace;
+                $scope.awayTeam.total = as.total;
                 $scope.awayTeam.attack = as.attack;
                 $scope.awayTeam.blocks = as.blocks;
+                $scope.awayTeam.total =
+                    (as.blocks || 0) +
+                    (as.attack || 0) +
+                    (as.ace || 0) +
+                    (as.opponentErrors || 0);
+
                 $scope.awayTeam.opponentErrors = as.opponentErrors;
                 $scope.awayTeam.name = awayTeam.name;
                 $scope.awayTeam.logo = awayTeam.logo;

@@ -6,7 +6,6 @@
             <button ng-repeat="i in [] | range:gameCurrentSet" ng-click="updateStats('set', i+1)" ng-class="{'option-active': currentStat == 'set' && currentStatSet == i+1}">Set {{i+1}}</button>
             <button ng-click="updateStats('total')" ng-class="{'option-active': currentStat == 'total'}">Total</button>
         </div>
-
         <table width="300">
             <thead>
             <th>{{homeTeam.name}}</th>
@@ -32,6 +31,11 @@
                 <td><input class="score-board-input" type="text" ng-model="homeTeam.opponentErrors"></td>
                 <td>Opponent error</td>
                 <td><input class="score-board-input" type="text" ng-model="awayTeam.opponentErrors"></td>
+            </tr>
+            <tr>
+                <td><input class="score-board-input" type="text" ng-model="homeTeam.total"></td>
+                <td>Total</td>
+                <td><input class="score-board-input" type="text" ng-model="awayTeam.total"></td>
             </tr>
         </table>
 

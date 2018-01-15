@@ -120,7 +120,7 @@ var data = JSON.stringify({
 });
 
 function shortenName(fullName) {
-    const names = fullName.split(' ');
+    const names = fullName.split(/\s+/);
     if (names.length < 3) {
         return fullName;
     }

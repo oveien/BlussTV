@@ -1,6 +1,3 @@
-// extra feature for cup final
-var SHOULD_HIDE = false;
-
 var data = JSON.stringify({
     data: {
         homeTeam: {
@@ -53,11 +50,9 @@ function showPrevSets() {
 }
 
 function hidePrevSets() {
-    if (SHOULD_HIDE) {
-        $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
-        $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
-        isShowing = false;
-    }
+    $('.sb-prev-set').velocity({ opacity: 0 }, { duration: 300 });
+    $('.sb-prev-set').velocity({ width: 0 }, { duration: 300 });
+    isShowing = false;
 }
 
 function update(str) {
@@ -69,7 +64,7 @@ function update(str) {
 
     const rest = (data.homeTeam.points + data.awayTeam.points) % 10;
     const hasOne = data.homeTeam.sets > 0 || data.awayTeam.sets > 0;
-    const shouldShowSet = (hasOne && rest === 0) || SHOULD_HIDE === false;
+    const shouldShowSet = hasOne && rest === 0;
 
     document.getElementById('homeTeamLogo').src = data.homeTeam.logo;
     document.getElementById('awayTeamLogo').src = data.awayTeam.logo;

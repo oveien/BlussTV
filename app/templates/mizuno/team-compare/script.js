@@ -28,7 +28,7 @@ function play(str) {
             key: 'ace',
         },
         {
-            name: 'Opp. Err',
+            name: 'Motstanderfeil',
             key: 'opponentErrors',
         },
     ];
