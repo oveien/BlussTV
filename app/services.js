@@ -347,6 +347,31 @@ angular.module('services', [])
 
         var observerCallbacks = [];
         var f = {};
+
+        f.updatePlayersFromServer = function () {
+            if (!game) {
+                return false;
+            }
+            console.log(game);
+            $http({
+                method: 'GET',
+                url: '/datavolley/NVBF/' + game.dataVolley.matchId + '/game-info',
+            }).then(function (response) {
+                console.log(response.data);
+
+
+                game.homeTeam.players = response.data.homeTeam.players;
+                game.awayTeam.players = response.data.awayTeam.players;
+                notifyObservers('players-update');
+
+
+            }, function (err) {
+                alert('reject', err);
+                deferred.reject(err);
+            });
+        }
+
+
         //register an observer
         f.registerObserverCallback = function(type, callback){
             if (typeof type === 'string') {

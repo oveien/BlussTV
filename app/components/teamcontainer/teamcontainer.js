@@ -228,6 +228,10 @@
             });
         }
 
+        $scope.updatePlayerLists = function () {
+            GameService.updatePlayersFromServer();
+        }
+
         $scope.uploadImage = function (team, player) {
 
             var teamName = GameService.getTeamName(team);
