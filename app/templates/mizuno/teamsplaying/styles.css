@@ -53,6 +53,8 @@
   background: url('/graphics/blue-bar-420-55.svg');
   background-size: cover;
   background-position: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Animation */
