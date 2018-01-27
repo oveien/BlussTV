@@ -34,28 +34,20 @@
                         homeTeam: {
                             logo: ht.logo,
                             name: ht.name,
-                            blocks: ht.blocks || 0,
-                            attack: ht.attack || 0,
-                            ace: ht.ace || 0,
-                            opponentErrors: ht.opponentErrors || 0,
-                            total:
-                                (ht.blocks || 0) +
-                                (ht.attack || 0) +
-                                (ht.ace || 0) +
-                                (ht.opponentErrors || 0),
+                            blocks: $scope.homeTeam.blocks,
+                            attack: $scope.homeTeam.attack,
+                            ace: $scope.homeTeam.ace,
+                            opponentErrors: $scope.homeTeam.opponentErrors,
+                            total: $scope.homeTeam.total,
                         },
                         awayTeam: {
                             logo: at.logo,
                             name: at.name,
-                            blocks: at.blocks || 0,
-                            attack: at.attack || 0,
-                            ace: at.ace || 0,
-                            opponentErrors: at.opponentErrors || 0,
-                            total:
-                                (at.blocks || 0) +
-                                (at.attack || 0) +
-                                (at.ace || 0) +
-                                (at.opponentErrors || 0),
+                            blocks: $scope.awayTeam.blocks,
+                            attack: $scope.awayTeam.attack,
+                            ace: $scope.awayTeam.ace,
+                            opponentErrors: $scope.awayTeam.opponentErrors,
+                            total: $scope.awayTeam.total,
                         },
                         type: $scope.currentStat,
                         set: $scope.currentStatSet,
@@ -99,41 +91,54 @@
                 $scope.currentStat = what;
                 $scope.currentStatSet = set;
 
+                var stats = GameService.getCurrentScore();
+
+                var homePoints = 0;
+                var awayPoints = 0;
+
                 var hs,
                     as = null;
+                var htPoints = 0
+                var atPoints = 0;
+
                 if (what == 'total') {
                     hs = homeTeam.statistics.total;
                     as = awayTeam.statistics.total;
+
+                    for (var i = 0; i<stats.homeTeam.setPoints.length; i++) {
+                        htPoints += stats.homeTeam.setPoints[i];
+                    }
+
+                    for (var i = 0; i<stats.awayTeam.setPoints.length; i++) {
+                        atPoints += stats.awayTeam.setPoints[i];
+                    }
+
                 } else {
                     hs = homeTeam.statistics.sets[set - 1];
                     as = awayTeam.statistics.sets[set - 1];
-                }
 
-                console.log(as.players);
+                    htPoints = stats.homeTeam.setPoints[set - 1];
+                    atPoints = stats.awayTeam.setPoints[set - 1];
+                }
 
                 $scope.homeTeam.ace = hs.ace;
                 $scope.homeTeam.attack = hs.attack;
                 $scope.homeTeam.blocks = hs.blocks;
-                $scope.homeTeam.opponentErrors = hs.opponentErrors;
+                $scope.homeTeam.opponentErrors = ( htPoints -  ((hs.blocks || 0) +
+                                                 (hs.attack || 0) +
+                                                 (hs.ace || 0) ));
                 $scope.homeTeam.name = homeTeam.name;
                 $scope.homeTeam.logo = homeTeam.logo;
-                $scope.homeTeam.total =
-                    (hs.blocks || 0) +
-                    (hs.attack || 0) +
-                    (hs.ace || 0) +
-                    (hs.opponentErrors || 0);
+                $scope.homeTeam.total = htPoints;
+
 
                 $scope.awayTeam.ace = as.ace;
-                $scope.awayTeam.total = as.total;
+                $scope.awayTeam.total = atPoints;
                 $scope.awayTeam.attack = as.attack;
                 $scope.awayTeam.blocks = as.blocks;
-                $scope.awayTeam.total =
-                    (as.blocks || 0) +
-                    (as.attack || 0) +
-                    (as.ace || 0) +
-                    (as.opponentErrors || 0);
-
-                $scope.awayTeam.opponentErrors = as.opponentErrors;
+                $scope.awayTeam.opponentErrors = ( atPoints -  ((as.blocks || 0) +
+                                                (as.attack || 0) +
+                                                (as.ace || 0) ));
                 $scope.awayTeam.name = awayTeam.name;
                 $scope.awayTeam.logo = awayTeam.logo;
 
