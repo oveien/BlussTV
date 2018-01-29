@@ -1,9 +1,9 @@
 {
     "name": "BlussTV",
     "version": "0.0.2",
-    "description": "Overlays for volleyball",
+    "description": "Overlays for volleyball.",
     "main": "server.js",
-    "author": "Scotch",
+    "author": "Øystein Veien",
     "engines": {
         "node": "8.9.4",
         "npm": "5.6.0"
