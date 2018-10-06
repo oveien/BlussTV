@@ -10,7 +10,6 @@
             }
             else {
                 $scope.showing = true;
-
                 var ht = GameService.getTeam('home');
                 var at = GameService.getTeam('away');
                 var data = {
@@ -22,7 +21,9 @@
                         logo: at.logo,
                         name: at.name
                     },
-                    gameType: GameService.getGameType()
+                    gameType: GameService.getGameType(),
+                    gameTournament: GameService.getGameTournament()
+
                 }
 
                 console.log(JSON.stringify(data));

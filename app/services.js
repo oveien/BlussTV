@@ -424,6 +424,16 @@ angular.module('services', [])
             }
         }
 
+        f.getGameTournament = function () {
+            if (game) {
+                return game.tournament;
+            }
+            else {
+                return null;
+            }
+        }
+
+
 
         // Dummy functions:
         f.createNewGame = function (options) {
@@ -432,6 +442,7 @@ angular.module('services', [])
             game = null;
             var gameDefaults = {
                 gameCode: createGameId(),
+                tournament: 'NM',
                 homeTeam: {
                     name: '',
                     logo: '',
@@ -538,6 +549,7 @@ angular.module('services', [])
                         fedCode: 'NVFB'
                     }
                     game.gameCode = createGameId();
+                    game.tournament = 'Mizunoligaen';
                     game.referees = {
                         mainRef: '',
                             secondRef: ''

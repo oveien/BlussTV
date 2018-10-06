@@ -7,6 +7,8 @@ function play(str) {
     document.getElementById('awayTeamLogo').src = data.awayTeam.logo;
     document.getElementById('awayTeamName').innerHTML = data.awayTeam.name;
 
+    document.querySelector('.description div').innerHTML = data.gameTournament;
+
     $('.tp-container').velocity({ height: 100, opacity: 1 });
     $('.fade-in').velocity({ opacity: 1 }, { delay: 300 });
 }
@@ -21,6 +23,7 @@ if (getUrlParameter('debug')) {
         play(
             JSON.stringify({
                 data: {
+                    gameTournament: 'Mizunoligaen',
                     homeTeam: {
                         logo: '/graphics/logo/bktromso.svg',
                         name: 'BK Tromsø',
