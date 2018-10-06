@@ -1,6 +1,17 @@
 <fieldset>
     <legend>Interviewee text</legend>
 
+        <p>
+        <select name="" ng-model="intervieweePreset" ng-change="onChangePreset()">
+            <option value="">Bruk forhåndsvalg</option>
+            <option value="referees">Dommere</option>
+            <option value="commentators">Kommentator(er)</option>
+            <option value="homeTeamCoach1">Trener {{homeTeam.name}}</option>
+            <option value="homeTeamCoach2">Hjelpetrener {{homeTeam.name}}</option>
+            <option value="awayTeamCoach1">Trener {{awayTeam.name}}</option>
+            <option value="awayTeamCoach2">Hjelpetrener {{awayTeam.name}}</option>
+        </select>
+    </p>
     <div style="display: flex; flex-direction: row">
         <div style="margin-right: 40px;">
             <table>

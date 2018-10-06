@@ -435,17 +435,28 @@ angular.module('services', [])
                 homeTeam: {
                     name: '',
                     logo: '',
-                    players: []
+                    players: [],
+                    coach1: '',
+                    coach2: '',
                 },
                 awayTeam: {
                     name: '',
                     logo: '',
                     players: [],
-
+                    coach1: '',
+                    coach2: '',
                 },
                 setPoints: [25, 25, 25, 25, 15],
                 manualScore: true,
-                type: 'indoor-volleyball'
+                type: 'indoor-volleyball',
+                referees: {
+                    mainRef: '',
+                    secondRef: ''
+                },
+                commentators: {
+                    commentator: '',
+                    expert: ''
+                }
             };
 
 
@@ -508,12 +519,18 @@ angular.module('services', [])
                     game.homeTeam.jersey = {
                         player: 'red',
                         libero: 'black'
-                    };
+                    }
+
+                    game.homeTeam.coach1 = "";
+                    game.homeTeam.coach2 = "";
 
                     game.awayTeam.jersey = {
                         player: 'blue',
                         libero: 'red'
-                    };
+                    }
+                    game.awayTeam.coach1 = "";
+                    game.awayTeam.coach2 = "";
+
                     game.setPoints = [25, 25, 25, 25, 15];
                     game.manualScore = false;
                     game.dataVolley = {
@@ -521,6 +538,16 @@ angular.module('services', [])
                         fedCode: 'NVFB'
                     }
                     game.gameCode = createGameId();
+                    game.referees = {
+                        mainRef: '',
+                            secondRef: ''
+                    };
+                    game.commentators = {
+                        commentator: '',
+                            expert: ''
+                    };
+
+
 
                     f.saveChanges(game);
                     deferred.resolve(game);
@@ -724,6 +751,7 @@ angular.module('services', [])
         f.saveChanges = function (g) {
             game = g;
 
+            console.log(g);
             f.setStoredValue('game', game);
         };
 

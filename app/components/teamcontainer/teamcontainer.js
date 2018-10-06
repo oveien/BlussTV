@@ -13,6 +13,23 @@
             game = data;
             $scope.homeTeam = game.homeTeam;
             $scope.awayTeam = game.awayTeam;
+            $scope.referees = game.referees;
+
+            $scope.commentators = game.commentators;
+            if (typeof($scope.referees) == "undefined") {
+                $scope.referees = {
+                    mainRef: '',
+                    secondRef: ''
+                }
+            }
+            if (typeof($scope.commentators) == "undefined") {
+                $scope.commentators = {
+                    commentator: '',
+                    expert: ''
+                }
+            }
+
+
             console.log(game);
         });
 
@@ -124,6 +141,7 @@
         }
 
         $scope.onChange = function () {
+            console.log('On change saving');
             GameService.saveChanges (game);
         }
 
