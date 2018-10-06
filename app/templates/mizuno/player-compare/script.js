@@ -52,6 +52,7 @@ function play(str) {
                 stat.homeTeam.name !== ''
             );
         })
+        .slice(0, 7)
         .map(function(stat) {
             return stat.homeTeam;
         });
@@ -63,6 +64,7 @@ function play(str) {
                 stat.awayTeam.name !== ''
             );
         })
+        .slice(0, 7)
         .map(function(stat) {
             return stat.awayTeam;
         });

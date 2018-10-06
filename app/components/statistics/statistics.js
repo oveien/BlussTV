@@ -207,15 +207,15 @@
                 });
 
                 var rows = [];
-                for (var i in sortedA) {
-                    if (sortedA[i].points == 0 && sortedB[i].points == 0) {
+                for (var i = 0; i<15; i++) {
+                    if ( (!sortedA[i] || sortedA[i].points == 0) && (!sortedB[i] || sortedB[i].points == 0)) {
                         console.log('No point anymore');
                         break;
                     }
 
                     var row = {};
 
-                    if (sortedA[i].points > 0) {
+                    if (sortedA[i] && sortedA[i].points > 0) {
                         row.homeTeam = {
                             number: sortedA[i].number,
                             name: sortedA[i].name,
@@ -233,7 +233,7 @@
                             total: '',
                         };
                     }
-                    if (sortedB[i].points > 0) {
+                    if (sortedB && sortedB[i].points > 0) {
                         row.awayTeam = {
                             number: sortedB[i].number,
                             name: sortedB[i].name,
