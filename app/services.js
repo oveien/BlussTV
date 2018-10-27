@@ -113,6 +113,10 @@ angular.module('services', [])
                     'name': 'Blussuvoll',
                     'logo': 'blussuvoll.svg'
                 },
+                  {
+                    'name': 'Breimsbygda',
+                    'logo': 'breimsbygda.svg'
+                  },
                 {
                     'name': 'Bodø',
                     'logo': 'bodo.svg'
