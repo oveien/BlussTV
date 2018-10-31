@@ -145,6 +145,21 @@
             GameService.saveChanges (game);
         }
 
+      $scope.deletePlayer = function (player) {
+        if (game) {
+          var idx = game.homeTeam.players.indexOf(player);
+          if (idx >= 0) {
+            game.homeTeam.players.splice(idx, 1);
+          }
+          idx = game.awayTeam.players.indexOf(player);
+          if (idx >= 0) {
+            game.awayTeam.players.splice(idx, 1);
+          }
+          GameService.saveChanges (game);
+        }
+
+      }
+
         $scope.awayShowing = false;
         $scope.homeShowing = false;
 
@@ -167,7 +182,9 @@
 
             var player = {
                 name: '',
-                id: Math.floor((Math.random() * 1000000000000) + 1)
+                id: Math.floor((Math.random() * 1000000000000) + 1),
+                position: '',
+                number: ''
             }
 
             if (team == "home") {

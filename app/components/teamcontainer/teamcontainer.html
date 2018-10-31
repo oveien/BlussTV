@@ -38,21 +38,20 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Position</th>
-                <th title="Height">H</th>
-                <th title="Reach">R</th>
-                <th title="Block Reach">BR</th>
-                <th title="Not present">NP</th>
+                <th>Remove</th>
             </tr>
         </thead>
-        <tr ng-repeat="player in getTeamPlayers('home')"  ng-class="player.deleted ? 'deleted' : ''">
+        <tr ng-repeat="player in getTeamPlayers('home') track by player.id"  ng-class="player.deleted ? 'deleted' : ''">
          <!--   <td ng-if="player.id"><a href="javascript:void(0)" ng-click="uploadImage('home', player)">UL </a> <span ng-if="player.image"> | <a ng-if="player.image"><img class="img-preload" ng-src="{{player.image}}"><a ng-href="{{player.image}}">PIC</a> </a></span></td>-->
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" style="width: 70px;" ng-change="onChange()"></td>
+            <!--
             <td><input class='number-input' type="text" ng-model="player.height" ng-change="onChange()"></td>
             <td><input class='number-input' type="text" ng-model="player.reach" ng-change="onChange()"></td>
             <td><input class='number-input' type="text" ng-model="player.blockReach" ng-change="onChange()"></td>
-            <td><input type="checkbox" ng-model="player.deleted" ng-change="onChange()"></td>
+            -->
+            <td align="center"><a href="javascript:void(0)" ng-click="deletePlayer(player)">X</a></td>
         </tr>
     </table>
 
@@ -74,21 +73,25 @@
             <th>#</th>
             <th>Name</th>
             <th>Position</th>
+            <!--
             <th title="Height">H</th>
             <th title="Reach">R</th>
             <th title="Block Reach">BR</th>
-            <th title="Not present">NP</th>
+            -->
+            <th>Remove</th>
         </tr>
         </thead>
-        <tr ng-repeat="player in getTeamPlayers('away')"  ng-class="player.deleted ? 'deleted' : ''">
+        <tr ng-repeat="player in getTeamPlayers('away') track by player.id"  ng-class="player.deleted ? 'deleted' : ''">
             <!--<td ng-if="player.id"><a href="javascript:void(0)" ng-click="uploadImage('away', player)">UL </a> <span ng-if="player.image"> | <a ng-if="player.image"><img class="img-preload" ng-src="{{player.image}}"><a ng-href="{{player.image}}">PIC</a> </a></span></td>-->
             <td><input class='number-input' ng-model="player.number" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.name" ng-change="onChange()"></td>
             <td><input type="text" ng-model="player.position" style="width: 70px;" ng-change="onChange()"></td>
+            <!--
             <td><input class='number-input' type="text" ng-model="player.height" ng-change="onChange()"></td>
             <td><input class='number-input' type="text" ng-model="player.reach" ng-change="onChange()"></td>
             <td><input class='number-input' type="text" ng-model="player.blockReach" ng-change="onChange()"></td>
-            <td><input type="checkbox" ng-model="player.deleted" ng-change="onChange()"></td>
+            -->
+            <td align="center"><a href="javascript:void(0)" ng-click="deletePlayer(player)">X</a></td>
         </tr>
     </table>
     <p>
