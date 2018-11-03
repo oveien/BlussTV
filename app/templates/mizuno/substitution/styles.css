@@ -79,6 +79,7 @@
     text-indent: 16px;
     width: 320px;
     margin-right: 8px;
+    white-space: nowrap;
 }
 
 .arrow {

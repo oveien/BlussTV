@@ -9,6 +9,7 @@
 .interviewee-name,
 .interviewee-role {
   text-indent: 16px;
+  white-space: nowrap;
 }
 
 .interviewee-logo-container {

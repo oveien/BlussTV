@@ -1,5 +1,5 @@
 function shortenName(fullName) {
-    const names = fullName.split(' ');
+    const names = fullName.split(/\s+/);
     if (names.length < 3) {
         return fullName;
     }
@@ -28,7 +28,7 @@ function createStatRow(player) {
     <div class="stat-row">
       <div class="stat-row-container-left">
         <div class="stat-row-number fade-in">${player.number}</div>
-        <div class="stat-row-name fade-in">${shortenName(player.name)}</div>
+        <div class="stat-row-name fade-in"><div>${shortenName(player.name)}</div></div>
       </div>
       <div class="stat-row-container-right">
         <div class="stat-row-stat fade-in">${player.blocks}</div>
@@ -92,7 +92,21 @@ function play(str) {
         .map(createStatRow)
         .join('');
 
-    $('.team-header-container').velocity(
+    console.log($('.stat-row-name div').length);
+    $('.stat-row-name div').each (function () {
+        console.log('Lewp');
+        const containerWidth = $(this).parent().width();
+        let fontSize = parseInt($(this).css('font-size'))
+        console.log(containerWidth, $(this).width());
+        while (containerWidth < $(this).width()) {
+          $(this).css('font-size', fontSize--);
+        }
+        console.log($(this).html())
+
+    })
+
+
+  $('.team-header-container').velocity(
         { opacity: 1, width: '100%' },
         { duration: 300 }
     );
@@ -149,7 +163,7 @@ if (getUrlParameter('debug')) {
                 },
                 {
                     homeTeam: {
-                        name: 'Kim Holmen',
+                        name: 'TABITHA SCHRØDER-KNUDSEN',
                         number: 10,
                         blocks: 0,
                         attack: 4,
