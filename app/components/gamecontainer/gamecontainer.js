@@ -5,5 +5,8 @@
         $scope.getGameType = function () {
             return GameService.getGameType();
         }
+        $scope.gameUseStatistics = function () {
+            return GameService.getGameUseStatistics();
+        }
     }]);
 })(window.angular);

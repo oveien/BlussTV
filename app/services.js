@@ -437,6 +437,12 @@ angular.module('services', [])
             }
         }
 
+        f.getGameUseStatistics = function () {
+            if (game && game.dataVolley) {
+                return true;
+            }
+            return false;
+        }
 
 
         // Dummy functions:

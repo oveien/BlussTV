@@ -14,6 +14,7 @@
             $scope.homeTeam = game.homeTeam;
             $scope.awayTeam = game.awayTeam;
             $scope.referees = game.referees;
+            $scope.tournament = game.tournament;
 
             $scope.commentators = game.commentators;
             if (typeof($scope.referees) == "undefined") {
@@ -142,6 +143,7 @@
 
         $scope.onChange = function () {
             console.log('On change saving');
+            game.tournament = $scope.tournament;
             GameService.saveChanges (game);
         }
 
