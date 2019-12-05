@@ -110,12 +110,35 @@
             if (matches.length > 0) {
                 var testGame = $scope.eliteGames[0];
 
+                const days = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
                 $scope.eliteGames = [];
 
-                for (var i = 0; i<matches.length; i++) {
-                    matches[i].title = matches[i].time + ': ' + matches[i].homeTeam.name + ' - ' + matches[i].awayTeam.name;
-                    $scope.eliteGames.push(matches[i]);
-                }
+                const eliteGames = matches
+                  .sort((a, b) => {
+                      if (a.time > b.time) {
+                          return 1;
+                      }
+                      if (a.time < b.time) {
+                          return -1;
+                      }
+                      return 0;
+                  })
+                  .map(match => {
+                    let gameTime = new Date(match.time);
+                    let min = gameTime.getMinutes();
+                    if (min < 10) {
+                        min = '0' + min;
+                    }
+                    const time = gameTime.getHours() + ':' + min;
+
+                    const day = gameTime.getDate() < 10 ? "0" + gameTime.getDate() : gameTime.getDate();
+                    const title = `${time}: ${match.homeTeam.name} - ${match.awayTeam.name}`;
+                    const gameDay = `${days[gameTime.getDay()]}. ${gameTime.getDate()}.${gameTime.getMonth()+1}`;
+                    return {...match, time, gameDay, title};
+                });
+
+                $scope.eliteGames = eliteGames;
+
                 $scope.eliteGame = $scope.eliteGames[0];
 
                 $scope.eliteGames.push(testGame);

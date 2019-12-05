@@ -42,7 +42,7 @@
                     </div>
                     <div ng-if="!loadingEliteGames">
                         <div style="color: red;" ng-if="!liveEliteGames">Ingen live-kamper tilgjengelige!</div>
-                        <select class="form-control input-lg" class='form-control' ng-model="$parent.$parent.$parent.eliteGame" ng-options="item.title for item in eliteGames">
+                        <select class="form-control input-lg" class='form-control' ng-model="$parent.$parent.$parent.eliteGame" ng-options="item.title group by item.gameDay for item in eliteGames">
                         </select>
                     </div>
                 </div>
