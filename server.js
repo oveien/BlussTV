@@ -79,11 +79,15 @@ router.get('/datavolley/:fedCode/:gameId/game-info', function(req, res) {
         });
 });
 
-router.get('/datavolley/current-matches', function(req, res) {
+router.get('/datavolley/current-matches', function(req, res, next) {
     var ml = new DataVolley.MatchList();
     ml.getCurrentMatches().then(function(games) {
         res.send(JSON.stringify(games));
-    });
+    }).catch(err => {
+        console.log('Error', err);
+        next(err);
+    })
+
 });
 
 router.post('/caspar/play-stream', function(req, res) {
@@ -400,3 +404,10 @@ io.sockets.on('connection', function(socket) {
 io.sockets.on('disconnect', function() {
     console.log('The client has disconnected!');
 });
+
+/*
+var ml = new DataVolley.MatchList();
+ml.getCurrentMatches().then(function(games) {
+    console.log('Games', games);
+})
+ */
