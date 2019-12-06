@@ -110,7 +110,7 @@
             if (matches.length > 0) {
                 var testGame = $scope.eliteGames[0];
 
-                const days = ['Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag', 'Søndag'];
+                const days = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
                 $scope.eliteGames = [];
 
                 const eliteGames = matches
@@ -132,11 +132,12 @@
                     const time = gameTime.getHours() + ':' + min;
 
                     const day = gameTime.getDate() < 10 ? "0" + gameTime.getDate() : gameTime.getDate();
-                    const title = `${time}: ${match.homeTeam.name} - ${match.awayTeam.name}`;
+                    const title = `${time}: ${match.homeTeam.name} - ${match.awayTeam.name} [${match.sex}]`;
                     const gameDay = `${days[gameTime.getDay()]}. ${gameTime.getDate()}.${gameTime.getMonth()+1}`;
                     return {...match, time, gameDay, title};
                 });
 
+                console.log('Elite games', eliteGames)
                 $scope.eliteGames = eliteGames;
 
                 $scope.eliteGame = $scope.eliteGames[0];
