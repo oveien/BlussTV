@@ -820,7 +820,7 @@ angular.module('services', [])
         var tvWindow = null;
         var hasCaspar = false;
 
-
+        /*
         var getPreviewWindow = function (url) {
             var deferred = $q.defer();
                 if ((tvWindow == null) || (tvWindow.closed)  )
@@ -840,8 +840,8 @@ angular.module('services', [])
                 }
 
             return deferred.promise;
-
         }
+         */
 
         var updateWindow = function (template, action, data) {
             // Send as a websocket message:
@@ -898,14 +898,11 @@ angular.module('services', [])
                     });
                 }
                 else {
-                    getPreviewWindow('/game/' + gameCode + '/overlay').then ( function () {
-                        updateWindow(template, 'remove', data);
-                        updateWindow(template, 'play', data);
-                    });
+                    updateWindow(template, 'remove', data);
+                    updateWindow(template, 'play', data);
                 }
             }
             else {
-
                 currentOverlay = template;
 
                 if (hasCaspar) {
@@ -914,10 +911,7 @@ angular.module('services', [])
                     });
                 }
                 else {
-                    console.log(data);
-                     getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
-                        updateWindow(template, 'play', data);
-                    });
+                    updateWindow(template, 'play', data);
                 }
             }
 
@@ -933,9 +927,7 @@ angular.module('services', [])
             }
             else {
                 console.log(data);
-                getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
-                    updateWindow(template, 'remove', data);
-                });
+                updateWindow(template, 'remove', data);
             }
 
             notifyObservers('overlay-remove');
@@ -945,15 +937,12 @@ angular.module('services', [])
             if (template != currentOverlay) {
                 return;
             }
-
             if (hasCaspar) {
                 $.post('/caspar/templates/' + template + '/update', {data: data}, function () {
                 });
             }
             else {
-                getPreviewWindow('/game/' + gameCode + '/overlay').then ( function (w) {
-                    updateWindow(template, 'update', data);
-                });
+                updateWindow(template, 'update', data);
             }
         }
 

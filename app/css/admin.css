@@ -136,3 +136,35 @@ button.showing {
     width: 1px;
     heighT: 1px;
 }
+
+.preview-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 400px;
+    height: 225px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+.preview-container-padding {
+    height: 245px;
+}
+
+
+.preview-container > iframe, .preview-container > div {
+    position: absolute;
+    margin: auto;
+    inset: -9999px;
+    width: 1920px;
+    height: 1080px;
+    transform: scale(0.208);
+    border: none;
+
+}
+
+.tab-content {
+    overflow: auto;
+}
