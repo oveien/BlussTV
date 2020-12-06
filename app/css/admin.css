@@ -157,6 +157,10 @@ button.showing {
 .preview-container > iframe, .preview-container > div {
     position: absolute;
     margin: auto;
+    left: -9999px;
+    top: -9999px;
+    right: -9999px;
+    bottom: -9999px;
     inset: -9999px;
     width: 1920px;
     height: 1080px;
