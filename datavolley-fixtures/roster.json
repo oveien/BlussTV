@@ -1,0 +1,227 @@
+{
+  "RH": [
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 887,
+      "N": 3,
+      "SR": "Råheim",
+      "NM": "Ivar Loland",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 889,
+      "N": 4,
+      "SR": "Seljevold",
+      "NM": "Cato",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 895,
+      "N": 6,
+      "SR": "Hamnes",
+      "NM": "Rune",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 891,
+      "N": 7,
+      "SR": "Arnesen",
+      "NM": "Jon",
+      "L": false,
+      "K": true,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 894,
+      "N": 8,
+      "SR": "Holmen",
+      "NM": "Kim Erik",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 888,
+      "N": 9,
+      "SR": "Festøy",
+      "NM": "Sigurd van Dijk",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 890,
+      "N": 10,
+      "SR": "Føyen",
+      "NM": "Sjur",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 892,
+      "N": 11,
+      "SR": "Bogen",
+      "NM": "Elias Vølstad",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 896,
+      "N": 13,
+      "SR": "Haugum",
+      "NM": "Eskil Haave",
+      "L": false,
+      "K": false,
+      "HG": true
+    },
+    {
+      "SHN": "",
+      "Offl": true,
+      "PID": 985,
+      "N": 16,
+      "SR": "Therkelsen",
+      "NM": "Bjørn Are",
+      "L": true,
+      "K": false,
+      "HG": true
+    }
+  ],
+  "RG": [
+    {
+      "SHN": "Susegg",
+      "Offl": true,
+      "PID": 726,
+      "N": 1,
+      "SR": "Susegg",
+      "NM": "Svein Roar",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Andersen",
+      "Offl": true,
+      "PID": 729,
+      "N": 2,
+      "SR": "Andersen",
+      "NM": "Einar",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Lubiejewski",
+      "Offl": true,
+      "PID": 730,
+      "N": 3,
+      "SR": "Lubiejewski",
+      "NM": "Marcin",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Intrys",
+      "Offl": true,
+      "PID": 733,
+      "N": 5,
+      "SR": "Intrys",
+      "NM": "Jakub",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Hermanstad",
+      "Offl": true,
+      "PID": 727,
+      "N": 7,
+      "SR": "Hermanstad",
+      "NM": "Håkon",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Sundvik",
+      "Offl": true,
+      "PID": 734,
+      "N": 8,
+      "SR": "Sundvik",
+      "NM": "Amund",
+      "L": true,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Bostad",
+      "Offl": true,
+      "PID": 732,
+      "N": 9,
+      "SR": "Bostad",
+      "NM": "Ivan Jonas",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Sund",
+      "Offl": true,
+      "PID": 728,
+      "N": 10,
+      "SR": "Sund",
+      "NM": "Simen Solheim",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Os",
+      "Offl": true,
+      "PID": 731,
+      "N": 12,
+      "SR": "Os",
+      "NM": "Ivar Sommer",
+      "L": false,
+      "K": false,
+      "HG": false
+    },
+    {
+      "SHN": "Følstad",
+      "Offl": true,
+      "PID": 735,
+      "N": 14,
+      "SR": "Følstad",
+      "NM": "Arne Marius",
+      "L": false,
+      "K": true,
+      "HG": false
+    }
+  ]
+}
+
