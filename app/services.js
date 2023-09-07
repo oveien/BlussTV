@@ -190,6 +190,10 @@ angular.module('services', [])
                     'logo': 'randaberg.svg'
                 },
                 {
+                    'name': 'Rival',
+                    'logo': 'rival.svg'
+                },
+                {
                     'name': 'Sandes',
                     'logo': 'sandnes.svg'
                 },
