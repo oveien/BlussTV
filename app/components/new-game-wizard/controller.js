@@ -76,11 +76,11 @@
         $scope.gameTypes = [
             {
                 id: 0,
-                name: 'Volleyball - Mizunoligaen/Datavolley'
+                name: 'Volleyball - Mizunoligaen og 1. divisjon (Datavolley)'
             },
             {
                 id: 1,
-                name: 'Volleyball - 1. div og lavere'
+                name: 'Volleyball - 2. divisjon og lavere'
             },
             {
                 id: 2,
